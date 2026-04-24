@@ -400,12 +400,12 @@ a {
 .logo-display-card img {
   position: relative;
   z-index: 3;
-  width: 82%;
-  max-height: 82%;
+  width: 96%;
+  max-width: 96%;
+  max-height: 96%;
   object-fit: contain;
-  filter: drop-shadow(0 12px 14px rgba(0,0,0,0.22));
+  filter: drop-shadow(0 14px 18px rgba(0,0,0,0.24));
 }
-
 .logo-glow {
   position: absolute;
   width: 260px;
