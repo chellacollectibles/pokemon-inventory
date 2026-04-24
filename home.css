@@ -31,136 +31,40 @@ body {
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   color: var(--text);
   background:
-    linear-gradient(
-      135deg,
-      #cdd4dc 0%,
-      #b7c0cb 24%,
-      #9ea8b5 50%,
-      #b5bec9 76%,
-      #ccd3db 100%
-    );
-}
-
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: clamp(72px, 8vw, 118px);
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, #434c59 0%, #5b6674 50%, #434c59 100%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.08) 0 2px,
-      transparent 2px 18px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.08) 0 2px,
-      transparent 2px 18px
-    ),
-    linear-gradient(#ffdf3c 0 0),
-    linear-gradient(#286bd8 0 0),
-    linear-gradient(#f43f3f 0 0),
-    linear-gradient(#ffffff 0 0),
-    linear-gradient(#ffdf3c 0 0),
-    linear-gradient(#286bd8 0 0),
-    linear-gradient(#f43f3f 0 0),
-    linear-gradient(#ffffff 0 0),
-    linear-gradient(#ffdf3c 0 0),
-    linear-gradient(#286bd8 0 0);
-  background-size:
-    100% 100%,
-    18px 18px,
-    18px 18px,
-    16px 16px,
-    16px 16px,
-    16px 16px,
-    16px 16px,
-    16px 16px,
-    16px 16px,
-    16px 16px,
-    16px 16px,
-    16px 16px,
-    16px 16px;
-  background-position:
-    0 0,
-    0 0,
-    0 0,
-    16px 56px,
-    34px 56px,
-    16px 74px,
-    34px 74px,
-    16px 190px,
-    34px 190px,
-    16px 208px,
-    34px 208px,
-    16px 324px,
-    34px 324px;
-  background-repeat:
-    no-repeat,
-    repeat,
-    repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat,
-    no-repeat;
-  opacity: 0.95;
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 82% 10%, rgba(32, 39, 52, 0.44), transparent 30%),
+    radial-gradient(circle at 8% 48%, rgba(74, 84, 99, 0.35), transparent 28%),
+    radial-gradient(circle at 92% 52%, rgba(20, 26, 38, 0.38), transparent 30%),
+    radial-gradient(circle at 24% 92%, rgba(115, 124, 138, 0.26), transparent 28%),
+    radial-gradient(circle at 82% 88%, rgba(42, 49, 62, 0.34), transparent 32%),
+    linear-gradient(135deg, #d2d6dd 0%, #aeb6c1 34%, #8f99a7 66%, #c6ccd5 100%);
 }
 
 body::before {
-  left: 0;
-  border-right: 2px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    inset -20px 0 26px rgba(0, 0, 0, 0.16),
-    10px 0 24px rgba(0, 0, 0, 0.05);
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,0.18), transparent 34%),
+    linear-gradient(295deg, rgba(7, 20, 47, 0.18), transparent 44%);
 }
 
 body::after {
-  right: 0;
-  transform: scaleX(-1);
-  transform-origin: center;
-  border-left: 2px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    inset -20px 0 26px rgba(0, 0, 0, 0.16),
-    -10px 0 24px rgba(0, 0, 0, 0.05);
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.24;
+  background-image:
+    linear-gradient(rgba(7,20,47,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7,20,47,0.03) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
 }
 
-@media (max-width: 900px) {
-  body::before,
-  body::after {
-    width: 36px;
-    opacity: 0.65;
-  }
-}
-
-@media (max-width: 640px) {
-  body::before,
-  body::after {
-    display: none;
-  }
-
-  body {
-    background:
-      linear-gradient(
-        135deg,
-        #cfd6de 0%,
-        #b5bec9 36%,
-        #9ea9b7 50%,
-        #b8c1cb 72%,
-        #d0d6de 100%
-      );
-  }
-}
 a {
   color: inherit;
 }
