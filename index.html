@@ -4,58 +4,209 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Chella Collectibles Inventory</title>
+  <title>Chella Collectibles | Pokémon TCG Singles, Slabs & Trade-Ins</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Chella Collectibles buys, sells, and trades Pokémon TCG singles, graded cards, and sealed products." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="home.css" />
 </head>
 
 <body>
-  <header class="hero">
-    <div class="hero-bg-glow hero-glow-one"></div>
-    <div class="hero-bg-glow hero-glow-two"></div>
+  <div class="page-shell">
 
-    <div class="hero-inner">
-      <div class="eyebrow">Chella Collectibles</div>
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Chella Collectibles Home">
+        <img src="assets/logo.png" alt="Chella Collectibles Logo" />
+      </a>
 
-      <h1>Available Pokémon Inventory</h1>
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a class="active" href="index.html">Home</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="sell-to-us.html">Sell To Us</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
 
-      <p class="hero-subtitle">
-        Browse our current available cards and collectibles.
-      </p>
+      <a class="nav-cta" href="sell-to-us.html">Start Trade-In</a>
+    </header>
 
-      <div class="credit-card">
-        <div>
-          <span class="credit-kicker">Trade in your cards</span>
-          <strong>Get store credit usable toward items shown here.</strong>
+
+    <!-- Hero -->
+    <main>
+      <section class="hero-section">
+        <div class="hero-effects">
+          <span class="orb orb-one"></span>
+          <span class="orb orb-two"></span>
+          <span class="orb orb-three"></span>
+          <span class="pokeball-ring"></span>
         </div>
 
-        <a class="trade-button" href="https://form.jotform.com/261127952360051" target="_blank" rel="noopener">
-          Start Trade-In
+        <div class="hero-content">
+          <div class="hero-badge">
+            Pokémon TCG • Singles • Slabs • Sealed
+          </div>
+
+          <h1>
+            Buy, Sell & Trade
+            <span>Pokémon Cards</span>
+            With Confidence.
+          </h1>
+
+          <p>
+            Browse available inventory, trade in your cards for cash or store credit,
+            and shop Pokémon collectibles from Chella Collectibles.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="inventory.html">
+              View Inventory
+            </a>
+
+            <a class="btn btn-secondary" href="sell-to-us.html">
+              Sell To Us
+            </a>
+          </div>
+
+          <div class="trust-row">
+            <div>
+              <strong>Singles</strong>
+              <span>Raw cards & hits</span>
+            </div>
+            <div>
+              <strong>Graded</strong>
+              <span>PSA, BGS, CGC & more</span>
+            </div>
+            <div>
+              <strong>Sealed</strong>
+              <span>Boxes, packs & products</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="showcase-card top-card">
+            <div class="shine"></div>
+            <span class="card-label">Featured Inventory</span>
+            <h2>Fresh Pokémon TCG Finds</h2>
+            <p>Check back often — inventory updates regularly.</p>
+            <a href="inventory.html">Browse Now</a>
+          </div>
+
+          <div class="mini-card red-card">
+            <strong>Cash Offers</strong>
+            <span>Sell select cards directly to us.</span>
+          </div>
+
+          <div class="mini-card yellow-card">
+            <strong>Store Credit</strong>
+            <span>Trade toward inventory you want.</span>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Feature Cards -->
+      <section class="feature-section">
+        <div class="section-heading">
+          <span>What We Do</span>
+          <h2>Your Pokémon TCG hub for buying, selling, and trading.</h2>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon blue">01</div>
+            <h3>Shop Available Inventory</h3>
+            <p>
+              Browse our current selection of Pokémon cards, slabs, and sealed items.
+              See something you like? Reach out to purchase.
+            </p>
+            <a href="inventory.html">View Inventory</a>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon red">02</div>
+            <h3>Sell Your Cards</h3>
+            <p>
+              Submit singles, graded cards, or sealed products for review. We offer
+              cash or store credit depending on what you prefer.
+            </p>
+            <a href="sell-to-us.html">Start Trade-In</a>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon yellow">03</div>
+            <h3>Simple, Clean Process</h3>
+            <p>
+              No complicated storefront. No clutter. Just a smooth way to browse,
+              trade, and connect with Chella Collectibles.
+            </p>
+            <a href="faq.html">Read FAQ</a>
+          </article>
+        </div>
+      </section>
+
+
+      <!-- Trade-In CTA -->
+      <section class="trade-banner">
+        <div>
+          <span>Have cards to sell?</span>
+          <h2>Turn your Pokémon cards into cash or store credit.</h2>
+          <p>
+            We review singles, graded cards, and sealed products. Bulk is not accepted,
+            and items should generally be worth $5 or more each.
+          </p>
+        </div>
+
+        <a class="btn btn-dark" href="sell-to-us.html">
+          Get Started
         </a>
-      </div>
-    </div>
-  </header>
+      </section>
 
-  <main>
-    <section class="gallery-wrap">
-      <div class="gallery-top">
-        <h2>Current Inventory</h2>
-        <p id="imageCount">Loading images...</p>
-      </div>
 
-      <section id="gallery" class="gallery"></section>
+      <!-- Footer -->
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Chella Collectibles Logo" />
+          <p>
+            Pokémon TCG singles, graded cards, sealed products, and trade-ins.
+          </p>
+        </div>
 
-      <div class="load-more-wrap">
-        <button id="loadMoreBtn" class="load-more-btn">Load More</button>
-      </div>
-    </section>
-  </main>
+        <div class="footer-columns">
+          <div>
+            <h4>Explore</h4>
+            <a href="index.html">Home</a>
+            <a href="inventory.html">Inventory</a>
+            <a href="sell-to-us.html">Sell To Us</a>
+            <a href="faq.html">FAQ</a>
+          </div>
 
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="closeLightbox" class="close-btn" aria-label="Close image">×</button>
-    <img id="lightboxImage" src="" alt="Expanded inventory item" />
+          <div>
+            <h4>Contact</h4>
+            <a href="mailto:chellasales.business@gmail.com">chellasales.business@gmail.com</a>
+            <a href="contact.html">Contact Page</a>
+          </div>
+
+          <div>
+            <h4>Social</h4>
+            <div class="social-buttons">
+              <a href="#" aria-label="Instagram">Instagram</a>
+              <a href="#" aria-label="eBay">eBay</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Chella Collectibles. All rights reserved.</span>
+          <span>Not affiliated with Nintendo, Game Freak, Creatures, or The Pokémon Company.</span>
+        </div>
+      </footer>
+
+    </main>
   </div>
-
-  <script src="inventory.js"></script>
 </body>
 </html>
