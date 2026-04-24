@@ -24,7 +24,11 @@ async function loadImages() {
 
     if (!Array.isArray(allImages) || allImages.length === 0) {
       imageCount.textContent = "No images found yet.";
-      heroImageCount.textContent = "0";
+
+      if (heroImageCount) {
+        heroImageCount.textContent = "0";
+      }
+
       loadMoreBtn.classList.add("hidden");
       return;
     }
@@ -32,7 +36,10 @@ async function loadImages() {
     const total = allImages.length.toLocaleString();
 
     imageCount.textContent = `${total} items`;
-    heroImageCount.textContent = total;
+
+    if (heroImageCount) {
+      heroImageCount.textContent = total;
+    }
 
     renderNextBatch();
   } catch (error) {
@@ -43,7 +50,11 @@ async function loadImages() {
     `;
 
     imageCount.textContent = "Unable to load inventory.";
-    heroImageCount.textContent = "—";
+
+    if (heroImageCount) {
+      heroImageCount.textContent = "—";
+    }
+
     loadMoreBtn.classList.add("hidden");
 
     console.error(error);
@@ -58,6 +69,7 @@ function renderNextBatch() {
     card.className = "inventory-item";
 
     const img = document.createElement("img");
+
     img.src = `images/${encodeURIComponent(fileName)}`;
     img.alt = "Chella Collectibles inventory item";
     img.loading = "lazy";
