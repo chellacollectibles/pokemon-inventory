@@ -4,39 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Chella Collectibles | Pokémon TCG Marketplace</title>
-  <meta name="description" content="Shop Pokémon TCG singles, graded cards, sealed products, and submit cards for cash or store credit with Chella Collectibles." />
+  <title>Chella Collectibles | Pokémon TCG Cards, Slabs & Trade-Ins</title>
+
+  <meta name="description" content="Chella Collectibles buys, sells, and trades Pokémon TCG singles, graded cards, and sealed products." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="home.css?v=20" />
+  <link rel="stylesheet" href="home.css?v=10" />
 </head>
 
 <body>
 
-  <div class="site-bg">
-    <span class="bg-blur blur-blue"></span>
-    <span class="bg-blur blur-red"></span>
-    <span class="bg-blur blur-gold"></span>
-  </div>
+  <header class="topbar">
+    <a class="logo-wrap" href="index.html" aria-label="Chella Collectibles Home">
+      <img src="assets/logo.png" alt="Chella Collectibles Logo">
+    </a>
 
-  <header class="header">
-    <div class="header-inner">
-      <a class="brand" href="index.html" aria-label="Chella Collectibles Home">
-        <img src="assets/logo.png" alt="Chella Collectibles Logo">
-      </a>
+    <nav class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="sell-to-us.html">Sell To Us</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
 
-      <nav class="nav" aria-label="Main Navigation">
-        <a href="index.html" class="active">Home</a>
-        <a href="inventory.html">Inventory</a>
-        <a href="sell-to-us.html">Sell To Us</a>
-        <a href="faq.html">FAQ</a>
-      </nav>
-
-      <a class="header-action" href="inventory.html">Browse Cards</a>
-    </div>
+    <a class="topbar-button" href="sell-to-us.html">Trade In Cards</a>
   </header>
 
 
@@ -44,163 +37,128 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-copy">
-        <div class="mini-label">
-          Pokémon TCG • Singles • Slabs • Sealed
+      <div class="hero-pattern"></div>
+
+      <div class="hero-left">
+        <div class="label-pill">
+          Pokémon TCG Marketplace
         </div>
 
         <h1>
-          A cleaner way to
-          <span>shop and trade</span>
-          Pokémon cards.
+          Collect.
+          <br>
+          Trade.
+          <br>
+          Upgrade.
         </h1>
 
         <p>
-          Browse available inventory, sell select cards to us, or trade toward items you actually want. Simple, organized, and collector-focused.
+          Shop available Pokémon cards, graded slabs, and sealed products — or turn your own cards into cash or store credit.
         </p>
 
-        <div class="hero-actions">
-          <a class="button button-primary" href="inventory.html">View Inventory</a>
-          <a class="button button-ghost" href="sell-to-us.html">Start Trade-In</a>
+        <div class="hero-buttons">
+          <a class="primary-button" href="inventory.html">Browse Inventory</a>
+          <a class="secondary-button" href="sell-to-us.html">Sell To Us</a>
         </div>
 
-        <div class="hero-meta">
-          <div>
-            <strong>Updated Often</strong>
-            <span>New inventory added regularly</span>
-          </div>
-          <div>
-            <strong>Trade Credit</strong>
-            <span>Use approved cards toward items</span>
-          </div>
+        <div class="hero-note">
+          <span></span>
+          Inventory updates regularly. Message us with screenshots of anything you are interested in.
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="visual-panel">
-          <div class="panel-top">
-            <span>Live Inventory Preview</span>
-            <div class="panel-dots">
-              <i></i><i></i><i></i>
-            </div>
-          </div>
-
-          <div class="logo-stage">
-            <div class="logo-ring"></div>
-            <img src="assets/logo.png" alt="Chella Collectibles Logo">
-          </div>
-
-          <div class="preview-grid">
-            <div class="preview-card tall"></div>
-            <div class="preview-card blue"></div>
-            <div class="preview-card red"></div>
-            <div class="preview-card gold"></div>
-          </div>
+      <div class="hero-right">
+        <div class="logo-display-card">
+          <div class="logo-glow"></div>
+          <img src="assets/logo.png" alt="Chella Collectibles Logo">
         </div>
 
-        <div class="floating-tag tag-one">
+        <div class="stat-card stat-one">
           <strong>Singles</strong>
-          <span>Raw cards & hits</span>
+          <span>Raw hits, modern cards, and more</span>
         </div>
 
-        <div class="floating-tag tag-two">
-          <strong>Graded</strong>
-          <span>PSA • BGS • CGC • TAG</span>
+        <div class="stat-card stat-two">
+          <strong>Graded Cards</strong>
+          <span>PSA, BGS, CGC, TAG & more</span>
+        </div>
+
+        <div class="stat-card stat-three">
+          <strong>Sealed Products</strong>
+          <span>Packs, boxes, collections & more</span>
         </div>
       </div>
     </section>
 
 
-    <!-- STRIP -->
-    <section class="info-strip">
-      <div>
-        <span>01</span>
-        <strong>Browse Available Items</strong>
-        <p>Scroll through current cards and collectibles.</p>
-      </div>
+    <!-- QUICK LINKS -->
+    <section class="quick-panel">
+      <a href="inventory.html" class="quick-card">
+        <div class="quick-number">01</div>
+        <h2>View Inventory</h2>
+        <p>Scroll through available Pokémon cards and sealed products.</p>
+      </a>
 
-      <div>
-        <span>02</span>
-        <strong>Send Screenshots</strong>
-        <p>Message us with anything you are interested in.</p>
-      </div>
+      <a href="sell-to-us.html" class="quick-card highlighted">
+        <div class="quick-number">02</div>
+        <h2>Get Store Credit</h2>
+        <p>Submit cards for review and trade toward items you want.</p>
+      </a>
 
-      <div>
-        <span>03</span>
-        <strong>Sell or Trade</strong>
-        <p>Submit your own cards for cash or credit.</p>
-      </div>
+      <a href="faq.html" class="quick-card">
+        <div class="quick-number">03</div>
+        <h2>How It Works</h2>
+        <p>Read common questions about buying, selling, and trade-ins.</p>
+      </a>
     </section>
 
 
-    <!-- MAIN CONTENT SPLIT -->
-    <section class="split-section">
-      <div class="split-card dark-card">
-        <span class="section-label">Inventory</span>
-        <h2>Cards, slabs, and sealed items in one easy place.</h2>
+    <!-- ABOUT STRIP -->
+    <section class="about-strip">
+      <div class="about-copy">
+        <span class="section-kicker">Chella Collectibles</span>
+        <h2>A simple way to browse and trade Pokémon cards.</h2>
         <p>
-          Our inventory page is built for quick browsing. Open the gallery, scroll through available items, and reach out when something catches your eye.
+          We keep the process straightforward: browse what is available, reach out if you are interested, or submit your own cards for a trade-in review. No clutter, no confusing checkout flow, just a clean way to connect over Pokémon TCG inventory.
         </p>
-        <a class="text-link light" href="inventory.html">Open Inventory →</a>
       </div>
 
-      <div class="split-card light-card">
-        <span class="section-label red-label">Sell To Us</span>
-        <h2>Turn cards into cash or store credit.</h2>
-        <p>
-          Have singles, graded cards, or sealed products? Submit a trade-in request and we’ll review it before providing next steps.
-        </p>
-
-        <div class="mini-rules">
-          <div>No bulk</div>
-          <div>$5+ items</div>
-          <div>Reviewed first</div>
+      <div class="about-grid">
+        <div>
+          <strong>Cash Offers</strong>
+          <span>Sell select cards and products directly to us.</span>
         </div>
 
-        <a class="text-link" href="sell-to-us.html">Start Trade-In →</a>
+        <div>
+          <strong>Store Credit</strong>
+          <span>Trade cards toward available inventory.</span>
+        </div>
+
+        <div>
+          <strong>No Bulk</strong>
+          <span>We focus on cards/items generally worth $5 or more.</span>
+        </div>
+
+        <div>
+          <strong>Reviewed First</strong>
+          <span>Trade-ins are reviewed before shipping instructions are provided.</span>
+        </div>
       </div>
     </section>
 
 
-    <!-- WHY -->
-    <section class="why-section">
-      <div class="why-heading">
-        <span class="section-label">Why Chella Collectibles</span>
-        <h2>Built for collectors who want the process to be simple.</h2>
-      </div>
+    <!-- FEATURED CTA -->
+    <section class="cta-section">
+      <div class="cta-card">
+        <div>
+          <span class="section-kicker">Sell To Us</span>
+          <h2>Have Pokémon cards sitting around?</h2>
+          <p>
+            Submit singles, graded cards, or sealed products for review. If approved, we’ll follow up with next steps.
+          </p>
+        </div>
 
-      <div class="why-grid">
-        <article>
-          <div class="icon-box blue-box"></div>
-          <h3>Simple browsing</h3>
-          <p>No cluttered marketplace layout. Just available inventory presented cleanly.</p>
-        </article>
-
-        <article>
-          <div class="icon-box gold-box"></div>
-          <h3>Trade-in friendly</h3>
-          <p>Submit cards for cash or store credit and wait for approval before shipping.</p>
-        </article>
-
-        <article>
-          <div class="icon-box red-box"></div>
-          <h3>Collector focused</h3>
-          <p>Singles, slabs, sealed items, and inventory updates made for Pokémon TCG buyers.</p>
-        </article>
-      </div>
-    </section>
-
-
-    <!-- CTA -->
-    <section class="bottom-cta">
-      <div>
-        <span>Ready to browse?</span>
-        <h2>See what’s currently available.</h2>
-      </div>
-
-      <div class="cta-actions">
-        <a class="button button-primary" href="inventory.html">View Inventory</a>
-        <a class="button button-ghost dark-ghost" href="sell-to-us.html">Sell To Us</a>
+        <a class="primary-button yellow-button" href="sell-to-us.html">Start Trade-In</a>
       </div>
     </section>
 
@@ -208,33 +166,35 @@
 
 
   <footer class="footer">
-    <div class="footer-left">
-      <img src="assets/logo.png" alt="Chella Collectibles Logo">
-      <p>
-        Pokémon TCG singles, graded cards, sealed products, and trade-ins.
-      </p>
-    </div>
-
-    <div class="footer-right">
-      <div>
-        <h4>Pages</h4>
-        <a href="index.html">Home</a>
-        <a href="inventory.html">Inventory</a>
-        <a href="sell-to-us.html">Sell To Us</a>
-        <a href="faq.html">FAQ</a>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Chella Collectibles Logo">
+        <p>
+          Pokémon TCG singles, graded cards, sealed products, and trade-ins.
+        </p>
       </div>
 
-      <div>
-        <h4>Contact</h4>
-        <a href="mailto:chellasales.business@gmail.com">chellasales.business@gmail.com</a>
-        <a href="contact.html">Contact Page</a>
-      </div>
+      <div class="footer-links">
+        <div>
+          <h3>Site</h3>
+          <a href="index.html">Home</a>
+          <a href="inventory.html">Inventory</a>
+          <a href="sell-to-us.html">Sell To Us</a>
+          <a href="faq.html">FAQ</a>
+        </div>
 
-      <div>
-        <h4>Social</h4>
-        <div class="socials">
-          <a href="#">Instagram</a>
-          <a href="#">eBay</a>
+        <div>
+          <h3>Contact</h3>
+          <a href="mailto:chellasales.business@gmail.com">chellasales.business@gmail.com</a>
+          <a href="contact.html">Contact Page</a>
+        </div>
+
+        <div>
+          <h3>Social</h3>
+          <div class="social-row">
+            <a href="#">Instagram</a>
+            <a href="#">eBay</a>
+          </div>
         </div>
       </div>
     </div>
