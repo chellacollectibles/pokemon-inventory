@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Inventory | Chella Collectibles</title>
+
+  <meta
+    name="description"
+    content="Browse current Pokémon TCG inventory from Chella Collectibles including singles, graded cards, and sealed products."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="home.css?v=17" />
+  <link rel="stylesheet" href="inventory.css?v=1" />
+</head>
+
+<body>
+
+  <header class="topbar">
+    <a class="logo-wrap" href="index.html" aria-label="Chella Collectibles Home">
+      <img src="assets/logo.png" alt="Chella Collectibles Logo" />
+    </a>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="inventory.html" class="active">Inventory</a>
+      <a href="sell-to-us.html">Sell To Us</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <a class="topbar-button" href="sell-to-us.html">Trade In Cards</a>
+  </header>
+
+
+  <main>
+
+    <section class="inventory-hero">
+      <div class="inventory-hero-pattern"></div>
+
+      <div class="inventory-hero-copy">
+        <span class="inventory-kicker">Current Inventory</span>
+
+        <h1>Browse Available Pokémon Cards</h1>
+
+        <p>
+          Scroll through our current inventory of Pokémon TCG singles, graded cards,
+          and sealed products. Search and filtering tools are being prepared, but for now
+          the full gallery loads directly from our live inventory image folder.
+        </p>
+
+        <div class="inventory-hero-actions">
+          <a href="sell-to-us.html" class="inventory-hero-button primary">Sell To Us</a>
+          <a href="#inventory-gallery" class="inventory-hero-button secondary">View Gallery</a>
+        </div>
+      </div>
+
+      <div class="inventory-hero-card">
+        <img src="assets/logo.png" alt="Chella Collectibles Logo" />
+
+        <div class="inventory-hero-stat">
+          <strong id="heroImageCount">Loading...</strong>
+          <span>items currently loaded</span>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="inventory-tools">
+      <div class="tools-heading">
+        <span>Search Tools</span>
+        <h2>Find cards faster</h2>
+        <p>
+          These controls are in place for the next phase. Search functionality will be connected later.
+        </p>
+      </div>
+
+      <div class="filter-grid">
+        <label class="filter-field">
+          <span>Card Name</span>
+          <input type="text" placeholder="Example: Charizard, Pikachu, Mewtwo" disabled />
+        </label>
+
+        <label class="filter-field">
+          <span>Type</span>
+          <select disabled>
+            <option>All Types</option>
+            <option>Singles</option>
+            <option>Graded Cards</option>
+            <option>Sealed Products</option>
+          </select>
+        </label>
+
+        <label class="filter-field">
+          <span>Card Set</span>
+          <input type="text" placeholder="Example: Evolving Skies, Crown Zenith" disabled />
+        </label>
+      </div>
+
+      <div class="tools-note">
+        <span></span>
+        Search and filters are currently visual only. Full functionality will be added after inventory metadata is ready.
+      </div>
+    </section>
+
+
+    <section id="inventory-gallery" class="inventory-section">
+      <div class="gallery-header">
+        <div>
+          <span class="section-kicker">Inventory Gallery</span>
+          <h2>Available Items</h2>
+        </div>
+
+        <p id="imageCount">Loading images...</p>
+      </div>
+
+      <section id="gallery" class="inventory-gallery"></section>
+
+      <div class="load-more-wrap">
+        <button id="loadMoreBtn" class="load-more-btn">Load More</button>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer class="footer">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <div class="footer-brand-top">
+          <div class="footer-logo-card">
+            <img src="assets/logo.png" alt="Chella Collectibles Logo" />
+          </div>
+
+          <div class="footer-brand-text">
+            <span class="footer-tag">Pokémon TCG Marketplace</span>
+            <h3>Chella Collectibles</h3>
+          </div>
+        </div>
+
+        <p>
+          Pokémon TCG singles, graded cards, sealed products, and trade-ins — built for collectors
+          who want a clean, simple way to browse and trade.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-column">
+          <h3>Explore</h3>
+          <a href="index.html">Home</a>
+          <a href="inventory.html">Inventory</a>
+          <a href="sell-to-us.html">Sell To Us</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+
+        <div class="footer-column contact-social-column">
+          <div class="footer-contact-block">
+            <h3>Contact</h3>
+            <a href="mailto:chellasales.business@gmail.com">chellasales.business@gmail.com</a>
+            <a href="contact.html">Contact Page</a>
+          </div>
+
+          <div class="footer-social-block">
+            <h3>Social</h3>
+            <div class="social-row">
+              <a href="#" aria-label="Instagram">Instagram</a>
+              <a href="#" aria-label="eBay">eBay</a>
+              <a href="#" aria-label="Facebook">Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Chella Collectibles. All rights reserved.</span>
+      <span>Not affiliated with Nintendo, Game Freak, Creatures, or The Pokémon Company.</span>
+    </div>
+  </footer>
+
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="closeLightbox" class="close-btn" aria-label="Close image">×</button>
+    <img id="lightboxImage" src="" alt="Expanded inventory item" />
+  </div>
+
+  <script src="inventory.js?v=1"></script>
+</body>
+</html>
