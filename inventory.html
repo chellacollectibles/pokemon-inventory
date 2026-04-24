@@ -18,8 +18,8 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="home.css?v=17" />
-  <link rel="stylesheet" href="inventory.css?v=2" />
+  <link rel="stylesheet" href="home.css?v=20" />
+  <link rel="stylesheet" href="inventory.css?v=8" />
 </head>
 
 <body>
@@ -48,36 +48,52 @@
         <span>Search Tools</span>
         <h1>Find cards faster</h1>
         <p>
-          Search and filtering tools are being prepared for the next phase. For now, the full gallery
-          loads directly from the live inventory image folder.
+          Search current inventory by card name, item type, or set. If you are interested in an item,
+          message us with a screenshot or the card details.
         </p>
       </div>
 
       <div class="filter-grid">
         <label class="filter-field">
           <span>Card Name</span>
-          <input type="text" placeholder="Example: Charizard, Pikachu, Mewtwo" disabled />
+          <input
+            id="nameSearch"
+            type="text"
+            placeholder="Example: Charizard, Pikachu, Mewtwo"
+            autocomplete="off"
+          />
         </label>
 
         <label class="filter-field">
           <span>Type</span>
-          <select disabled>
-            <option>All Types</option>
-            <option>Singles</option>
-            <option>Graded Cards</option>
-            <option>Sealed Products</option>
+          <select id="typeFilter">
+            <option value="">All Types</option>
+            <option value="single">Singles</option>
+            <option value="graded">Graded Cards</option>
+            <option value="sealed">Sealed Products</option>
           </select>
         </label>
 
         <label class="filter-field">
           <span>Card Set</span>
-          <input type="text" placeholder="Example: Evolving Skies, Crown Zenith" disabled />
+          <input
+            id="setSearch"
+            type="text"
+            placeholder="Example: Evolving Skies, Crown Zenith"
+            autocomplete="off"
+          />
         </label>
       </div>
 
-      <div class="tools-note">
-        <span></span>
-        Search and filters are currently visual only. Full functionality will be added after inventory metadata is ready.
+      <div class="tools-footer">
+        <div class="tools-note">
+          <span></span>
+          Inventory is updated regularly. Prices are listed when available.
+        </div>
+
+        <button id="clearFiltersBtn" class="clear-filters-btn" type="button">
+          Clear Filters
+        </button>
       </div>
     </section>
 
@@ -89,7 +105,7 @@
           <h2>Available Items</h2>
         </div>
 
-        <p id="imageCount">Loading images...</p>
+        <p id="imageCount">Loading inventory...</p>
       </div>
 
       <section id="gallery" class="inventory-gallery"></section>
@@ -130,6 +146,7 @@
           <a href="inventory.html">Inventory</a>
           <a href="sell-to-us.html">Sell To Us</a>
           <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
         </div>
 
         <div class="footer-column contact-social-column">
@@ -164,6 +181,6 @@
     <img id="lightboxImage" src="" alt="Expanded inventory item" />
   </div>
 
-  <script src="inventory.js?v=1"></script>
+  <script src="inventory.js?v=2"></script>
 </body>
 </html>
