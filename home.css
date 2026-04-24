@@ -497,7 +497,7 @@ a {
 
 .quick-panel {
   width: min(1180px, calc(100% - 36px));
-  margin: -54px auto 0;
+  margin: -8px auto 0;
   position: relative;
   z-index: 10;
   display: grid;
