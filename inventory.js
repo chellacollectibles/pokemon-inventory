@@ -1,5 +1,6 @@
 const gallery = document.getElementById("gallery");
 const imageCount = document.getElementById("imageCount");
+const heroImageCount = document.getElementById("heroImageCount");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 
 const lightbox = document.getElementById("lightbox");
@@ -23,11 +24,16 @@ async function loadImages() {
 
     if (!Array.isArray(allImages) || allImages.length === 0) {
       imageCount.textContent = "No images found yet.";
+      heroImageCount.textContent = "0";
       loadMoreBtn.classList.add("hidden");
       return;
     }
 
-    imageCount.textContent = `${allImages.length.toLocaleString()} items`;
+    const total = allImages.length.toLocaleString();
+
+    imageCount.textContent = `${total} items`;
+    heroImageCount.textContent = total;
+
     renderNextBatch();
   } catch (error) {
     gallery.innerHTML = `
@@ -35,8 +41,11 @@ async function loadImages() {
         Images could not be loaded. Make sure images.json exists and was generated successfully.
       </div>
     `;
+
     imageCount.textContent = "Unable to load inventory.";
+    heroImageCount.textContent = "—";
     loadMoreBtn.classList.add("hidden");
+
     console.error(error);
   }
 }
@@ -46,7 +55,7 @@ function renderNextBatch() {
 
   nextImages.forEach(fileName => {
     const card = document.createElement("article");
-    card.className = "card";
+    card.className = "inventory-item";
 
     const img = document.createElement("img");
     img.src = `images/${encodeURIComponent(fileName)}`;
@@ -73,6 +82,12 @@ function renderNextBatch() {
   }
 }
 
+function closeImage() {
+  lightbox.classList.remove("active");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImage.src = "";
+}
+
 loadMoreBtn.addEventListener("click", renderNextBatch);
 
 closeLightbox.addEventListener("click", closeImage);
@@ -88,11 +103,5 @@ document.addEventListener("keydown", event => {
     closeImage();
   }
 });
-
-function closeImage() {
-  lightbox.classList.remove("active");
-  lightbox.setAttribute("aria-hidden", "true");
-  lightboxImage.src = "";
-}
 
 loadImages();
