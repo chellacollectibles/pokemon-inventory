@@ -79,19 +79,34 @@
     0 8px 18px rgba(7, 20, 47, 0.04);
   outline: none;
   opacity: 1;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.filter-field input:focus,
+.filter-field select:focus {
+  border-color: rgba(40, 107, 216, 0.52);
+  box-shadow:
+    0 0 0 4px rgba(40, 107, 216, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 22px rgba(7, 20, 47, 0.07);
 }
 
 .filter-field input::placeholder {
   color: #8a98ad;
 }
 
-.filter-field input:disabled,
-.filter-field select:disabled {
-  cursor: not-allowed;
+.tools-footer {
+  margin-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
 }
 
 .tools-note {
-  margin-top: 22px;
   padding: 15px 17px;
   display: flex;
   gap: 12px;
@@ -113,6 +128,32 @@
   border-radius: 999px;
   background: var(--red);
   box-shadow: 0 0 0 5px rgba(244, 63, 63, 0.12);
+}
+
+.clear-filters-btn {
+  flex: 0 0 auto;
+  min-height: 50px;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, var(--navy), var(--navy-2));
+  color: white;
+  font-family: "Outfit", "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(7, 20, 47, 0.16);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--yellow), var(--gold));
+  color: var(--navy);
+  box-shadow: 0 18px 34px rgba(255, 184, 46, 0.25);
 }
 
 
@@ -167,7 +208,7 @@
 .inventory-item {
   position: relative;
   overflow: hidden;
-  border-radius: 26px;
+  border-radius: 28px;
   padding: 10px;
   background:
     radial-gradient(circle at 14% 10%, rgba(255, 223, 60, 0.12), transparent 30%),
@@ -206,15 +247,10 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.78);
 }
 
-.inventory-item img {
+.inventory-image-wrap {
   position: relative;
   z-index: 2;
-  width: 100%;
-  height: 360px;
-  display: block;
-  object-fit: contain;
-  cursor: zoom-in;
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 10px;
   background:
     radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.18), transparent 38%),
@@ -225,19 +261,114 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.42),
     inset 0 -1px 0 rgba(120, 142, 178, 0.16),
     0 10px 24px rgba(7, 20, 47, 0.08);
+}
+
+.inventory-item img {
+  width: 100%;
+  height: 330px;
+  display: block;
+  object-fit: contain;
+  cursor: zoom-in;
+  border-radius: 16px;
   transition:
     transform 0.22s ease,
-    box-shadow 0.22s ease,
     filter 0.22s ease;
 }
 
 .inventory-item:hover img {
   transform: scale(1.015);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.42),
-    inset 0 -1px 0 rgba(120, 142, 178, 0.16),
-    0 16px 32px rgba(7, 20, 47, 0.13);
   filter: saturate(1.03) contrast(1.02);
+}
+
+.inventory-info {
+  position: relative;
+  z-index: 2;
+  padding: 15px 5px 4px;
+}
+
+.inventory-info-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--navy);
+  font-family: "Outfit", "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 223, 60, 0.25);
+  border: 1px solid rgba(255, 184, 46, 0.32);
+}
+
+.type-badge.graded {
+  background: rgba(40, 107, 216, 0.13);
+  border-color: rgba(40, 107, 216, 0.24);
+  color: #153f8d;
+}
+
+.type-badge.single {
+  background: rgba(255, 223, 60, 0.25);
+  border-color: rgba(255, 184, 46, 0.32);
+  color: #6c4900;
+}
+
+.type-badge.sealed {
+  background: rgba(244, 63, 63, 0.12);
+  border-color: rgba(244, 63, 63, 0.22);
+  color: #a92727;
+}
+
+.item-price {
+  color: var(--navy);
+  font-family: "Outfit", "Inter", sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.inventory-info h3 {
+  margin: 0;
+  color: var(--navy);
+  font-family: "Outfit", "Inter", sans-serif;
+  font-size: 20px;
+  line-height: 1.08;
+  letter-spacing: -0.45px;
+}
+
+.inventory-info p {
+  margin: 7px 0 0;
+  color: #66758a;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+.empty-message {
+  grid-column: 1 / -1;
+  padding: 28px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 94% 12%, rgba(255, 223, 60, 0.18), transparent 24%),
+    linear-gradient(135deg, #ffffff, #f2f5fa);
+  border: 1px solid rgba(40, 107, 216, 0.22);
+  box-shadow:
+    0 18px 44px rgba(7, 20, 47, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  color: var(--navy);
+  font-weight: 900;
+  text-align: center;
 }
 
 
@@ -334,13 +465,22 @@
   }
 
   .inventory-item img {
-    height: 325px;
+    height: 305px;
   }
 }
 
 @media (max-width: 1000px) {
   .filter-grid {
     grid-template-columns: 1fr;
+  }
+
+  .tools-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .clear-filters-btn {
+    width: 100%;
   }
 
   .gallery-header {
@@ -358,7 +498,7 @@
   }
 
   .inventory-item img {
-    height: 300px;
+    height: 285px;
   }
 }
 
@@ -384,13 +524,38 @@
   }
 
   .inventory-item {
-    border-radius: 18px;
+    border-radius: 20px;
+    padding: 7px;
+  }
+
+  .inventory-image-wrap {
+    border-radius: 16px;
     padding: 6px;
   }
 
   .inventory-item img {
-    height: 230px;
-    border-radius: 14px;
-    padding: 6px;
+    height: 210px;
+    border-radius: 12px;
+  }
+
+  .inventory-info {
+    padding: 12px 3px 3px;
+  }
+
+  .inventory-info h3 {
+    font-size: 16px;
+  }
+
+  .inventory-info p {
+    font-size: 12px;
+  }
+
+  .item-price {
+    font-size: 14px;
+  }
+
+  .type-badge {
+    font-size: 10px;
+    padding: 5px 8px;
   }
 }
