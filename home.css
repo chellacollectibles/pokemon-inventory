@@ -24,27 +24,30 @@ html {
 
 body {
   margin: 0;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   color: var(--text);
-  min-height: 100vh;
-  isolation: isolate;
   background:
-    radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.92), transparent 24%),
-    radial-gradient(circle at 88% 10%, rgba(18, 28, 48, 0.12), transparent 28%),
-    radial-gradient(circle at 18% 92%, rgba(120, 130, 145, 0.16), transparent 30%),
-    radial-gradient(circle at 86% 88%, rgba(40, 50, 65, 0.13), transparent 32%),
-    linear-gradient(135deg, #ffffff 0%, #f1f2f4 34%, #e6e8eb 66%, #f9fafb 100%);
+    radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.55), transparent 20%),
+    radial-gradient(circle at 84% 10%, rgba(38, 46, 60, 0.22), transparent 24%),
+    radial-gradient(circle at 12% 88%, rgba(96, 105, 118, 0.18), transparent 28%),
+    radial-gradient(circle at 88% 82%, rgba(26, 33, 45, 0.20), transparent 30%),
+    linear-gradient(135deg, #eef1f5 0%, #dde2e8 34%, #cfd5dd 68%, #e8ebf0 100%);
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
-  background:
-    linear-gradient(115deg, rgba(255,255,255,0.55), transparent 32%),
-    linear-gradient(295deg, rgba(40,45,55,0.09), transparent 42%);
+  opacity: 0.10;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280' shape-rendering='crispEdges'%3E%3Cg fill='%23212a38'%3E%3Crect x='30' y='24' width='8' height='8'/%3E%3Crect x='22' y='32' width='8' height='8'/%3E%3Crect x='30' y='32' width='8' height='8'/%3E%3Crect x='38' y='32' width='8' height='8'/%3E%3Crect x='14' y='40' width='8' height='8'/%3E%3Crect x='22' y='40' width='8' height='8'/%3E%3Crect x='30' y='40' width='8' height='8'/%3E%3Crect x='38' y='40' width='8' height='8'/%3E%3Crect x='46' y='40' width='8' height='8'/%3E%3Crect x='22' y='48' width='8' height='8'/%3E%3Crect x='30' y='48' width='8' height='8'/%3E%3Crect x='38' y='48' width='8' height='8'/%3E%3Crect x='30' y='56' width='8' height='8'/%3E%3Crect x='176' y='24' width='8' height='8'/%3E%3Crect x='184' y='24' width='8' height='8'/%3E%3Crect x='168' y='32' width='8' height='8'/%3E%3Crect x='176' y='32' width='8' height='8'/%3E%3Crect x='184' y='32' width='8' height='8'/%3E%3Crect x='192' y='32' width='8' height='8'/%3E%3Crect x='160' y='40' width='8' height='8'/%3E%3Crect x='168' y='40' width='8' height='8'/%3E%3Crect x='176' y='40' width='8' height='8'/%3E%3Crect x='184' y='40' width='8' height='8'/%3E%3Crect x='192' y='40' width='8' height='8'/%3E%3Crect x='200' y='40' width='8' height='8'/%3E%3Crect x='160' y='48' width='8' height='8'/%3E%3Crect x='168' y='48' width='8' height='8'/%3E%3Crect x='176' y='48' width='8' height='8'/%3E%3Crect x='184' y='48' width='8' height='8'/%3E%3Crect x='192' y='48' width='8' height='8'/%3E%3Crect x='200' y='48' width='8' height='8'/%3E%3Crect x='168' y='56' width='8' height='8'/%3E%3Crect x='176' y='56' width='8' height='8'/%3E%3Crect x='184' y='56' width='8' height='8'/%3E%3Crect x='192' y='56' width='8' height='8'/%3E%3Crect x='176' y='64' width='8' height='8'/%3E%3Crect x='184' y='64' width='8' height='8'/%3E%3Crect x='42' y='156' width='8' height='8'/%3E%3Crect x='50' y='156' width='8' height='8'/%3E%3Crect x='58' y='156' width='8' height='8'/%3E%3Crect x='66' y='156' width='8' height='8'/%3E%3Crect x='74' y='156' width='8' height='8'/%3E%3Crect x='34' y='164' width='8' height='8'/%3E%3Crect x='82' y='164' width='8' height='8'/%3E%3Crect x='34' y='172' width='8' height='8'/%3E%3Crect x='50' y='172' width='8' height='8'/%3E%3Crect x='58' y='172' width='8' height='8'/%3E%3Crect x='66' y='172' width='8' height='8'/%3E%3Crect x='82' y='172' width='8' height='8'/%3E%3Crect x='34' y='180' width='8' height='8'/%3E%3Crect x='82' y='180' width='8' height='8'/%3E%3Crect x='34' y='188' width='8' height='8'/%3E%3Crect x='82' y='188' width='8' height='8'/%3E%3Crect x='42' y='196' width='8' height='8'/%3E%3Crect x='50' y='196' width='8' height='8'/%3E%3Crect x='58' y='196' width='8' height='8'/%3E%3Crect x='66' y='196' width='8' height='8'/%3E%3Crect x='74' y='196' width='8' height='8'/%3E%3Crect x='192' y='164' width='8' height='8'/%3E%3Crect x='200' y='164' width='8' height='8'/%3E%3Crect x='208' y='164' width='8' height='8'/%3E%3Crect x='184' y='172' width='8' height='8'/%3E%3Crect x='192' y='172' width='8' height='8'/%3E%3Crect x='176' y='180' width='8' height='8'/%3E%3Crect x='184' y='180' width='8' height='8'/%3E%3Crect x='192' y='180' width='8' height='8'/%3E%3Crect x='184' y='188' width='8' height='8'/%3E%3Crect x='192' y='188' width='8' height='8'/%3E%3Crect x='200' y='188' width='8' height='8'/%3E%3Crect x='192' y='196' width='8' height='8'/%3E%3Crect x='200' y='196' width='8' height='8'/%3E%3Crect x='192' y='204' width='8' height='8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 280px 280px;
+  background-repeat: repeat;
 }
 
 body::after {
@@ -53,12 +56,13 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.34;
-  background-image:
-    linear-gradient(rgba(7,20,47,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(7,20,47,0.03) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(to bottom, black 0%, black 68%, transparent 100%);
+  opacity: 0.18;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,0.35), transparent 30%),
+    linear-gradient(300deg, rgba(22, 29, 41, 0.14), transparent 42%),
+    linear-gradient(rgba(7,20,47,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7,20,47,0.025) 1px, transparent 1px);
+  background-size: auto, auto, 42px 42px, 42px 42px;
 }
 
 a {
@@ -1185,39 +1189,5 @@ a {
   .about-copy h2,
   .cta-card h2 {
     font-size: 36px;
-  }
-
-  .cta-card {
-    padding: 26px;
-    border-radius: 28px;
-  }
-
-  .footer {
-    padding: 22px;
-    border-radius: 28px;
-  }
-
-  .footer-brand,
-  .footer-column {
-    padding: 18px;
-    border-radius: 22px;
-  }
-
-  .footer-logo-card {
-    width: 145px;
-    height: 100px;
-  }
-
-  .footer-logo-card img {
-    width: 120px;
-    max-height: 82px;
-  }
-
-  .footer-brand-text h3 {
-    font-size: 24px;
-  }
-
-  .social-row a {
-    min-width: 120px;
   }
 }
