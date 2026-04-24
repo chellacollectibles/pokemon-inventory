@@ -31,40 +31,136 @@ body {
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.55), transparent 20%),
-    radial-gradient(circle at 84% 10%, rgba(38, 46, 60, 0.22), transparent 24%),
-    radial-gradient(circle at 12% 88%, rgba(96, 105, 118, 0.18), transparent 28%),
-    radial-gradient(circle at 88% 82%, rgba(26, 33, 45, 0.20), transparent 30%),
-    linear-gradient(135deg, #eef1f5 0%, #dde2e8 34%, #cfd5dd 68%, #e8ebf0 100%);
+    linear-gradient(
+      135deg,
+      #cdd4dc 0%,
+      #b7c0cb 24%,
+      #9ea8b5 50%,
+      #b5bec9 76%,
+      #ccd3db 100%
+    );
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  opacity: 0.10;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280' shape-rendering='crispEdges'%3E%3Cg fill='%23212a38'%3E%3Crect x='30' y='24' width='8' height='8'/%3E%3Crect x='22' y='32' width='8' height='8'/%3E%3Crect x='30' y='32' width='8' height='8'/%3E%3Crect x='38' y='32' width='8' height='8'/%3E%3Crect x='14' y='40' width='8' height='8'/%3E%3Crect x='22' y='40' width='8' height='8'/%3E%3Crect x='30' y='40' width='8' height='8'/%3E%3Crect x='38' y='40' width='8' height='8'/%3E%3Crect x='46' y='40' width='8' height='8'/%3E%3Crect x='22' y='48' width='8' height='8'/%3E%3Crect x='30' y='48' width='8' height='8'/%3E%3Crect x='38' y='48' width='8' height='8'/%3E%3Crect x='30' y='56' width='8' height='8'/%3E%3Crect x='176' y='24' width='8' height='8'/%3E%3Crect x='184' y='24' width='8' height='8'/%3E%3Crect x='168' y='32' width='8' height='8'/%3E%3Crect x='176' y='32' width='8' height='8'/%3E%3Crect x='184' y='32' width='8' height='8'/%3E%3Crect x='192' y='32' width='8' height='8'/%3E%3Crect x='160' y='40' width='8' height='8'/%3E%3Crect x='168' y='40' width='8' height='8'/%3E%3Crect x='176' y='40' width='8' height='8'/%3E%3Crect x='184' y='40' width='8' height='8'/%3E%3Crect x='192' y='40' width='8' height='8'/%3E%3Crect x='200' y='40' width='8' height='8'/%3E%3Crect x='160' y='48' width='8' height='8'/%3E%3Crect x='168' y='48' width='8' height='8'/%3E%3Crect x='176' y='48' width='8' height='8'/%3E%3Crect x='184' y='48' width='8' height='8'/%3E%3Crect x='192' y='48' width='8' height='8'/%3E%3Crect x='200' y='48' width='8' height='8'/%3E%3Crect x='168' y='56' width='8' height='8'/%3E%3Crect x='176' y='56' width='8' height='8'/%3E%3Crect x='184' y='56' width='8' height='8'/%3E%3Crect x='192' y='56' width='8' height='8'/%3E%3Crect x='176' y='64' width='8' height='8'/%3E%3Crect x='184' y='64' width='8' height='8'/%3E%3Crect x='42' y='156' width='8' height='8'/%3E%3Crect x='50' y='156' width='8' height='8'/%3E%3Crect x='58' y='156' width='8' height='8'/%3E%3Crect x='66' y='156' width='8' height='8'/%3E%3Crect x='74' y='156' width='8' height='8'/%3E%3Crect x='34' y='164' width='8' height='8'/%3E%3Crect x='82' y='164' width='8' height='8'/%3E%3Crect x='34' y='172' width='8' height='8'/%3E%3Crect x='50' y='172' width='8' height='8'/%3E%3Crect x='58' y='172' width='8' height='8'/%3E%3Crect x='66' y='172' width='8' height='8'/%3E%3Crect x='82' y='172' width='8' height='8'/%3E%3Crect x='34' y='180' width='8' height='8'/%3E%3Crect x='82' y='180' width='8' height='8'/%3E%3Crect x='34' y='188' width='8' height='8'/%3E%3Crect x='82' y='188' width='8' height='8'/%3E%3Crect x='42' y='196' width='8' height='8'/%3E%3Crect x='50' y='196' width='8' height='8'/%3E%3Crect x='58' y='196' width='8' height='8'/%3E%3Crect x='66' y='196' width='8' height='8'/%3E%3Crect x='74' y='196' width='8' height='8'/%3E%3Crect x='192' y='164' width='8' height='8'/%3E%3Crect x='200' y='164' width='8' height='8'/%3E%3Crect x='208' y='164' width='8' height='8'/%3E%3Crect x='184' y='172' width='8' height='8'/%3E%3Crect x='192' y='172' width='8' height='8'/%3E%3Crect x='176' y='180' width='8' height='8'/%3E%3Crect x='184' y='180' width='8' height='8'/%3E%3Crect x='192' y='180' width='8' height='8'/%3E%3Crect x='184' y='188' width='8' height='8'/%3E%3Crect x='192' y='188' width='8' height='8'/%3E%3Crect x='200' y='188' width='8' height='8'/%3E%3Crect x='192' y='196' width='8' height='8'/%3E%3Crect x='200' y='196' width='8' height='8'/%3E%3Crect x='192' y='204' width='8' height='8'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 280px 280px;
-  background-repeat: repeat;
-}
-
+body::before,
 body::after {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  width: clamp(72px, 8vw, 118px);
   z-index: -1;
   pointer-events: none;
-  opacity: 0.18;
   background:
-    linear-gradient(115deg, rgba(255,255,255,0.35), transparent 30%),
-    linear-gradient(300deg, rgba(22, 29, 41, 0.14), transparent 42%),
-    linear-gradient(rgba(7,20,47,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(7,20,47,0.025) 1px, transparent 1px);
-  background-size: auto, auto, 42px 42px, 42px 42px;
+    linear-gradient(180deg, #434c59 0%, #5b6674 50%, #434c59 100%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.08) 0 2px,
+      transparent 2px 18px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 0 2px,
+      transparent 2px 18px
+    ),
+    linear-gradient(#ffdf3c 0 0),
+    linear-gradient(#286bd8 0 0),
+    linear-gradient(#f43f3f 0 0),
+    linear-gradient(#ffffff 0 0),
+    linear-gradient(#ffdf3c 0 0),
+    linear-gradient(#286bd8 0 0),
+    linear-gradient(#f43f3f 0 0),
+    linear-gradient(#ffffff 0 0),
+    linear-gradient(#ffdf3c 0 0),
+    linear-gradient(#286bd8 0 0);
+  background-size:
+    100% 100%,
+    18px 18px,
+    18px 18px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px;
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    16px 56px,
+    34px 56px,
+    16px 74px,
+    34px 74px,
+    16px 190px,
+    34px 190px,
+    16px 208px,
+    34px 208px,
+    16px 324px,
+    34px 324px;
+  background-repeat:
+    no-repeat,
+    repeat,
+    repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat;
+  opacity: 0.95;
 }
 
+body::before {
+  left: 0;
+  border-right: 2px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset -20px 0 26px rgba(0, 0, 0, 0.16),
+    10px 0 24px rgba(0, 0, 0, 0.05);
+}
+
+body::after {
+  right: 0;
+  transform: scaleX(-1);
+  transform-origin: center;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset -20px 0 26px rgba(0, 0, 0, 0.16),
+    -10px 0 24px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 900px) {
+  body::before,
+  body::after {
+    width: 36px;
+    opacity: 0.65;
+  }
+}
+
+@media (max-width: 640px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  body {
+    background:
+      linear-gradient(
+        135deg,
+        #cfd6de 0%,
+        #b5bec9 36%,
+        #9ea9b7 50%,
+        #b8c1cb 72%,
+        #d0d6de 100%
+      );
+  }
+}
 a {
   color: inherit;
 }
