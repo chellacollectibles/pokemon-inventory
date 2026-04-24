@@ -1,0 +1,56 @@
+name: Update Image Manifest
+
+on:
+  push:
+    paths:
+      - "images/**"
+      - ".github/workflows/update-images.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Generate images.json
+        run: |
+          python3 - <<'PY'
+          import os
+          import json
+          import re
+
+          image_dir = "images"
+          valid_extensions = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+
+          def natural_sort_key(s):
+              return [int(text) if text.isdigit() else text.lower() for text in re.split(r"(\d+)", s)]
+
+          files = []
+
+          if os.path.isdir(image_dir):
+              for name in os.listdir(image_dir):
+                  path = os.path.join(image_dir, name)
+                  if os.path.isfile(path):
+                      ext = os.path.splitext(name)[1].lower()
+                      if ext in valid_extensions:
+                          files.append(name)
+
+          files.sort(key=natural_sort_key)
+
+          with open("images.json", "w", encoding="utf-8") as f:
+              json.dump(files, f, indent=2)
+
+          print(f"Generated images.json with {len(files)} images.")
+          PY
+
+      - name: Commit images.json
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update image manifest"
+          file_pattern: images.json
