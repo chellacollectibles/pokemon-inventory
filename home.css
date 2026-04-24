@@ -31,13 +31,11 @@ body {
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.18), transparent 24%),
-    radial-gradient(circle at 82% 10%, rgba(32, 39, 52, 0.44), transparent 30%),
-    radial-gradient(circle at 8% 48%, rgba(74, 84, 99, 0.35), transparent 28%),
-    radial-gradient(circle at 92% 52%, rgba(20, 26, 38, 0.38), transparent 30%),
-    radial-gradient(circle at 24% 92%, rgba(115, 124, 138, 0.26), transparent 28%),
-    radial-gradient(circle at 82% 88%, rgba(42, 49, 62, 0.34), transparent 32%),
-    linear-gradient(135deg, #d2d6dd 0%, #aeb6c1 34%, #8f99a7 66%, #c6ccd5 100%);
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.72), transparent 28%),
+    radial-gradient(circle at 88% 12%, rgba(172, 184, 198, 0.34), transparent 30%),
+    radial-gradient(circle at 12% 84%, rgba(185, 195, 207, 0.38), transparent 34%),
+    radial-gradient(circle at 88% 82%, rgba(144, 156, 171, 0.30), transparent 34%),
+    linear-gradient(135deg, #eef1f5 0%, #dfe4eb 42%, #d1d8e1 100%);
 }
 
 body::before {
@@ -47,8 +45,8 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    linear-gradient(115deg, rgba(255,255,255,0.18), transparent 34%),
-    linear-gradient(295deg, rgba(7, 20, 47, 0.18), transparent 44%);
+    linear-gradient(115deg, rgba(255,255,255,0.40), transparent 38%),
+    linear-gradient(295deg, rgba(72, 84, 101, 0.08), transparent 48%);
 }
 
 body::after {
@@ -57,12 +55,12 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.24;
+  opacity: 0.18;
   background-image:
-    linear-gradient(rgba(7,20,47,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(7,20,47,0.03) 1px, transparent 1px);
-  background-size: 46px 46px;
-  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+    linear-gradient(rgba(7,20,47,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7,20,47,0.024) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
 }
 
 a {
