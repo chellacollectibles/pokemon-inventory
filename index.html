@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Chella Collectibles Inventory</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>Chella Collectibles Inventory</h1>
+      <p>Available Pokémon cards and sealed products. DM us on Instagram to purchase.</p>
+
+      <div class="toolbar">
+        <input id="searchInput" type="text" placeholder="Search inventory..." />
+
+        <select id="categoryFilter">
+          <option value="all">All Items</option>
+          <option value="singles">Singles</option>
+          <option value="graded">Graded Cards</option>
+          <option value="sealed">Sealed Products</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="gallery" class="gallery"></section>
+  </main>
+
+  <div id="lightbox" class="lightbox">
+    <button id="closeLightbox" class="close-btn">×</button>
+    <img id="lightboxImage" src="" alt="Expanded inventory item" />
+  </div>
+
+  <script src="inventory.js"></script>
+  <script>
+    const gallery = document.getElementById("gallery");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const closeLightbox = document.getElementById("closeLightbox");
+
+    function renderGallery() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedCategory = categoryFilter.value;
+
+      gallery.innerHTML = "";
+
+      const filteredItems = inventory.filter(item => {
+        const matchesSearch =
+          item.title.toLowerCase().includes(searchTerm) ||
+          item.category.toLowerCase().includes(searchTerm);
+
+        const matchesCategory =
+          selectedCategory === "all" || item.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+      });
+
+      if (filteredItems.length === 0) {
+        gallery.innerHTML = '<p class="empty-message">No matching items found.</p>';
+        return;
+      }
+
+      filteredItems.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        card.innerHTML = `
+          <img src="images/${item.image}" alt="${item.title}" loading="lazy">
+          <div class="card-info">
+            <h2>${item.title}</h2>
+            <p>${formatCategory(item.category)}</p>
+          </div>
+        `;
+
+        card.querySelector("img").addEventListener("click", () => {
+          lightboxImage.src = `images/${item.image}`;
+          lightbox.classList.add("active");
+        });
+
+        gallery.appendChild(card);
+      });
+    }
+
+    function formatCategory(category) {
+      if (category === "singles") return "Single Card";
+      if (category === "graded") return "Graded Card";
+      if (category === "sealed") return "Sealed Product";
+      return category;
+    }
+
+    searchInput.addEventListener("input", renderGallery);
+    categoryFilter.addEventListener("change", renderGallery);
+
+    closeLightbox.addEventListener("click", () => {
+      lightbox.classList.remove("active");
+    });
+
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) {
+        lightbox.classList.remove("active");
+      }
+    });
+
+    renderGallery();
+  </script>
+</body>
+</html>
