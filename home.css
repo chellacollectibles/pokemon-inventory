@@ -25,11 +25,40 @@ html {
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  background:
-    radial-gradient(circle at 12% 10%, rgba(255, 223, 60, 0.10), transparent 26%),
-    radial-gradient(circle at 88% 12%, rgba(20, 35, 63, 0.05), transparent 24%),
-    linear-gradient(135deg, #fafafa 0%, #f1f3f6 45%, #fcfcfd 100%);
   color: var(--text);
+  min-height: 100vh;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.92), transparent 24%),
+    radial-gradient(circle at 88% 10%, rgba(18, 28, 48, 0.12), transparent 28%),
+    radial-gradient(circle at 18% 92%, rgba(120, 130, 145, 0.16), transparent 30%),
+    radial-gradient(circle at 86% 88%, rgba(40, 50, 65, 0.13), transparent 32%),
+    linear-gradient(135deg, #ffffff 0%, #f1f2f4 34%, #e6e8eb 66%, #f9fafb 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,0.55), transparent 32%),
+    linear-gradient(295deg, rgba(40,45,55,0.09), transparent 42%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgba(7,20,47,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7,20,47,0.03) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black 0%, black 68%, transparent 100%);
 }
 
 a {
