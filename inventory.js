@@ -188,44 +188,26 @@ function extractCondition(name) {
   const cleaned = name.toLowerCase();
 
   if (cleaned.includes("near mint")) {
-    return {
-      label: "Near Mint",
-      slug: "near-mint"
-    };
+    return { label: "Near Mint", slug: "near-mint" };
   }
 
   if (cleaned.includes("lightly played")) {
-    return {
-      label: "Lightly Played",
-      slug: "lightly-played"
-    };
+    return { label: "Lightly Played", slug: "lightly-played" };
   }
 
   if (cleaned.includes("moderately played")) {
-    return {
-      label: "Moderately Played",
-      slug: "moderately-played"
-    };
+    return { label: "Moderately Played", slug: "moderately-played" };
   }
 
   if (cleaned.includes("heavily played")) {
-    return {
-      label: "Heavily Played",
-      slug: "heavily-played"
-    };
+    return { label: "Heavily Played", slug: "heavily-played" };
   }
 
   if (cleaned.includes("damaged")) {
-    return {
-      label: "Damaged",
-      slug: "damaged"
-    };
+    return { label: "Damaged", slug: "damaged" };
   }
 
-  return {
-    label: "",
-    slug: "unknown"
-  };
+  return { label: "", slug: "unknown" };
 }
 
 function renderFreshResults() {
@@ -268,12 +250,6 @@ function renderNextBatch() {
 
     const badgeGroup = document.createElement("div");
     badgeGroup.className = "badge-group";
-
-    const typeBadge = document.createElement("span");
-    typeBadge.className = `type-badge ${item.type || "unknown"}`;
-    typeBadge.textContent = formatType(item.type);
-
-    badgeGroup.appendChild(typeBadge);
 
     if (item.condition) {
       const conditionBadge = document.createElement("span");
@@ -324,7 +300,6 @@ function renderNextBatch() {
         No items match your current search.
       </div>
     `;
-
     loadMoreBtn.classList.add("hidden");
     return;
   }
@@ -375,9 +350,7 @@ function updateCount() {
 function openLightbox(item, side) {
   currentLightboxItem = item;
   currentLightboxSide = side;
-
   updateLightboxImage();
-
   lightbox.classList.add("active");
   lightbox.setAttribute("aria-hidden", "false");
 }
@@ -458,7 +431,6 @@ function closeImage() {
   currentLightboxItem = null;
   currentLightboxSide = "front";
 }
-
 
 /* REQUEST LIST */
 
@@ -838,7 +810,6 @@ function showToast(message) {
   }, 2200);
 }
 
-
 /* EVENTS */
 
 loadMoreBtn.addEventListener("click", renderNextBatch);
@@ -852,7 +823,6 @@ showFrontBtn.addEventListener("click", () => {
 
 showBackBtn.addEventListener("click", () => {
   if (!currentLightboxItem || !currentLightboxItem.backFilename) return;
-
   currentLightboxSide = "back";
   updateLightboxImage();
 });
