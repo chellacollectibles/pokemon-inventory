@@ -34,9 +34,11 @@ let visibleCount = 0;
 let currentLightboxItem = null;
 let currentLightboxSide = "front";
 let selectedFilenames = new Set();
+let shouldOpenSharedList = false;
 
 const batchSize = 60;
 const requestListStorageKey = "chellaRequestListV1";
+const shareLinkSeparator = "~";
 
 async function loadInventory() {
   try {
@@ -66,6 +68,13 @@ async function loadInventory() {
 
     renderFreshResults();
     updateRequestListUI();
+
+    if (shouldOpenSharedList) {
+      setTimeout(() => {
+        openRequestDrawer();
+        showToast("Shared request list loaded.");
+      }, 250);
+    }
   } catch (error) {
     gallery.innerHTML = `
       <div class="error-message">
@@ -481,9 +490,13 @@ function loadRequestListFromUrl() {
     return;
   }
 
+  const separator = listParam.includes(shareLinkSeparator)
+    ? shareLinkSeparator
+    : ",";
+
   const filenamesFromUrl = listParam
-    .split(",")
-    .map(value => decodeURIComponent(value.trim()))
+    .split(separator)
+    .map(value => value.trim())
     .filter(Boolean);
 
   if (filenamesFromUrl.length === 0) {
@@ -491,14 +504,19 @@ function loadRequestListFromUrl() {
   }
 
   const validFilenames = new Set(allItems.map(item => item.filename));
+  let addedCount = 0;
 
   filenamesFromUrl.forEach(filename => {
     if (validFilenames.has(filename)) {
       selectedFilenames.add(filename);
+      addedCount++;
     }
   });
 
-  saveRequestList();
+  if (addedCount > 0) {
+    shouldOpenSharedList = true;
+    saveRequestList();
+  }
 }
 
 function getSelectedItems() {
@@ -763,14 +781,14 @@ function buildShareLink() {
     return "";
   }
 
-  const encodedList = selectedItems
-    .map(item => encodeURIComponent(item.filename))
-    .join(",");
+  const rawList = selectedItems
+    .map(item => item.filename)
+    .join(shareLinkSeparator);
 
   const url = new URL(window.location.href);
   url.search = "";
   url.hash = "";
-  url.searchParams.set("list", encodedList);
+  url.searchParams.set("list", rawList);
 
   return url.toString();
 }
