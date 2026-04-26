@@ -247,6 +247,68 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.78);
 }
 
+
+/* CONDITION ACCENTS */
+
+.inventory-item.condition-near-mint {
+  border-color: rgba(34, 197, 94, 0.38);
+}
+
+.inventory-item.condition-lightly-played {
+  border-color: rgba(255, 184, 46, 0.42);
+}
+
+.inventory-item.condition-moderately-played {
+  border-color: rgba(249, 115, 22, 0.40);
+}
+
+.inventory-item.condition-heavily-played {
+  border-color: rgba(194, 65, 12, 0.42);
+}
+
+.inventory-item.condition-damaged {
+  border-color: rgba(244, 63, 63, 0.46);
+}
+
+.inventory-item.condition-near-mint::after,
+.inventory-item.condition-lightly-played::after,
+.inventory-item.condition-moderately-played::after,
+.inventory-item.condition-heavily-played::after,
+.inventory-item.condition-damaged::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 0;
+  height: 5px;
+  border-radius: 0 0 999px 999px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.inventory-item.condition-near-mint::after {
+  background: linear-gradient(90deg, #22c55e, rgba(34, 197, 94, 0.35));
+}
+
+.inventory-item.condition-lightly-played::after {
+  background: linear-gradient(90deg, #ffdf3c, rgba(255, 184, 46, 0.45));
+}
+
+.inventory-item.condition-moderately-played::after {
+  background: linear-gradient(90deg, #f97316, rgba(249, 115, 22, 0.38));
+}
+
+.inventory-item.condition-heavily-played::after {
+  background: linear-gradient(90deg, #c2410c, rgba(194, 65, 12, 0.38));
+}
+
+.inventory-item.condition-damaged::after {
+  background: linear-gradient(90deg, #ef4444, rgba(244, 63, 63, 0.38));
+}
+
+
+/* IMAGE AREA */
+
 .inventory-image-wrap {
   position: relative;
   z-index: 2;
@@ -280,6 +342,9 @@
   filter: saturate(1.03) contrast(1.02);
 }
 
+
+/* INFO AREA */
+
 .inventory-info {
   position: relative;
   z-index: 2;
@@ -289,27 +354,39 @@
 .inventory-info-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.type-badge {
+.badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+
+.type-badge,
+.condition-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 28px;
   padding: 6px 10px;
   border-radius: 999px;
-  color: var(--navy);
   font-family: "Outfit", "Inter", sans-serif;
-  font-size: 12px;
-  font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border: 1px solid transparent;
+}
+
+.type-badge {
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 900;
   background: rgba(255, 223, 60, 0.25);
-  border: 1px solid rgba(255, 184, 46, 0.32);
+  border-color: rgba(255, 184, 46, 0.32);
 }
 
 .type-badge.graded {
@@ -330,12 +407,49 @@
   color: #a92727;
 }
 
+.condition-badge {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.45px;
+}
+
+.condition-badge.near-mint {
+  background: rgba(34, 197, 94, 0.16);
+  border-color: rgba(34, 197, 94, 0.30);
+  color: #127339;
+}
+
+.condition-badge.lightly-played {
+  background: rgba(255, 223, 60, 0.24);
+  border-color: rgba(255, 184, 46, 0.34);
+  color: #7a5600;
+}
+
+.condition-badge.moderately-played {
+  background: rgba(249, 115, 22, 0.15);
+  border-color: rgba(249, 115, 22, 0.30);
+  color: #9a4510;
+}
+
+.condition-badge.heavily-played {
+  background: rgba(194, 65, 12, 0.16);
+  border-color: rgba(194, 65, 12, 0.32);
+  color: #87320c;
+}
+
+.condition-badge.damaged {
+  background: rgba(244, 63, 63, 0.15);
+  border-color: rgba(244, 63, 63, 0.32);
+  color: #a92727;
+}
+
 .item-price {
   color: var(--navy);
   font-family: "Outfit", "Inter", sans-serif;
   font-size: 17px;
   font-weight: 900;
   white-space: nowrap;
+  padding-top: 4px;
 }
 
 .inventory-info h3 {
@@ -597,6 +711,14 @@
     padding: 12px 3px 3px;
   }
 
+  .inventory-info-top {
+    display: block;
+  }
+
+  .badge-group {
+    margin-bottom: 8px;
+  }
+
   .inventory-info h3 {
     font-size: 16px;
   }
@@ -606,10 +728,13 @@
   }
 
   .item-price {
+    display: block;
     font-size: 14px;
+    padding-top: 0;
   }
 
-  .type-badge {
+  .type-badge,
+  .condition-badge {
     font-size: 10px;
     padding: 5px 8px;
   }
