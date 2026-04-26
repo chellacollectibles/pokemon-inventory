@@ -19,7 +19,7 @@
   />
 
   <link rel="stylesheet" href="home.css?v=20" />
-  <link rel="stylesheet" href="inventory.css?v=10" />
+  <link rel="stylesheet" href="inventory.css?v=11" />
 </head>
 
 <body>
@@ -49,7 +49,7 @@
         <h1>Find cards faster</h1>
         <p>
           Search current inventory by card name, item type, or set. If you are interested in an item,
-          message us with a screenshot or the card details.
+          add it to your request list and send it to us.
         </p>
       </div>
 
@@ -88,7 +88,7 @@
       <div class="tools-footer">
         <div class="tools-note">
           <span></span>
-          Inventory is updated regularly. Prices are listed when available.
+          Add items to your request list, then copy, email, download, or share the list with us.
         </div>
 
         <button id="clearFiltersBtn" class="clear-filters-btn" type="button">
@@ -176,6 +176,47 @@
   </footer>
 
 
+  <button id="requestListButton" class="request-list-button" type="button" aria-label="Open request list">
+    <span>My List</span>
+    <strong id="requestListCount">0</strong>
+  </button>
+
+  <div id="requestOverlay" class="request-overlay" aria-hidden="true"></div>
+
+  <aside id="requestDrawer" class="request-drawer" aria-hidden="true">
+    <div class="request-drawer-header">
+      <div>
+        <span class="request-kicker">Inventory Request</span>
+        <h2>Your Request List</h2>
+        <p>
+          Add the cards you are interested in, then copy, email, download, or share the list with us.
+        </p>
+      </div>
+
+      <button id="closeRequestDrawer" class="request-close-btn" type="button" aria-label="Close request list">
+        ×
+      </button>
+    </div>
+
+    <div id="requestListEmpty" class="request-empty">
+      <strong>Your list is empty.</strong>
+      <span>Add items from the inventory page and they will appear here.</span>
+    </div>
+
+    <div id="requestListItems" class="request-list-items"></div>
+
+    <div class="request-actions">
+      <button id="copyListBtn" type="button">Copy List</button>
+      <button id="emailListBtn" type="button">Email List</button>
+      <button id="downloadTxtBtn" type="button">Download TXT</button>
+      <button id="copyShareLinkBtn" type="button">Copy Share Link</button>
+      <button id="clearListBtn" class="danger" type="button">Clear</button>
+    </div>
+  </aside>
+
+  <div id="requestToast" class="request-toast" role="status" aria-live="polite"></div>
+
+
   <div id="lightbox" class="lightbox" aria-hidden="true">
     <button id="closeLightbox" class="close-btn" aria-label="Close image">×</button>
 
@@ -193,6 +234,6 @@
     </div>
   </div>
 
-  <script src="inventory.js?v=4"></script>
+  <script src="inventory.js?v=5"></script>
 </body>
 </html>
