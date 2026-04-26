@@ -19,7 +19,7 @@
   />
 
   <link rel="stylesheet" href="home.css?v=20" />
-  <link rel="stylesheet" href="inventory.css?v=8" />
+  <link rel="stylesheet" href="inventory.css?v=9" />
 </head>
 
 <body>
@@ -178,9 +178,21 @@
 
   <div id="lightbox" class="lightbox" aria-hidden="true">
     <button id="closeLightbox" class="close-btn" aria-label="Close image">×</button>
-    <img id="lightboxImage" src="" alt="Expanded inventory item" />
+
+    <div class="lightbox-inner">
+      <div class="lightbox-toolbar">
+        <span id="lightboxLabel">Front Image</span>
+
+        <div class="lightbox-toggle">
+          <button id="showFrontBtn" type="button" class="active">Front</button>
+          <button id="showBackBtn" type="button">Back</button>
+        </div>
+      </div>
+
+      <img id="lightboxImage" src="" alt="Expanded inventory item" />
+    </div>
   </div>
 
-  <script src="inventory.js?v=2"></script>
+  <script src="inventory.js?v=3"></script>
 </body>
 </html>
