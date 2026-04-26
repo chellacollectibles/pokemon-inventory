@@ -10,10 +10,15 @@ const clearFiltersBtn = document.getElementById("clearFiltersBtn");
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 const closeLightbox = document.getElementById("closeLightbox");
+const showFrontBtn = document.getElementById("showFrontBtn");
+const showBackBtn = document.getElementById("showBackBtn");
+const lightboxLabel = document.getElementById("lightboxLabel");
 
 let allItems = [];
 let filteredItems = [];
 let visibleCount = 0;
+let currentLightboxItem = null;
+let currentLightboxSide = "front";
 
 const batchSize = 60;
 
@@ -26,6 +31,7 @@ async function loadInventory() {
     }
 
     const csvText = await response.text();
+
     allItems = parseCSV(csvText)
       .map(cleanInventoryItem)
       .filter(item => item.filename);
@@ -42,7 +48,7 @@ async function loadInventory() {
   } catch (error) {
     gallery.innerHTML = `
       <div class="error-message">
-        Inventory could not be loaded. Make sure inventory.csv exists in the main GitHub folder and includes columns for filename, type, name, set, and price.
+        Inventory could not be loaded. Make sure inventory.csv exists in the main GitHub folder and includes columns for filename, type, name, set, price, and optionally back_filename.
       </div>
     `;
 
@@ -122,6 +128,7 @@ function normalizeHeader(header) {
 function cleanInventoryItem(item) {
   return {
     filename: item.filename || "",
+    backFilename: item.back_filename || item.backfilename || "",
     type: normalizeType(item.type || ""),
     name: item.name || "",
     set: item.set || "",
@@ -162,10 +169,7 @@ function renderNextBatch() {
     img.loading = "lazy";
 
     img.addEventListener("click", () => {
-      lightboxImage.src = `images/${encodeURIComponent(item.filename)}`;
-      lightboxImage.alt = buildAltText(item);
-      lightbox.classList.add("active");
-      lightbox.setAttribute("aria-hidden", "false");
+      openLightbox(item, "front");
     });
 
     imageWrap.appendChild(img);
@@ -259,6 +263,42 @@ function updateCount() {
   }
 }
 
+function openLightbox(item, side) {
+  currentLightboxItem = item;
+  currentLightboxSide = side;
+
+  updateLightboxImage();
+
+  lightbox.classList.add("active");
+  lightbox.setAttribute("aria-hidden", "false");
+}
+
+function updateLightboxImage() {
+  if (!currentLightboxItem) return;
+
+  const hasBack = Boolean(currentLightboxItem.backFilename);
+  const imageFile =
+    currentLightboxSide === "back" && hasBack
+      ? currentLightboxItem.backFilename
+      : currentLightboxItem.filename;
+
+  lightboxImage.src = `images/${encodeURIComponent(imageFile)}`;
+  lightboxImage.alt = `${buildAltText(currentLightboxItem)} - ${currentLightboxSide === "back" ? "Back" : "Front"}`;
+
+  lightboxLabel.textContent = currentLightboxSide === "back" ? "Back Image" : "Front Image";
+
+  if (hasBack) {
+    showFrontBtn.classList.remove("hidden");
+    showBackBtn.classList.remove("hidden");
+  } else {
+    showFrontBtn.classList.add("hidden");
+    showBackBtn.classList.add("hidden");
+  }
+
+  showFrontBtn.classList.toggle("active", currentLightboxSide === "front");
+  showBackBtn.classList.toggle("active", currentLightboxSide === "back");
+}
+
 function buildAltText(item) {
   const parts = [];
 
@@ -306,11 +346,25 @@ function closeImage() {
   lightbox.setAttribute("aria-hidden", "true");
   lightboxImage.src = "";
   lightboxImage.alt = "";
+  currentLightboxItem = null;
+  currentLightboxSide = "front";
 }
 
 loadMoreBtn.addEventListener("click", renderNextBatch);
 
 closeLightbox.addEventListener("click", closeImage);
+
+showFrontBtn.addEventListener("click", () => {
+  currentLightboxSide = "front";
+  updateLightboxImage();
+});
+
+showBackBtn.addEventListener("click", () => {
+  if (!currentLightboxItem || !currentLightboxItem.backFilename) return;
+
+  currentLightboxSide = "back";
+  updateLightboxImage();
+});
 
 lightbox.addEventListener("click", event => {
   if (event.target === lightbox) {
@@ -321,6 +375,20 @@ lightbox.addEventListener("click", event => {
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
     closeImage();
+  }
+
+  if (!lightbox.classList.contains("active") || !currentLightboxItem) {
+    return;
+  }
+
+  if (event.key === "ArrowLeft") {
+    currentLightboxSide = "front";
+    updateLightboxImage();
+  }
+
+  if (event.key === "ArrowRight" && currentLightboxItem.backFilename) {
+    currentLightboxSide = "back";
+    updateLightboxImage();
   }
 });
 
