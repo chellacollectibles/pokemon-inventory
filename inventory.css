@@ -431,9 +431,64 @@
   display: flex;
 }
 
+.lightbox-inner {
+  width: min(96vw, 980px);
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.lightbox-toolbar {
+  width: min(95vw, 950px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.22);
+}
+
+.lightbox-toolbar span {
+  color: var(--navy);
+  font-family: "Outfit", "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.lightbox-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.lightbox-toggle button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 14px;
+  background: #eef3fb;
+  color: var(--navy);
+  font-family: "Outfit", "Inter", sans-serif;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.lightbox-toggle button:hover,
+.lightbox-toggle button.active {
+  background: linear-gradient(135deg, var(--yellow), var(--gold));
+  transform: translateY(-1px);
+}
+
+.lightbox-toggle button.hidden {
+  display: none;
+}
+
 .lightbox img {
   max-width: min(95vw, 950px);
-  max-height: 90vh;
+  max-height: 84vh;
   border-radius: 22px;
   background: white;
   box-shadow: 0 26px 80px rgba(0, 0, 0, 0.55);
@@ -557,5 +612,34 @@
   .type-badge {
     font-size: 10px;
     padding: 5px 8px;
+  }
+
+  .lightbox {
+    padding: 16px;
+  }
+
+  .lightbox-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lightbox-toggle {
+    width: 100%;
+  }
+
+  .lightbox-toggle button {
+    flex: 1;
+  }
+
+  .lightbox img {
+    max-height: 78vh;
+  }
+
+  .close-btn {
+    top: 12px;
+    right: 12px;
+    width: 46px;
+    height: 46px;
+    font-size: 32px;
   }
 }
