@@ -126,13 +126,18 @@ function normalizeHeader(header) {
 }
 
 function cleanInventoryItem(item) {
+  const name = item.name || "";
+  const condition = extractCondition(name);
+
   return {
     filename: item.filename || "",
     backFilename: item.back_filename || item.backfilename || "",
     type: normalizeType(item.type || ""),
-    name: item.name || "",
+    name: name,
     set: item.set || "",
-    price: item.price || ""
+    price: item.price || "",
+    condition: condition.label,
+    conditionSlug: condition.slug
   };
 }
 
@@ -140,10 +145,57 @@ function normalizeType(type) {
   const cleaned = type.trim().toLowerCase();
 
   if (cleaned === "singles") return "single";
+  if (cleaned === "single") return "single";
   if (cleaned === "graded cards") return "graded";
+  if (cleaned === "graded") return "graded";
   if (cleaned === "sealed products") return "sealed";
+  if (cleaned === "sealed") return "sealed";
 
   return cleaned;
+}
+
+function extractCondition(name) {
+  const cleaned = name.toLowerCase();
+
+  if (cleaned.includes("near mint")) {
+    return {
+      label: "Near Mint",
+      slug: "near-mint"
+    };
+  }
+
+  if (cleaned.includes("lightly played")) {
+    return {
+      label: "Lightly Played",
+      slug: "lightly-played"
+    };
+  }
+
+  if (cleaned.includes("moderately played")) {
+    return {
+      label: "Moderately Played",
+      slug: "moderately-played"
+    };
+  }
+
+  if (cleaned.includes("heavily played")) {
+    return {
+      label: "Heavily Played",
+      slug: "heavily-played"
+    };
+  }
+
+  if (cleaned.includes("damaged")) {
+    return {
+      label: "Damaged",
+      slug: "damaged"
+    };
+  }
+
+  return {
+    label: "",
+    slug: "unknown"
+  };
 }
 
 function renderFreshResults() {
@@ -158,7 +210,7 @@ function renderNextBatch() {
 
   nextItems.forEach(item => {
     const card = document.createElement("article");
-    card.className = "inventory-item";
+    card.className = `inventory-item condition-${item.conditionSlug || "unknown"}`;
 
     const imageWrap = document.createElement("div");
     imageWrap.className = "inventory-image-wrap";
@@ -180,15 +232,27 @@ function renderNextBatch() {
     const topLine = document.createElement("div");
     topLine.className = "inventory-info-top";
 
+    const badgeGroup = document.createElement("div");
+    badgeGroup.className = "badge-group";
+
     const typeBadge = document.createElement("span");
     typeBadge.className = `type-badge ${item.type || "unknown"}`;
     typeBadge.textContent = formatType(item.type);
+
+    badgeGroup.appendChild(typeBadge);
+
+    if (item.condition) {
+      const conditionBadge = document.createElement("span");
+      conditionBadge.className = `condition-badge ${item.conditionSlug}`;
+      conditionBadge.textContent = item.condition;
+      badgeGroup.appendChild(conditionBadge);
+    }
 
     const price = document.createElement("span");
     price.className = "item-price";
     price.textContent = formatPrice(item.price);
 
-    topLine.appendChild(typeBadge);
+    topLine.appendChild(badgeGroup);
     topLine.appendChild(price);
 
     const title = document.createElement("h3");
