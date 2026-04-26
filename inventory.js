@@ -14,13 +14,29 @@ const showFrontBtn = document.getElementById("showFrontBtn");
 const showBackBtn = document.getElementById("showBackBtn");
 const lightboxLabel = document.getElementById("lightboxLabel");
 
+const requestListButton = document.getElementById("requestListButton");
+const requestListCount = document.getElementById("requestListCount");
+const requestDrawer = document.getElementById("requestDrawer");
+const requestOverlay = document.getElementById("requestOverlay");
+const closeRequestDrawer = document.getElementById("closeRequestDrawer");
+const requestListItems = document.getElementById("requestListItems");
+const requestListEmpty = document.getElementById("requestListEmpty");
+const copyListBtn = document.getElementById("copyListBtn");
+const emailListBtn = document.getElementById("emailListBtn");
+const downloadTxtBtn = document.getElementById("downloadTxtBtn");
+const copyShareLinkBtn = document.getElementById("copyShareLinkBtn");
+const clearListBtn = document.getElementById("clearListBtn");
+const requestToast = document.getElementById("requestToast");
+
 let allItems = [];
 let filteredItems = [];
 let visibleCount = 0;
 let currentLightboxItem = null;
 let currentLightboxSide = "front";
+let selectedFilenames = new Set();
 
 const batchSize = 60;
+const requestListStorageKey = "chellaRequestListV1";
 
 async function loadInventory() {
   try {
@@ -38,13 +54,18 @@ async function loadInventory() {
 
     filteredItems = [...allItems];
 
+    loadSavedRequestList();
+    loadRequestListFromUrl();
+
     if (!Array.isArray(allItems) || allItems.length === 0) {
       imageCount.textContent = "No inventory found yet.";
       loadMoreBtn.classList.add("hidden");
+      updateRequestListUI();
       return;
     }
 
     renderFreshResults();
+    updateRequestListUI();
   } catch (error) {
     gallery.innerHTML = `
       <div class="error-message">
@@ -212,6 +233,10 @@ function renderNextBatch() {
     const card = document.createElement("article");
     card.className = `inventory-item condition-${item.conditionSlug || "unknown"}`;
 
+    if (selectedFilenames.has(item.filename)) {
+      card.classList.add("request-added");
+    }
+
     const imageWrap = document.createElement("div");
     imageWrap.className = "inventory-image-wrap";
 
@@ -261,9 +286,20 @@ function renderNextBatch() {
     const set = document.createElement("p");
     set.textContent = item.set ? item.set : "Set not listed";
 
+    const requestButton = document.createElement("button");
+    requestButton.className = "add-list-btn";
+    requestButton.type = "button";
+    requestButton.dataset.filename = item.filename;
+    updateAddButtonState(requestButton, item.filename);
+
+    requestButton.addEventListener("click", () => {
+      toggleRequestItem(item.filename);
+    });
+
     info.appendChild(topLine);
     info.appendChild(title);
     info.appendChild(set);
+    info.appendChild(requestButton);
 
     card.appendChild(imageWrap);
     card.appendChild(info);
@@ -414,6 +450,379 @@ function closeImage() {
   currentLightboxSide = "front";
 }
 
+
+/* REQUEST LIST */
+
+function loadSavedRequestList() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(requestListStorageKey) || "[]");
+
+    if (Array.isArray(saved)) {
+      selectedFilenames = new Set(saved.filter(Boolean));
+    }
+  } catch (error) {
+    selectedFilenames = new Set();
+    console.error(error);
+  }
+}
+
+function saveRequestList() {
+  localStorage.setItem(
+    requestListStorageKey,
+    JSON.stringify(Array.from(selectedFilenames))
+  );
+}
+
+function loadRequestListFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const listParam = params.get("list");
+
+  if (!listParam) {
+    return;
+  }
+
+  const filenamesFromUrl = listParam
+    .split(",")
+    .map(value => decodeURIComponent(value.trim()))
+    .filter(Boolean);
+
+  if (filenamesFromUrl.length === 0) {
+    return;
+  }
+
+  const validFilenames = new Set(allItems.map(item => item.filename));
+
+  filenamesFromUrl.forEach(filename => {
+    if (validFilenames.has(filename)) {
+      selectedFilenames.add(filename);
+    }
+  });
+
+  saveRequestList();
+}
+
+function getSelectedItems() {
+  const selected = Array.from(selectedFilenames);
+
+  return selected
+    .map(filename => allItems.find(item => item.filename === filename))
+    .filter(Boolean);
+}
+
+function toggleRequestItem(filename) {
+  if (selectedFilenames.has(filename)) {
+    selectedFilenames.delete(filename);
+    showToast("Removed from your list.");
+  } else {
+    selectedFilenames.add(filename);
+    showToast("Added to your list.");
+  }
+
+  saveRequestList();
+  updateRequestListUI();
+  updateVisibleInventoryButtons();
+}
+
+function removeRequestItem(filename) {
+  selectedFilenames.delete(filename);
+  saveRequestList();
+  updateRequestListUI();
+  updateVisibleInventoryButtons();
+  showToast("Removed from your list.");
+}
+
+function clearRequestList() {
+  if (selectedFilenames.size === 0) {
+    showToast("Your list is already empty.");
+    return;
+  }
+
+  selectedFilenames.clear();
+  saveRequestList();
+  updateRequestListUI();
+  updateVisibleInventoryButtons();
+  showToast("Request list cleared.");
+}
+
+function updateVisibleInventoryButtons() {
+  document.querySelectorAll(".add-list-btn").forEach(button => {
+    const filename = button.dataset.filename;
+    updateAddButtonState(button, filename);
+  });
+
+  document.querySelectorAll(".inventory-item").forEach(card => {
+    const button = card.querySelector(".add-list-btn");
+    if (!button) return;
+
+    const filename = button.dataset.filename;
+    card.classList.toggle("request-added", selectedFilenames.has(filename));
+  });
+}
+
+function updateAddButtonState(button, filename) {
+  const isAdded = selectedFilenames.has(filename);
+
+  button.classList.toggle("added", isAdded);
+  button.textContent = isAdded ? "Added to List" : "Add to List";
+  button.setAttribute(
+    "aria-label",
+    isAdded ? "Remove this item from request list" : "Add this item to request list"
+  );
+}
+
+function updateRequestListUI() {
+  const selectedItems = getSelectedItems();
+  const count = selectedItems.length;
+
+  requestListCount.textContent = count.toString();
+
+  if (count === 0) {
+    requestListItems.innerHTML = "";
+    requestListEmpty.classList.remove("hidden");
+    copyListBtn.disabled = true;
+    emailListBtn.disabled = true;
+    downloadTxtBtn.disabled = true;
+    copyShareLinkBtn.disabled = true;
+    clearListBtn.disabled = true;
+    return;
+  }
+
+  requestListEmpty.classList.add("hidden");
+  copyListBtn.disabled = false;
+  emailListBtn.disabled = false;
+  downloadTxtBtn.disabled = false;
+  copyShareLinkBtn.disabled = false;
+  clearListBtn.disabled = false;
+
+  requestListItems.innerHTML = "";
+
+  selectedItems.forEach((item, index) => {
+    const row = document.createElement("article");
+    row.className = "request-list-item";
+
+    const thumb = document.createElement("img");
+    thumb.src = `images/${encodeURIComponent(item.filename)}`;
+    thumb.alt = buildAltText(item);
+    thumb.loading = "lazy";
+
+    const details = document.createElement("div");
+    details.className = "request-list-details";
+
+    const title = document.createElement("h3");
+    title.textContent = item.name || `Item ${index + 1}`;
+
+    const meta = document.createElement("p");
+    meta.textContent = `${item.set || "Set not listed"} • ${formatType(item.type)} • ${formatPrice(item.price)}`;
+
+    const file = document.createElement("span");
+    file.textContent = item.filename;
+
+    details.appendChild(title);
+    details.appendChild(meta);
+    details.appendChild(file);
+
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.className = "request-remove-btn";
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", () => {
+      removeRequestItem(item.filename);
+    });
+
+    row.appendChild(thumb);
+    row.appendChild(details);
+    row.appendChild(removeButton);
+
+    requestListItems.appendChild(row);
+  });
+}
+
+function buildRequestListText() {
+  const selectedItems = getSelectedItems();
+
+  if (selectedItems.length === 0) {
+    return "";
+  }
+
+  const lines = [
+    "Hi Chella Collectibles,",
+    "",
+    "I'm interested in the following items from your inventory:",
+    ""
+  ];
+
+  selectedItems.forEach((item, index) => {
+    lines.push(`${index + 1}. ${item.name || "Unnamed Item"}`);
+    lines.push(`Set: ${item.set || "Set not listed"}`);
+    lines.push(`Type: ${formatType(item.type)}`);
+    lines.push(`Price: ${formatPrice(item.price)}`);
+
+    if (item.condition) {
+      lines.push(`Condition: ${item.condition}`);
+    }
+
+    lines.push(`Front Image/File: ${item.filename}`);
+
+    if (item.backFilename) {
+      lines.push(`Back Image/File: ${item.backFilename}`);
+    }
+
+    lines.push("");
+  });
+
+  lines.push("Thank you!");
+
+  return lines.join("\n");
+}
+
+async function copyTextToClipboard(text) {
+  if (!text) return false;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";
+  textArea.style.left = "-9999px";
+  textArea.style.top = "-9999px";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  const successful = document.execCommand("copy");
+  textArea.remove();
+
+  return successful;
+}
+
+async function copyRequestList() {
+  const text = buildRequestListText();
+
+  if (!text) {
+    showToast("Your list is empty.");
+    return;
+  }
+
+  try {
+    await copyTextToClipboard(text);
+    showToast("Request list copied.");
+  } catch (error) {
+    console.error(error);
+    showToast("Copy failed. Try downloading the TXT file.");
+  }
+}
+
+function emailRequestList() {
+  const text = buildRequestListText();
+
+  if (!text) {
+    showToast("Your list is empty.");
+    return;
+  }
+
+  const subject = "Chella Collectibles Inventory Request";
+  const mailtoUrl = `mailto:chellasales.business@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+
+  window.location.href = mailtoUrl;
+}
+
+function downloadRequestListTxt() {
+  const text = buildRequestListText();
+
+  if (!text) {
+    showToast("Your list is empty.");
+    return;
+  }
+
+  const blob = new Blob([text], {
+    type: "text/plain;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "chella-request-list.txt";
+  document.body.appendChild(link);
+  link.click();
+
+  link.remove();
+  URL.revokeObjectURL(url);
+
+  showToast("TXT downloaded.");
+}
+
+function buildShareLink() {
+  const selectedItems = getSelectedItems();
+
+  if (selectedItems.length === 0) {
+    return "";
+  }
+
+  const encodedList = selectedItems
+    .map(item => encodeURIComponent(item.filename))
+    .join(",");
+
+  const url = new URL(window.location.href);
+  url.search = "";
+  url.hash = "";
+  url.searchParams.set("list", encodedList);
+
+  return url.toString();
+}
+
+async function copyShareLink() {
+  const shareLink = buildShareLink();
+
+  if (!shareLink) {
+    showToast("Your list is empty.");
+    return;
+  }
+
+  try {
+    await copyTextToClipboard(shareLink);
+    showToast("Share link copied.");
+  } catch (error) {
+    console.error(error);
+    showToast("Copy failed. Try copying your list instead.");
+  }
+}
+
+function openRequestDrawer() {
+  updateRequestListUI();
+  requestDrawer.classList.add("active");
+  requestOverlay.classList.add("active");
+  requestDrawer.setAttribute("aria-hidden", "false");
+  requestOverlay.setAttribute("aria-hidden", "false");
+}
+
+function closeRequestListDrawer() {
+  requestDrawer.classList.remove("active");
+  requestOverlay.classList.remove("active");
+  requestDrawer.setAttribute("aria-hidden", "true");
+  requestOverlay.setAttribute("aria-hidden", "true");
+}
+
+let toastTimeout;
+
+function showToast(message) {
+  requestToast.textContent = message;
+  requestToast.classList.add("active");
+
+  clearTimeout(toastTimeout);
+
+  toastTimeout = setTimeout(() => {
+    requestToast.classList.remove("active");
+  }, 2200);
+}
+
+
+/* EVENTS */
+
 loadMoreBtn.addEventListener("click", renderNextBatch);
 
 closeLightbox.addEventListener("click", closeImage);
@@ -436,9 +845,20 @@ lightbox.addEventListener("click", event => {
   }
 });
 
+requestListButton.addEventListener("click", openRequestDrawer);
+closeRequestDrawer.addEventListener("click", closeRequestListDrawer);
+requestOverlay.addEventListener("click", closeRequestListDrawer);
+
+copyListBtn.addEventListener("click", copyRequestList);
+emailListBtn.addEventListener("click", emailRequestList);
+downloadTxtBtn.addEventListener("click", downloadRequestListTxt);
+copyShareLinkBtn.addEventListener("click", copyShareLink);
+clearListBtn.addEventListener("click", clearRequestList);
+
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
     closeImage();
+    closeRequestListDrawer();
   }
 
   if (!lightbox.classList.contains("active") || !currentLightboxItem) {
