@@ -1202,4 +1202,49 @@
     height: 46px;
     font-size: 32px;
   }
+
+  /* FINAL POLISH: HIDE TYPE BADGE + EMPHASIZE PRICE */
+
+.type-badge {
+  display: none !important;
+}
+
+.inventory-info-top {
+  align-items: center;
+}
+
+.badge-group {
+  flex: 1;
+}
+
+.item-price {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255,255,255,0.34), transparent 42%),
+    linear-gradient(135deg, var(--navy), var(--navy-2));
+  color: white;
+  font-family: "Outfit", "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow:
+    0 12px 24px rgba(7, 20, 47, 0.16),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+@media (max-width: 640px) {
+  .item-price {
+    width: fit-content;
+    margin-top: 6px;
+    font-size: 16px;
+    min-height: 34px;
+    padding: 7px 11px;
+  }
+}
 }
