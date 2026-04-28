@@ -5,6 +5,7 @@ const loadMoreBtn = document.getElementById("loadMoreBtn");
 const nameSearch = document.getElementById("nameSearch");
 const typeFilter = document.getElementById("typeFilter");
 const setSearch = document.getElementById("setSearch");
+const priceSort = document.getElementById("priceSort");
 const clearFiltersBtn = document.getElementById("clearFiltersBtn");
 
 const lightbox = document.getElementById("lightbox");
@@ -54,7 +55,7 @@ async function loadInventory() {
       .map(cleanInventoryItem)
       .filter(item => item.filename);
 
-    filteredItems = [...allItems];
+    filteredItems = sortItems([...allItems]);
 
     loadSavedRequestList();
     loadRequestListFromUrl();
@@ -210,6 +211,32 @@ function extractCondition(name) {
   return { label: "", slug: "unknown" };
 }
 
+function getPriceValue(price) {
+  const numeric = Number(String(price || "").replace(/[$,]/g, "").trim());
+  return Number.isFinite(numeric) ? numeric : null;
+}
+
+function sortItems(items) {
+  const sortValue = priceSort ? priceSort.value : "";
+
+  if (!sortValue) {
+    return [...items];
+  }
+
+  return [...items].sort((a, b) => {
+    const priceA = getPriceValue(a.price);
+    const priceB = getPriceValue(b.price);
+
+    if (priceA === null && priceB === null) return 0;
+    if (priceA === null) return 1;
+    if (priceB === null) return -1;
+
+    return sortValue === "high-low"
+      ? priceB - priceA
+      : priceA - priceB;
+  });
+}
+
 function renderFreshResults() {
   visibleCount = 0;
   gallery.innerHTML = "";
@@ -317,13 +344,15 @@ function applyFilters() {
   const typeQuery = typeFilter.value.trim().toLowerCase();
   const setQuery = setSearch.value.trim().toLowerCase();
 
-  filteredItems = allItems.filter(item => {
+  const matchedItems = allItems.filter(item => {
     const matchesName = !nameQuery || item.name.toLowerCase().includes(nameQuery);
     const matchesType = !typeQuery || item.type === typeQuery;
     const matchesSet = !setQuery || item.set.toLowerCase().includes(setQuery);
 
     return matchesName && matchesType && matchesSet;
   });
+
+  filteredItems = sortItems(matchedItems);
 
   renderFreshResults();
 }
@@ -332,6 +361,7 @@ function clearFilters() {
   nameSearch.value = "";
   typeFilter.value = "";
   setSearch.value = "";
+  priceSort.value = "";
 
   filteredItems = [...allItems];
   renderFreshResults();
@@ -867,6 +897,7 @@ document.addEventListener("keydown", event => {
 nameSearch.addEventListener("input", applyFilters);
 typeFilter.addEventListener("change", applyFilters);
 setSearch.addEventListener("input", applyFilters);
+priceSort.addEventListener("change", applyFilters);
 clearFiltersBtn.addEventListener("click", clearFilters);
 
 loadInventory();

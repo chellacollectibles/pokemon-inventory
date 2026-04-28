@@ -20,6 +20,26 @@
 
   <link rel="stylesheet" href="home.css?v=20" />
   <link rel="stylesheet" href="inventory.css?v=11" />
+
+  <style>
+    @media (min-width: 980px) {
+      .filter-grid {
+        grid-template-columns: 1.15fr 0.75fr 1fr 0.85fr;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .filter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -48,7 +68,7 @@
         <span>Search Tools</span>
         <h1>Find cards faster</h1>
         <p>
-          Search current inventory by card name, item type, or set. If you are interested in an item,
+          Search current inventory by card name, item type, set, or sort by price. If you are interested in an item,
           add it to your request list and send it to us.
         </p>
       </div>
@@ -82,6 +102,15 @@
             placeholder="Example: Evolving Skies, Crown Zenith"
             autocomplete="off"
           />
+        </label>
+
+        <label class="filter-field">
+          <span>Sort Price</span>
+          <select id="priceSort">
+            <option value="">Default Order</option>
+            <option value="high-low">Price: High to Low</option>
+            <option value="low-high">Price: Low to High</option>
+          </select>
         </label>
       </div>
 
@@ -146,7 +175,6 @@
           <a href="inventory.html">Inventory</a>
           <a href="sell-to-us.html">Sell To Us</a>
           <a href="faq.html">FAQ</a>
-          <a href="contact.html">Contact</a>
         </div>
 
         <div class="footer-column contact-social-column">
@@ -234,6 +262,6 @@
     </div>
   </div>
 
-  <script src="inventory.js?v=5"></script>
+  <script src="inventory.js?v=6"></script>
 </body>
 </html>
