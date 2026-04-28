@@ -36,7 +36,7 @@ let currentLightboxSide = "front";
 let selectedFilenames = new Set();
 let shouldOpenSharedList = false;
 
-const batchSize = 60;
+const batchSize = 24;
 const requestListStorageKey = "chellaRequestListV1";
 const shareLinkSeparator = "~";
 
