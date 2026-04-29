@@ -1,6 +1,11 @@
 const gallery = document.getElementById("gallery");
 const imageCount = document.getElementById("imageCount");
-const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+const paginationControls = document.getElementById("paginationControls");
+const prevPageBtn = document.getElementById("prevPageBtn");
+const nextPageBtn = document.getElementById("nextPageBtn");
+const pageInfo = document.getElementById("pageInfo");
+const pageButtons = document.getElementById("pageButtons");
 
 const nameSearch = document.getElementById("nameSearch");
 const typeFilter = document.getElementById("typeFilter");
@@ -31,19 +36,19 @@ const requestToast = document.getElementById("requestToast");
 
 let allItems = [];
 let filteredItems = [];
-let visibleCount = 0;
+let currentPage = 1;
 let currentLightboxItem = null;
 let currentLightboxSide = "front";
 let selectedFilenames = new Set();
 let shouldOpenSharedList = false;
 
-const batchSize = 24;
+const itemsPerPage = 32;
 const requestListStorageKey = "chellaRequestListV1";
 const shareLinkSeparator = "~";
 
 async function loadInventory() {
   try {
-    const response = await fetch("inventory.csv?v=" + Date.now());
+    const response = await fetch("inventory.csv?v=2");
 
     if (!response.ok) {
       throw new Error("Could not load inventory.csv");
@@ -56,18 +61,20 @@ async function loadInventory() {
       .filter(item => item.filename);
 
     filteredItems = sortItems([...allItems]);
+    currentPage = getPageFromUrl();
 
     loadSavedRequestList();
     loadRequestListFromUrl();
 
     if (!Array.isArray(allItems) || allItems.length === 0) {
       imageCount.textContent = "No inventory found yet.";
-      loadMoreBtn.classList.add("hidden");
+      paginationControls.hidden = true;
       updateRequestListUI();
       return;
     }
 
-    renderFreshResults();
+    clampCurrentPage();
+    renderCurrentPage();
     updateRequestListUI();
 
     if (shouldOpenSharedList) {
@@ -84,7 +91,7 @@ async function loadInventory() {
     `;
 
     imageCount.textContent = "Unable to load inventory.";
-    loadMoreBtn.classList.add("hidden");
+    paginationControls.hidden = true;
 
     console.error(error);
   }
@@ -237,17 +244,61 @@ function sortItems(items) {
   });
 }
 
-function renderFreshResults() {
-  visibleCount = 0;
-  gallery.innerHTML = "";
-  updateCount();
-  renderNextBatch();
+function getPageFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const page = Number(params.get("page"));
+
+  return Number.isInteger(page) && page > 0 ? page : 1;
 }
 
-function renderNextBatch() {
-  const nextItems = filteredItems.slice(visibleCount, visibleCount + batchSize);
+function updatePageInUrl() {
+  const url = new URL(window.location.href);
 
-  nextItems.forEach(item => {
+  if (currentPage > 1) {
+    url.searchParams.set("page", String(currentPage));
+  } else {
+    url.searchParams.delete("page");
+  }
+
+  window.history.replaceState({}, "", url.toString());
+}
+
+function getTotalPages() {
+  return Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
+}
+
+function clampCurrentPage() {
+  const totalPages = getTotalPages();
+
+  if (currentPage < 1) {
+    currentPage = 1;
+  }
+
+  if (currentPage > totalPages) {
+    currentPage = totalPages;
+  }
+}
+
+function renderCurrentPage() {
+  clampCurrentPage();
+
+  gallery.innerHTML = "";
+  updateCount();
+
+  if (filteredItems.length === 0) {
+    gallery.innerHTML = `
+      <div class="empty-message">
+        No items match your current search.
+      </div>
+    `;
+    updatePaginationControls();
+    return;
+  }
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const pageItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+
+  pageItems.forEach(item => {
     const card = document.createElement("article");
     card.className = `inventory-item condition-${item.conditionSlug || "unknown"}`;
 
@@ -262,6 +313,7 @@ function renderNextBatch() {
     img.src = `images/${encodeURIComponent(item.filename)}`;
     img.alt = buildAltText(item);
     img.loading = "lazy";
+    img.decoding = "async";
 
     img.addEventListener("click", () => {
       openLightbox(item, "front");
@@ -319,23 +371,109 @@ function renderNextBatch() {
     gallery.appendChild(card);
   });
 
-  visibleCount += nextItems.length;
+  updatePaginationControls();
+  updatePageInUrl();
+}
 
-  if (filteredItems.length === 0) {
-    gallery.innerHTML = `
-      <div class="empty-message">
-        No items match your current search.
-      </div>
-    `;
-    loadMoreBtn.classList.add("hidden");
+function buildPageList(totalPages) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  const pages = [1];
+
+  if (currentPage > 4) {
+    pages.push("...");
+  }
+
+  const start = Math.max(2, currentPage - 1);
+  const end = Math.min(totalPages - 1, currentPage + 1);
+
+  for (let page = start; page <= end; page++) {
+    pages.push(page);
+  }
+
+  if (currentPage < totalPages - 3) {
+    pages.push("...");
+  }
+
+  pages.push(totalPages);
+
+  return pages;
+}
+
+function updatePaginationControls() {
+  const totalPages = getTotalPages();
+
+  paginationControls.hidden = filteredItems.length === 0;
+  pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+  prevPageBtn.disabled = currentPage <= 1;
+  nextPageBtn.disabled = currentPage >= totalPages;
+
+  pageButtons.innerHTML = "";
+
+  if (totalPages <= 1) {
     return;
   }
 
-  if (visibleCount >= filteredItems.length) {
-    loadMoreBtn.classList.add("hidden");
+  buildPageList(totalPages).forEach(page => {
+    if (page === "...") {
+      const ellipsis = document.createElement("span");
+      ellipsis.className = "pagination-ellipsis";
+      ellipsis.textContent = "…";
+      pageButtons.appendChild(ellipsis);
+      return;
+    }
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "pagination-page-btn";
+    button.textContent = page.toString();
+    button.setAttribute("aria-label", `Go to page ${page}`);
+
+    if (page === currentPage) {
+      button.classList.add("active");
+      button.setAttribute("aria-current", "page");
+    }
+
+    button.addEventListener("click", () => {
+      goToPage(page);
+    });
+
+    pageButtons.appendChild(button);
+  });
+}
+
+function updateCount() {
+  const total = filteredItems.length.toLocaleString();
+
+  if (filteredItems.length === 0) {
+    imageCount.textContent = "0 items";
+    return;
+  }
+
+  const start = ((currentPage - 1) * itemsPerPage) + 1;
+  const end = Math.min(currentPage * itemsPerPage, filteredItems.length);
+
+  if (filteredItems.length === 1) {
+    imageCount.textContent = "1 item";
   } else {
-    loadMoreBtn.classList.remove("hidden");
-    loadMoreBtn.textContent = `Load More (${filteredItems.length - visibleCount} remaining)`;
+    imageCount.textContent = `Showing ${start.toLocaleString()}-${end.toLocaleString()} of ${total} items`;
+  }
+}
+
+function goToPage(page) {
+  currentPage = page;
+  renderCurrentPage();
+
+  const inventorySection = document.getElementById("inventory-gallery");
+
+  if (inventorySection) {
+    inventorySection.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   }
 }
 
@@ -353,8 +491,8 @@ function applyFilters() {
   });
 
   filteredItems = sortItems(matchedItems);
-
-  renderFreshResults();
+  currentPage = 1;
+  renderCurrentPage();
 }
 
 function clearFilters() {
@@ -363,18 +501,9 @@ function clearFilters() {
   setSearch.value = "";
   priceSort.value = "";
 
-  filteredItems = [...allItems];
-  renderFreshResults();
-}
-
-function updateCount() {
-  const total = filteredItems.length.toLocaleString();
-
-  if (filteredItems.length === 1) {
-    imageCount.textContent = "1 item";
-  } else {
-    imageCount.textContent = `${total} items`;
-  }
+  filteredItems = sortItems([...allItems]);
+  currentPage = 1;
+  renderCurrentPage();
 }
 
 function openLightbox(item, side) {
@@ -624,6 +753,7 @@ function updateRequestListUI() {
     thumb.src = `images/${encodeURIComponent(item.filename)}`;
     thumb.alt = buildAltText(item);
     thumb.loading = "lazy";
+    thumb.decoding = "async";
 
     const details = document.createElement("div");
     details.className = "request-list-details";
@@ -842,7 +972,15 @@ function showToast(message) {
 
 /* EVENTS */
 
-loadMoreBtn.addEventListener("click", renderNextBatch);
+prevPageBtn.addEventListener("click", () => {
+  if (currentPage <= 1) return;
+  goToPage(currentPage - 1);
+});
+
+nextPageBtn.addEventListener("click", () => {
+  if (currentPage >= getTotalPages()) return;
+  goToPage(currentPage + 1);
+});
 
 closeLightbox.addEventListener("click", closeImage);
 

@@ -39,6 +39,146 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .pagination-wrap {
+      margin-top: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .pagination-btn,
+    .pagination-page-btn {
+      min-height: 54px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--yellow), var(--gold));
+      color: #172033;
+      font-family: "Outfit", "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 16px 30px rgba(255, 184, 46, 0.26);
+      transition: 0.2s ease;
+    }
+
+    .pagination-btn {
+      padding: 15px 24px;
+    }
+
+    .pagination-page-btn {
+      min-width: 54px;
+      padding: 14px 17px;
+      background: linear-gradient(135deg, #ffffff, #f4f7fb);
+      border: 1px solid rgba(40, 107, 216, 0.24);
+      color: var(--navy);
+      box-shadow:
+        0 12px 24px rgba(7, 20, 47, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .pagination-btn:hover:not(:disabled),
+    .pagination-page-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 38px rgba(255, 184, 46, 0.34);
+    }
+
+    .pagination-page-btn.active {
+      background: linear-gradient(135deg, var(--navy), var(--navy-2));
+      color: white;
+      border-color: rgba(40, 107, 216, 0.36);
+    }
+
+    .pagination-btn:disabled,
+    .pagination-page-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .pagination-info {
+      min-height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 223, 60, 0.18), transparent 40%),
+        linear-gradient(135deg, #ffffff, #f4f7fb);
+      border: 1px solid rgba(40, 107, 216, 0.24);
+      box-shadow:
+        0 12px 26px rgba(7, 20, 47, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      color: var(--navy);
+      font-family: "Outfit", "Inter", sans-serif;
+      font-weight: 900;
+    }
+
+    .pagination-pages {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pagination-ellipsis {
+      color: var(--navy);
+      font-family: "Outfit", "Inter", sans-serif;
+      font-weight: 900;
+      padding: 0 2px;
+    }
+
+    @media (max-width: 640px) {
+      .pagination-wrap {
+        gap: 10px;
+      }
+
+      .pagination-btn,
+      .pagination-info {
+        min-height: 50px;
+      }
+
+      .pagination-btn {
+        flex: 1 1 130px;
+      }
+
+      .pagination-info {
+        order: -1;
+        flex: 1 1 100%;
+      }
+
+      .pagination-pages {
+        flex: 1 1 100%;
+      }
+
+      .pagination-page-btn {
+        min-height: 46px;
+        min-width: 46px;
+        padding: 11px 13px;
+        font-size: 14px;
+      }
+    }
+
+    @media (hover: none) {
+      .inventory-item:hover {
+        transform: none;
+      }
+
+      .inventory-item:hover img {
+        transform: none;
+        filter: none;
+      }
+    }
+
+    .inventory-item {
+      content-visibility: auto;
+      contain-intrinsic-size: 420px 560px;
+    }
   </style>
 </head>
 
@@ -139,9 +279,12 @@
 
       <section id="gallery" class="inventory-gallery"></section>
 
-      <div class="load-more-wrap">
-        <button id="loadMoreBtn" class="load-more-btn">Load More</button>
-      </div>
+      <nav id="paginationControls" class="pagination-wrap" aria-label="Inventory pages" hidden>
+        <button id="prevPageBtn" class="pagination-btn" type="button">Previous</button>
+        <span id="pageInfo" class="pagination-info">Page 1 of 1</span>
+        <div id="pageButtons" class="pagination-pages" aria-label="Page numbers"></div>
+        <button id="nextPageBtn" class="pagination-btn" type="button">Next</button>
+      </nav>
     </section>
 
   </main>
@@ -262,6 +405,6 @@
     </div>
   </div>
 
-  <script src="inventory.js?v=6"></script>
+  <script src="inventory.js?v=7"></script>
 </body>
 </html>
