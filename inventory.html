@@ -219,6 +219,29 @@
       contain-intrinsic-size: 420px 560px;
     }
 
+
+    .inventory-info .item-price {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.30), transparent 40%),
+        linear-gradient(135deg, var(--yellow), var(--gold));
+      color: var(--navy);
+      font-family: "Outfit", "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+      box-shadow:
+        0 12px 24px rgba(255, 184, 46, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.34);
+      border: 1px solid rgba(255, 184, 46, 0.45);
+    }
+
     /* Updated product lightbox */
     .lightbox {
       overflow-y: auto;
@@ -428,6 +451,11 @@
     .scan-disclaimer a:hover {
       color: #ffffff;
       border-bottom-color: #ffffff;
+    }
+
+
+    .condition-guide-note {
+      margin-top: 12px;
     }
 
     .lightbox-details-actions {
@@ -752,24 +780,22 @@
             <strong id="lightboxItemCondition">Not listed</strong>
           </div>
 
-          <div class="item-meta-row">
-            <span>Front File</span>
-            <strong id="lightboxItemFile">Not listed</strong>
-          </div>
-
-          <div class="item-meta-row">
-            <span>Back File</span>
-            <strong id="lightboxItemBackFile">No back image listed</strong>
-          </div>
         </div>
 
         <div class="scan-disclaimer">
-          <span class="scan-disclaimer-kicker">Image & Condition Notes</span>
+          <span class="scan-disclaimer-kicker">Image Scan Notes</span>
           <p>
             Card images are directly scanned by us. Scans may occasionally show scanner lines,
             dust, glare, faint artifacts, or other details picked up by the scanner that may not
             be present on the card itself. Feel free to reach out for better pictures or videos
-            before purchasing. We use the
+            before purchasing.
+          </p>
+        </div>
+
+        <div class="scan-disclaimer condition-guide-note">
+          <span class="scan-disclaimer-kicker">Condition Guide</span>
+          <p>
+            We use the
             <a href="https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview" target="_blank" rel="noopener noreferrer">TCGplayer Card Condition Guide</a>
             to help gauge raw card conditions.
           </p>
@@ -783,6 +809,6 @@
     </div>
   </div>
 
-  <script src="inventory.js?v=9"></script>
+  <script src="inventory.js?v=10"></script>
 </body>
 </html>

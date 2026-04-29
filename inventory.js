@@ -25,8 +25,6 @@ const lightboxItemPrice = document.getElementById("lightboxItemPrice");
 const lightboxItemSet = document.getElementById("lightboxItemSet");
 const lightboxItemType = document.getElementById("lightboxItemType");
 const lightboxItemCondition = document.getElementById("lightboxItemCondition");
-const lightboxItemFile = document.getElementById("lightboxItemFile");
-const lightboxItemBackFile = document.getElementById("lightboxItemBackFile");
 const lightboxAddToListBtn = document.getElementById("lightboxAddToListBtn");
 
 const requestListButton = document.getElementById("requestListButton");
@@ -575,8 +573,6 @@ function updateLightboxDetails() {
   lightboxItemSet.textContent = item.set || "Set not listed";
   lightboxItemType.textContent = formatType(item.type);
   lightboxItemCondition.textContent = item.condition || "Not listed";
-  lightboxItemFile.textContent = item.filename || "Not listed";
-  lightboxItemBackFile.textContent = item.backFilename || "No back image listed";
 
   if (lightboxAddToListBtn) {
     updateLightboxAddButton();
