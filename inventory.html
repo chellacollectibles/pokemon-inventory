@@ -218,6 +218,284 @@
       content-visibility: auto;
       contain-intrinsic-size: 420px 560px;
     }
+
+    /* Updated product lightbox */
+    .lightbox {
+      overflow-y: auto;
+      align-items: flex-start;
+      padding: 22px;
+    }
+
+    .lightbox-shell {
+      width: min(1220px, 100%);
+      min-height: calc(100vh - 44px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+      gap: 22px;
+      align-items: center;
+    }
+
+    .lightbox-viewer,
+    .lightbox-details {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 94% 10%, rgba(255, 223, 60, 0.10), transparent 26%),
+        linear-gradient(135deg, rgba(15, 31, 68, 0.98), rgba(7, 20, 47, 0.96));
+      box-shadow:
+        0 34px 90px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }
+
+    .lightbox-viewer {
+      min-height: min(920px, calc(100vh - 44px));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox-inner {
+      width: 100%;
+      max-height: none;
+    }
+
+    .lightbox-toolbar {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto 16px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 223, 60, 0.14), transparent 40%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.045));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: white;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }
+
+    .lightbox-toolbar span {
+      color: #ffffff;
+      font-family: "Outfit", "Inter", sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .lightbox-toggle {
+      background: rgba(7, 20, 47, 0.38);
+      border-radius: 999px;
+      padding: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .lightbox-toggle button {
+      border-radius: 999px;
+      border: none;
+      padding: 9px 14px;
+      font-family: "Outfit", "Inter", sans-serif;
+      font-weight: 900;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.78);
+      background: transparent;
+    }
+
+    .lightbox-toggle button.active {
+      background: linear-gradient(135deg, var(--yellow), var(--gold));
+      color: var(--navy);
+    }
+
+    #lightboxImage {
+      max-width: min(92vw, 860px);
+      max-height: calc(100vh - 190px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 22px;
+      background: #e8eef7;
+      box-shadow:
+        0 26px 70px rgba(0, 0, 0, 0.36),
+        0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
+
+    .lightbox-details {
+      align-self: center;
+      padding: 24px;
+      color: #edf4ff;
+    }
+
+    .lightbox-details-kicker,
+    .scan-disclaimer-kicker {
+      display: inline-flex;
+      margin-bottom: 10px;
+      color: var(--yellow);
+      font-family: "Outfit", "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .lightbox-details h2 {
+      margin: 0 0 10px;
+      color: #ffffff;
+      font-family: "Outfit", "Inter", sans-serif;
+      font-size: clamp(25px, 3vw, 34px);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .lightbox-details-subtitle {
+      margin: 0 0 18px;
+      color: #a9b6d0;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .item-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .item-meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 13px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .item-meta-row span {
+      color: #93a4c2;
+      font-weight: 850;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .item-meta-row strong {
+      color: #ffffff;
+      text-align: right;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .lightbox-price-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #10203f;
+      background: linear-gradient(135deg, var(--yellow), var(--gold));
+      font-family: "Outfit", "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 950;
+      box-shadow: 0 14px 28px rgba(255, 184, 46, 0.18);
+    }
+
+    .scan-disclaimer {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(244, 63, 63, 0.10), transparent 26%),
+        rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+    }
+
+    .scan-disclaimer p {
+      margin: 0;
+      color: #c7d2e8;
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .scan-disclaimer a {
+      color: var(--yellow);
+      font-weight: 900;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 223, 60, 0.42);
+    }
+
+    .scan-disclaimer a:hover {
+      color: #ffffff;
+      border-bottom-color: #ffffff;
+    }
+
+    .lightbox-details-actions {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .lightbox-details-actions a,
+    .lightbox-details-actions button {
+      width: 100%;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue), #1e4f9e);
+      color: white;
+      font-family: "Outfit", "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .lightbox-details-actions button {
+      background: linear-gradient(135deg, var(--yellow), var(--gold));
+      color: var(--navy);
+    }
+
+    .close-btn {
+      z-index: 10001;
+      top: 18px;
+      right: 18px;
+      background: rgba(244, 63, 63, 0.90);
+      color: white;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+    }
+
+    @media (max-width: 900px) {
+      .lightbox {
+        padding: 16px;
+      }
+
+      .lightbox-shell {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-top: 54px;
+      }
+
+      .lightbox-viewer {
+        min-height: auto;
+        padding: 14px;
+      }
+
+      #lightboxImage {
+        max-width: 100%;
+        max-height: 68vh;
+      }
+
+      .lightbox-details {
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 
@@ -435,20 +713,76 @@
   <div id="lightbox" class="lightbox" aria-hidden="true">
     <button id="closeLightbox" class="close-btn" aria-label="Close image">×</button>
 
-    <div class="lightbox-inner">
-      <div class="lightbox-toolbar">
-        <span id="lightboxLabel">Front Image</span>
+    <div class="lightbox-shell">
+      <section class="lightbox-viewer" aria-label="Inventory image preview">
+        <div class="lightbox-inner">
+          <div class="lightbox-toolbar">
+            <span id="lightboxLabel">Front Image</span>
 
-        <div class="lightbox-toggle">
-          <button id="showFrontBtn" type="button" class="active">Front</button>
-          <button id="showBackBtn" type="button">Back</button>
+            <div class="lightbox-toggle">
+              <button id="showFrontBtn" type="button" class="active">Front</button>
+              <button id="showBackBtn" type="button">Back</button>
+            </div>
+          </div>
+
+          <img id="lightboxImage" src="" alt="Expanded inventory item" />
         </div>
-      </div>
+      </section>
 
-      <img id="lightboxImage" src="" alt="Expanded inventory item" />
+      <aside class="lightbox-details" aria-label="About this inventory item">
+        <span class="lightbox-details-kicker">About This Item</span>
+        <h2 id="lightboxItemName">Inventory Item</h2>
+        <p id="lightboxItemSubtitle" class="lightbox-details-subtitle">Card details and purchase information.</p>
+
+        <div id="lightboxItemPrice" class="lightbox-price-pill">$0</div>
+
+        <div class="item-meta-grid">
+          <div class="item-meta-row">
+            <span>Set</span>
+            <strong id="lightboxItemSet">Not listed</strong>
+          </div>
+
+          <div class="item-meta-row">
+            <span>Type</span>
+            <strong id="lightboxItemType">Item</strong>
+          </div>
+
+          <div class="item-meta-row">
+            <span>Condition</span>
+            <strong id="lightboxItemCondition">Not listed</strong>
+          </div>
+
+          <div class="item-meta-row">
+            <span>Front File</span>
+            <strong id="lightboxItemFile">Not listed</strong>
+          </div>
+
+          <div class="item-meta-row">
+            <span>Back File</span>
+            <strong id="lightboxItemBackFile">No back image listed</strong>
+          </div>
+        </div>
+
+        <div class="scan-disclaimer">
+          <span class="scan-disclaimer-kicker">Image & Condition Notes</span>
+          <p>
+            Card images are directly scanned by us. Scans may occasionally show scanner lines,
+            dust, glare, faint artifacts, or other details picked up by the scanner that may not
+            be present on the card itself. Feel free to reach out for better pictures or videos
+            before purchasing. We use the
+            <a href="https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview" target="_blank" rel="noopener noreferrer">TCGplayer Card Condition Guide</a>
+            to help gauge raw card conditions.
+          </p>
+        </div>
+
+        <div class="lightbox-details-actions">
+          <a href="mailto:chellasales.business@gmail.com">Ask For More Photos</a>
+          <button id="lightboxAddToListBtn" type="button">Add To Request List</button>
+        </div>
+      </aside>
     </div>
   </div>
 
-  <script src="inventory.js?v=8"></script>
+  <script src="inventory.js?v=9"></script>
 </body>
 </html>

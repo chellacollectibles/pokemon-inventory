@@ -19,6 +19,15 @@ const closeLightbox = document.getElementById("closeLightbox");
 const showFrontBtn = document.getElementById("showFrontBtn");
 const showBackBtn = document.getElementById("showBackBtn");
 const lightboxLabel = document.getElementById("lightboxLabel");
+const lightboxItemName = document.getElementById("lightboxItemName");
+const lightboxItemSubtitle = document.getElementById("lightboxItemSubtitle");
+const lightboxItemPrice = document.getElementById("lightboxItemPrice");
+const lightboxItemSet = document.getElementById("lightboxItemSet");
+const lightboxItemType = document.getElementById("lightboxItemType");
+const lightboxItemCondition = document.getElementById("lightboxItemCondition");
+const lightboxItemFile = document.getElementById("lightboxItemFile");
+const lightboxItemBackFile = document.getElementById("lightboxItemBackFile");
+const lightboxAddToListBtn = document.getElementById("lightboxAddToListBtn");
 
 const requestListButton = document.getElementById("requestListButton");
 const requestListCount = document.getElementById("requestListCount");
@@ -524,6 +533,7 @@ function openLightbox(item, side) {
   currentLightboxItem = item;
   currentLightboxSide = side;
   updateLightboxImage();
+  updateLightboxDetails();
   lightbox.classList.add("active");
   lightbox.setAttribute("aria-hidden", "false");
 }
@@ -552,6 +562,36 @@ function updateLightboxImage() {
 
   showFrontBtn.classList.toggle("active", currentLightboxSide === "front");
   showBackBtn.classList.toggle("active", currentLightboxSide === "back");
+}
+
+function updateLightboxDetails() {
+  if (!currentLightboxItem) return;
+
+  const item = currentLightboxItem;
+
+  lightboxItemName.textContent = item.name || "Unnamed Item";
+  lightboxItemSubtitle.textContent = `${item.set || "Set not listed"} • ${formatType(item.type)}`;
+  lightboxItemPrice.textContent = formatPrice(item.price);
+  lightboxItemSet.textContent = item.set || "Set not listed";
+  lightboxItemType.textContent = formatType(item.type);
+  lightboxItemCondition.textContent = item.condition || "Not listed";
+  lightboxItemFile.textContent = item.filename || "Not listed";
+  lightboxItemBackFile.textContent = item.backFilename || "No back image listed";
+
+  if (lightboxAddToListBtn) {
+    updateLightboxAddButton();
+  }
+}
+
+function updateLightboxAddButton() {
+  if (!currentLightboxItem || !lightboxAddToListBtn) return;
+
+  const isAdded = selectedFilenames.has(currentLightboxItem.filename);
+  lightboxAddToListBtn.textContent = isAdded ? "Remove From Request List" : "Add To Request List";
+  lightboxAddToListBtn.setAttribute(
+    "aria-label",
+    isAdded ? "Remove this item from request list" : "Add this item to request list"
+  );
 }
 
 function buildAltText(item) {
@@ -684,6 +724,7 @@ function toggleRequestItem(filename) {
   saveRequestList();
   updateRequestListUI();
   updateVisibleInventoryButtons();
+  updateLightboxAddButton();
 }
 
 function removeRequestItem(filename) {
@@ -691,6 +732,7 @@ function removeRequestItem(filename) {
   saveRequestList();
   updateRequestListUI();
   updateVisibleInventoryButtons();
+  updateLightboxAddButton();
   showToast("Removed from your list.");
 }
 
@@ -704,6 +746,7 @@ function clearRequestList() {
   saveRequestList();
   updateRequestListUI();
   updateVisibleInventoryButtons();
+  updateLightboxAddButton();
   showToast("Request list cleared.");
 }
 
@@ -1014,6 +1057,13 @@ lightbox.addEventListener("click", event => {
     closeImage();
   }
 });
+
+if (lightboxAddToListBtn) {
+  lightboxAddToListBtn.addEventListener("click", () => {
+    if (!currentLightboxItem) return;
+    toggleRequestItem(currentLightboxItem.filename);
+  });
+}
 
 requestListButton.addEventListener("click", openRequestDrawer);
 closeRequestDrawer.addEventListener("click", closeRequestListDrawer);
