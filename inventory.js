@@ -381,19 +381,33 @@ function buildPageList(totalPages) {
   }
 
   const pages = [1];
+  const visibleAroundCurrent = new Set();
 
-  if (currentPage > 4) {
+  if (currentPage <= 4) {
+    for (let page = 2; page <= 5; page++) {
+      visibleAroundCurrent.add(page);
+    }
+  } else if (currentPage >= totalPages - 3) {
+    for (let page = totalPages - 4; page <= totalPages - 1; page++) {
+      visibleAroundCurrent.add(page);
+    }
+  } else {
+    visibleAroundCurrent.add(currentPage - 1);
+    visibleAroundCurrent.add(currentPage);
+    visibleAroundCurrent.add(currentPage + 1);
+  }
+
+  const middlePages = Array.from(visibleAroundCurrent)
+    .filter(page => page > 1 && page < totalPages)
+    .sort((a, b) => a - b);
+
+  if (middlePages[0] > 2) {
     pages.push("...");
   }
 
-  const start = Math.max(2, currentPage - 1);
-  const end = Math.min(totalPages - 1, currentPage + 1);
+  pages.push(...middlePages);
 
-  for (let page = start; page <= end; page++) {
-    pages.push(page);
-  }
-
-  if (currentPage < totalPages - 3) {
+  if (middlePages[middlePages.length - 1] < totalPages - 1) {
     pages.push("...");
   }
 

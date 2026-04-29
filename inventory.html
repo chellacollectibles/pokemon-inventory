@@ -42,10 +42,24 @@
 
     .pagination-wrap {
       margin-top: 38px;
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+    }
+
+    .pagination-top {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .pagination-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -61,10 +75,16 @@
       font-weight: 900;
       cursor: pointer;
       box-shadow: 0 16px 30px rgba(255, 184, 46, 0.26);
-      transition: 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
     }
 
     .pagination-btn {
+      min-width: 132px;
       padding: 15px 24px;
     }
 
@@ -86,9 +106,17 @@
     }
 
     .pagination-page-btn.active {
-      background: linear-gradient(135deg, var(--navy), var(--navy-2));
+      background: var(--navy);
       color: white;
-      border-color: rgba(40, 107, 216, 0.36);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow:
+        0 12px 26px rgba(7, 20, 47, 0.24);
+      transform: none;
+    }
+
+    .pagination-page-btn.active:hover {
+      box-shadow:
+        0 12px 26px rgba(7, 20, 47, 0.24);
     }
 
     .pagination-btn:disabled,
@@ -104,7 +132,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 18px;
+      padding: 14px 22px;
       border-radius: 18px;
       background:
         radial-gradient(circle at 20% 20%, rgba(255, 223, 60, 0.18), transparent 40%),
@@ -115,6 +143,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.9);
       color: var(--navy);
       font-family: "Outfit", "Inter", sans-serif;
+      font-size: 16px;
       font-weight: 900;
     }
 
@@ -135,7 +164,17 @@
 
     @media (max-width: 640px) {
       .pagination-wrap {
-        gap: 10px;
+        gap: 12px;
+      }
+
+      .pagination-top {
+        width: 100%;
+      }
+
+      .pagination-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
 
       .pagination-btn,
@@ -144,11 +183,11 @@
       }
 
       .pagination-btn {
-        flex: 1 1 130px;
+        width: 100%;
+        min-width: 0;
       }
 
       .pagination-info {
-        order: -1;
         flex: 1 1 100%;
       }
 
@@ -280,10 +319,15 @@
       <section id="gallery" class="inventory-gallery"></section>
 
       <nav id="paginationControls" class="pagination-wrap" aria-label="Inventory pages" hidden>
-        <button id="prevPageBtn" class="pagination-btn" type="button">Previous</button>
-        <span id="pageInfo" class="pagination-info">Page 1 of 1</span>
-        <div id="pageButtons" class="pagination-pages" aria-label="Page numbers"></div>
-        <button id="nextPageBtn" class="pagination-btn" type="button">Next</button>
+        <div class="pagination-top">
+          <span id="pageInfo" class="pagination-info">Page 1 of 1</span>
+          <div id="pageButtons" class="pagination-pages" aria-label="Page numbers"></div>
+        </div>
+
+        <div class="pagination-actions">
+          <button id="prevPageBtn" class="pagination-btn" type="button">Previous</button>
+          <button id="nextPageBtn" class="pagination-btn" type="button">Next</button>
+        </div>
       </nav>
     </section>
 
@@ -405,6 +449,6 @@
     </div>
   </div>
 
-  <script src="inventory.js?v=7"></script>
+  <script src="inventory.js?v=8"></script>
 </body>
 </html>
