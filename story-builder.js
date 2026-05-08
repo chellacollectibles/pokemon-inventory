@@ -145,13 +145,16 @@ function normalizeHeader(header) {
 }
 
 function cleanInventoryItem(item) {
+  const name = item.name || "";
+
   return {
     filename: item.filename || "",
     backFilename: item.back_filename || item.backfilename || "",
     type: normalizeType(item.type || ""),
-    name: item.name || "",
+    name: name,
     set: item.set || "",
-    price: item.price || ""
+    price: item.price || "",
+    conditionLabel: extractStoryCondition(name, item.type || "")
   };
 }
 
@@ -166,6 +169,21 @@ function normalizeType(type) {
   if (cleaned === "sealed") return "sealed";
 
   return cleaned;
+}
+
+function extractStoryCondition(name, type) {
+  const typeCleaned = normalizeType(type || "");
+  const cleaned = String(name || "").toLowerCase();
+
+  if (typeCleaned === "graded") return "Graded";
+
+  if (cleaned.includes("near mint")) return "NM";
+  if (cleaned.includes("lightly played")) return "LP";
+  if (cleaned.includes("moderately played")) return "MP";
+  if (cleaned.includes("heavily played")) return "HP";
+  if (cleaned.includes("damaged")) return "DMG";
+
+  return "";
 }
 
 function applyFiltersAndRender() {
@@ -316,118 +334,158 @@ function drawNoise() {
   ctx.restore();
 }
 
-function drawStoryFrame(storyItems) {
+function getGridMetrics() {
   const showHeader = showHeaderToggle.checked;
   const showFooter = showFooterToggle.checked;
 
-  const topSafe = showHeader ? 190 : 102;
-  const bottomSafe = showFooter ? 164 : 94;
+  const topSafe = showHeader ? 170 : 76;
+  const bottomSafe = showFooter ? 132 : 68;
 
-  const gridLeft = 50;
-  const gridRight = 50;
+  const gridLeft = 34;
+  const gridRight = 34;
   const gridTop = topSafe;
   const gridBottom = STORY_HEIGHT - bottomSafe;
 
-  const gapX = 30;
-  const gapY = 40;
+  const gapX = 18;
+  const gapY = 28;
   const slotWidth = (STORY_WIDTH - gridLeft - gridRight - gapX * 2) / 3;
   const slotHeight = (gridBottom - gridTop - gapY * 2) / 3;
+
+  return {
+    gridLeft,
+    gridRight,
+    gridTop,
+    gridBottom,
+    gapX,
+    gapY,
+    slotWidth,
+    slotHeight
+  };
+}
+
+function drawStoryFrame(storyItems) {
+  const metrics = getGridMetrics();
 
   ctx.save();
   ctx.strokeStyle = "rgba(255,255,255,0.08)";
   ctx.lineWidth = 2;
-  roundRect(ctx, 30, 32, STORY_WIDTH - 60, STORY_HEIGHT - 64, 36);
+  roundRect(ctx, 24, 28, STORY_WIDTH - 48, STORY_HEIGHT - 56, 36);
   ctx.stroke();
   ctx.restore();
 
   for (let i = 0; i < storyItems.length; i++) {
     const col = i % 3;
     const row = Math.floor(i / 3);
-    const x = gridLeft + col * (slotWidth + gapX);
-    const y = gridTop + row * (slotHeight + gapY);
+    const x = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
+    const y = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
     ctx.save();
-    ctx.fillStyle = "rgba(255,255,255,0.035)";
-    roundRect(ctx, x, y, slotWidth, slotHeight, 26);
+
+    const bg = backgroundSelect.value;
+    if (bg === "light") {
+      ctx.fillStyle = "rgba(255,255,255,0.68)";
+      ctx.strokeStyle = "rgba(7,20,47,0.08)";
+    } else {
+      ctx.fillStyle = "rgba(232,236,243,0.92)";
+      ctx.strokeStyle = "rgba(255,255,255,0.20)";
+    }
+
+    ctx.shadowColor = "rgba(0,0,0,0.24)";
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetY = 10;
+    roundRect(ctx, x, y, metrics.slotWidth, metrics.slotHeight, 28);
     ctx.fill();
+
+    ctx.shadowColor = "transparent";
+    ctx.lineWidth = 2;
+    roundRect(ctx, x, y, metrics.slotWidth, metrics.slotHeight, 28);
+    ctx.stroke();
+
     ctx.restore();
   }
 }
 
 function drawCardSlot(item, image, index) {
-  const showHeader = showHeaderToggle.checked;
-  const showFooter = showFooterToggle.checked;
-
-  const topSafe = showHeader ? 190 : 102;
-  const bottomSafe = showFooter ? 164 : 94;
-
-  const gridLeft = 50;
-  const gridRight = 50;
-  const gridTop = topSafe;
-  const gridBottom = STORY_HEIGHT - bottomSafe;
-
-  const gapX = 30;
-  const gapY = 40;
-  const slotWidth = (STORY_WIDTH - gridLeft - gridRight - gapX * 2) / 3;
-  const slotHeight = (gridBottom - gridTop - gapY * 2) / 3;
+  const metrics = getGridMetrics();
 
   const col = index % 3;
   const row = Math.floor(index / 3);
 
-  const slotX = gridLeft + col * (slotWidth + gapX);
-  const slotY = gridTop + row * (slotHeight + gapY);
+  const slotX = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
+  const slotY = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
-  const paddingX = 10;
+  const paddingX = 2;
   const paddingY = 8;
+
+  const infoBlockHeight = item.conditionLabel ? 128 : 104;
 
   const imageAreaX = slotX + paddingX;
   const imageAreaY = slotY + paddingY;
-  const imageAreaW = slotWidth - paddingX * 2;
-  const imageAreaH = slotHeight - paddingY * 2;
+  const imageAreaW = metrics.slotWidth - paddingX * 2;
+  const imageAreaH = metrics.slotHeight - paddingY * 2 - infoBlockHeight;
 
   if (!image) {
-    drawMissingImage(slotX, slotY, slotWidth, slotHeight, item.filename);
-    drawPrice(item.price, slotX, slotY, slotWidth, slotHeight);
+    drawMissingImage(slotX, slotY, metrics.slotWidth, metrics.slotHeight, item.filename);
+    drawPriceAndCondition(item, slotX, slotY, metrics.slotWidth, metrics.slotHeight);
     return;
   }
 
   const fit = containRect(image.naturalWidth, image.naturalHeight, imageAreaX, imageAreaY, imageAreaW, imageAreaH);
 
   ctx.save();
-  ctx.shadowColor = "rgba(0,0,0,0.42)";
-  ctx.shadowBlur = 18;
-  ctx.shadowOffsetY = 12;
+  ctx.shadowColor = "rgba(0,0,0,0.22)";
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 8;
   ctx.drawImage(image, fit.x, fit.y, fit.w, fit.h);
   ctx.restore();
 
-  drawPrice(item.price, slotX, slotY, slotWidth, slotHeight);
+  drawPriceAndCondition(item, slotX, slotY, metrics.slotWidth, metrics.slotHeight);
 }
 
-function drawPrice(price, slotX, slotY, slotW, slotH) {
-  const text = formatPrice(price);
+function drawPriceAndCondition(item, slotX, slotY, slotW, slotH) {
+  const priceText = formatPrice(item.price);
+  const conditionText = item.conditionLabel || "";
 
   ctx.save();
 
   ctx.font = "900 58px Inter, Arial, sans-serif";
-  const metrics = ctx.measureText(text);
-  const boxW = Math.max(178, metrics.width + 58);
-  const boxH = 96;
+  const priceMetrics = ctx.measureText(priceText);
+  const boxW = Math.max(172, priceMetrics.width + 56);
+  const priceBoxH = 86;
+  const conditionBoxH = conditionText ? 38 : 0;
+  const gap = conditionText ? 8 : 0;
+  const totalH = priceBoxH + gap + conditionBoxH;
+
   const boxX = slotX + (slotW - boxW) / 2;
-  const boxY = slotY + slotH - boxH - 44;
+  const priceBoxY = slotY + slotH - totalH - 28;
 
-  ctx.shadowColor = "rgba(0,0,0,0.28)";
-  ctx.shadowBlur = 14;
-  ctx.shadowOffsetY = 8;
+  ctx.shadowColor = "rgba(0,0,0,0.24)";
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 7;
 
-  ctx.fillStyle = "rgba(255,255,255,0.96)";
-  roundRect(ctx, boxX, boxY, boxW, boxH, 4);
+  ctx.fillStyle = "rgba(255,255,255,0.97)";
+  roundRect(ctx, boxX, priceBoxY, boxW, priceBoxH, 4);
   ctx.fill();
 
   ctx.shadowColor = "transparent";
   ctx.fillStyle = "#050505";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(text, boxX + boxW / 2, boxY + boxH / 2 + 2);
+  ctx.fillText(priceText, boxX + boxW / 2, priceBoxY + priceBoxH / 2 + 2);
+
+  if (conditionText) {
+    const conditionY = priceBoxY + priceBoxH + gap;
+    const conditionW = Math.min(boxW, Math.max(106, ctx.measureText(conditionText).width + 42));
+    const conditionX = slotX + (slotW - conditionW) / 2;
+
+    ctx.fillStyle = "rgba(7,20,47,0.93)";
+    roundRect(ctx, conditionX, conditionY, conditionW, conditionBoxH, 999);
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "900 22px Outfit, Inter, Arial, sans-serif";
+    ctx.fillText(conditionText, conditionX + conditionW / 2, conditionY + conditionBoxH / 2 + 1);
+  }
 
   ctx.restore();
 }
@@ -439,10 +497,9 @@ function drawBrandingAndText() {
 
   const bgLight = backgroundSelect.value === "light";
   const mainText = bgLight ? "#07142f" : "#ffffff";
-  const mutedText = bgLight ? "rgba(7,20,47,0.68)" : "rgba(255,255,255,0.76)";
 
   if (showHeader) {
-    const headline = headlineInput.value.trim() || "Available Pokémon Cards";
+    const headline = headlineInput.value.trim() || "Claim Sale";
 
     ctx.save();
 
@@ -450,18 +507,14 @@ function drawBrandingAndText() {
       const logoW = 142;
       const ratio = logoImage.naturalHeight / logoImage.naturalWidth;
       const logoH = logoW * ratio;
-      ctx.drawImage(logoImage, 50, 48, logoW, logoH);
+      ctx.drawImage(logoImage, 46, 42, logoW, logoH);
     }
 
     ctx.fillStyle = mainText;
-    ctx.font = "900 54px Outfit, Inter, Arial, sans-serif";
+    ctx.font = "900 68px Outfit, Inter, Arial, sans-serif";
     ctx.textAlign = "right";
     ctx.textBaseline = "top";
-    fitText(ctx, headline, STORY_WIDTH - 50, 54, 760, 54);
-
-    ctx.fillStyle = mutedText;
-    ctx.font = "800 24px Inter, Arial, sans-serif";
-    ctx.fillText("Fresh inventory • Tap to claim", STORY_WIDTH - 50, 116);
+    fitText(ctx, headline, STORY_WIDTH - 46, 52, 760, 68);
 
     ctx.restore();
   }
@@ -472,19 +525,19 @@ function drawBrandingAndText() {
     ctx.save();
 
     ctx.fillStyle = bgLight ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.10)";
-    roundRect(ctx, 54, STORY_HEIGHT - 118, STORY_WIDTH - 108, 70, 999);
+    roundRect(ctx, 54, STORY_HEIGHT - 104, STORY_WIDTH - 108, 64, 999);
     ctx.fill();
 
     ctx.strokeStyle = bgLight ? "rgba(7,20,47,0.10)" : "rgba(255,255,255,0.12)";
     ctx.lineWidth = 2;
-    roundRect(ctx, 54, STORY_HEIGHT - 118, STORY_WIDTH - 108, 70, 999);
+    roundRect(ctx, 54, STORY_HEIGHT - 104, STORY_WIDTH - 108, 64, 999);
     ctx.stroke();
 
     ctx.fillStyle = mainText;
     ctx.font = "900 31px Outfit, Inter, Arial, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    fitText(ctx, footer, STORY_WIDTH / 2, STORY_HEIGHT - 83, STORY_WIDTH - 170, 31);
+    fitText(ctx, footer, STORY_WIDTH / 2, STORY_HEIGHT - 72, STORY_WIDTH - 170, 31);
 
     ctx.restore();
   }
@@ -493,22 +546,22 @@ function drawBrandingAndText() {
 function drawMissingImage(x, y, w, h, filename) {
   ctx.save();
 
-  ctx.fillStyle = "rgba(255,255,255,0.10)";
+  ctx.fillStyle = "rgba(255,255,255,0.72)";
   roundRect(ctx, x + 10, y + 10, w - 20, h - 20, 24);
   ctx.fill();
 
-  ctx.strokeStyle = "rgba(255,255,255,0.20)";
+  ctx.strokeStyle = "rgba(7,20,47,0.14)";
   ctx.lineWidth = 3;
   roundRect(ctx, x + 10, y + 10, w - 20, h - 20, 24);
   ctx.stroke();
 
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#07142f";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.font = "900 24px Inter, Arial, sans-serif";
   ctx.fillText("Image Missing", x + w / 2, y + h / 2 - 16);
 
-  ctx.fillStyle = "rgba(255,255,255,0.70)";
+  ctx.fillStyle = "rgba(7,20,47,0.66)";
   ctx.font = "700 18px Inter, Arial, sans-serif";
   fitText(ctx, filename, x + w / 2, y + h / 2 + 22, w - 44, 18);
 
@@ -630,7 +683,7 @@ function downloadStory() {
   const link = document.createElement("a");
 
   link.href = canvas.toDataURL("image/png");
-  link.download = `chella-story-${String(storyIndex).padStart(2, "0")}.png`;
+  link.download = `chella-claim-sale-${String(storyIndex).padStart(2, "0")}.png`;
 
   document.body.appendChild(link);
   link.click();
@@ -650,7 +703,7 @@ function openStoryImage() {
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Chella Story Image</title>
+        <title>Chella Claim Sale Image</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
           body {
@@ -668,7 +721,7 @@ function openStoryImage() {
         </style>
       </head>
       <body>
-        <img src="${dataUrl}" alt="Generated Chella Collectibles story">
+        <img src="${dataUrl}" alt="Generated Chella Collectibles claim sale story">
       </body>
     </html>
   `);
