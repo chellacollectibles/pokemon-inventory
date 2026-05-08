@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Story Builder | Chella Collectibles</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" type="image/png" href="/assets/favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="story-builder.css?v=1" />
+</head>
+
+<body>
+  <main class="builder-shell">
+    <section class="builder-panel">
+      <div class="builder-heading">
+        <span>Internal Tool</span>
+        <h1>Instagram Story Builder</h1>
+        <p>
+          Generate 1080×1920 story slides directly from your inventory CSV and card scans.
+        </p>
+      </div>
+
+      <div class="builder-status-grid">
+        <div class="status-card">
+          <span>Story</span>
+          <strong id="storyNumber">—</strong>
+        </div>
+
+        <div class="status-card">
+          <span>Showing</span>
+          <strong id="showingRange">Loading...</strong>
+        </div>
+
+        <div class="status-card">
+          <span>Items</span>
+          <strong id="totalItems">—</strong>
+        </div>
+      </div>
+
+      <section class="controls-card" aria-label="Story builder controls">
+        <div class="control-grid">
+          <label class="control-field">
+            <span>Filter Type</span>
+            <select id="typeFilter">
+              <option value="">All Inventory</option>
+              <option value="single">Singles Only</option>
+              <option value="graded">Graded Only</option>
+              <option value="sealed">Sealed Only</option>
+            </select>
+          </label>
+
+          <label class="control-field">
+            <span>Search Name / Set</span>
+            <input id="searchInput" type="text" placeholder="Charizard, Team Rocket, 151..." autocomplete="off" />
+          </label>
+
+          <label class="control-field">
+            <span>Start At Item #</span>
+            <input id="startIndexInput" type="number" min="1" value="1" />
+          </label>
+
+          <label class="control-field">
+            <span>Background</span>
+            <select id="backgroundSelect">
+              <option value="dark">Clean Dark</option>
+              <option value="blue">Navy / Blue</option>
+              <option value="red">Chella Red</option>
+              <option value="light">Clean Light</option>
+            </select>
+          </label>
+
+          <label class="control-field">
+            <span>Header Text</span>
+            <input id="headlineInput" type="text" value="Available Pokémon Cards" />
+          </label>
+
+          <label class="control-field">
+            <span>Footer Text</span>
+            <input id="footerInput" type="text" value="@chellacollectibles • Message to claim" />
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <label class="toggle-check">
+            <input id="showHeaderToggle" type="checkbox" checked />
+            <span>Show header</span>
+          </label>
+
+          <label class="toggle-check">
+            <input id="showFooterToggle" type="checkbox" checked />
+            <span>Show footer</span>
+          </label>
+
+          <label class="toggle-check">
+            <input id="showLogoToggle" type="checkbox" checked />
+            <span>Show logo</span>
+          </label>
+        </div>
+
+        <div class="button-grid">
+          <button id="previousBtn" type="button">Previous 9</button>
+          <button id="nextBtn" type="button">Next 9</button>
+          <button id="downloadBtn" type="button" class="primary">Download Story PNG</button>
+          <button id="openImageBtn" type="button">Open Image</button>
+        </div>
+      </section>
+
+      <div id="messageBox" class="message-box" hidden></div>
+
+      <section class="tips-card">
+        <h2>How to use</h2>
+        <p>
+          Drop these files into the main repo folder, visit <strong>story-builder.html</strong>,
+          pick the slide you want, then download or open the generated image. The final export is
+          always exactly <strong>1080×1920</strong>.
+        </p>
+      </section>
+    </section>
+
+    <section class="preview-panel" aria-label="Generated story preview">
+      <div class="phone-preview">
+        <canvas id="storyCanvas" width="1080" height="1920"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <script src="story-builder.js?v=1"></script>
+</body>
+</html>
