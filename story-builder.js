@@ -417,10 +417,10 @@ function drawCardSlot(item, image, index) {
   const slotY = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
   // Slightly enlarged scan area
-  const paddingX = -22;
-  const paddingY = -4;
+  const paddingX = -30;
+  const paddingY = -10;
 
-  const infoBlockHeight = item.conditionLabel ? 108 : 88;
+  const infoBlockHeight = item.conditionLabel ? 100 : 80;
 
   const imageAreaX = slotX + paddingX;
   const imageAreaY = slotY + paddingY;
