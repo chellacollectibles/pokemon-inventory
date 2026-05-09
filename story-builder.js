@@ -338,16 +338,16 @@ function getGridMetrics() {
   const showHeader = showHeaderToggle.checked;
   const showFooter = showFooterToggle.checked;
 
-  const topSafe = showHeader ? 170 : 76;
-  const bottomSafe = showFooter ? 132 : 68;
+  const topSafe = showHeader ? 172 : 66;
+  const bottomSafe = showFooter ? 128 : 58;
 
-  const gridLeft = 34;
-  const gridRight = 34;
+  const gridLeft = 26;
+  const gridRight = 26;
   const gridTop = topSafe;
   const gridBottom = STORY_HEIGHT - bottomSafe;
 
-  const gapX = 18;
-  const gapY = 28;
+  const gapX = 16;
+  const gapY = 24;
   const slotWidth = (STORY_WIDTH - gridLeft - gridRight - gapX * 2) / 3;
   const slotHeight = (gridBottom - gridTop - gapY * 2) / 3;
 
@@ -383,10 +383,10 @@ function drawStoryFrame(storyItems) {
 
     const bg = backgroundSelect.value;
     if (bg === "light") {
-      ctx.fillStyle = "rgba(255,255,255,0.68)";
+      ctx.fillStyle = "rgba(255,255,255,0.74)";
       ctx.strokeStyle = "rgba(7,20,47,0.08)";
     } else {
-      ctx.fillStyle = "rgba(232,236,243,0.92)";
+      ctx.fillStyle = "rgba(234,238,245,0.95)";
       ctx.strokeStyle = "rgba(255,255,255,0.20)";
     }
 
@@ -414,10 +414,10 @@ function drawCardSlot(item, image, index) {
   const slotX = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
   const slotY = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
-  const paddingX = 2;
-  const paddingY = 8;
+  const paddingX = -12;
+  const paddingY = 4;
 
-  const infoBlockHeight = item.conditionLabel ? 128 : 104;
+  const infoBlockHeight = item.conditionLabel ? 112 : 92;
 
   const imageAreaX = slotX + paddingX;
   const imageAreaY = slotY + paddingY;
@@ -448,42 +448,61 @@ function drawPriceAndCondition(item, slotX, slotY, slotW, slotH) {
 
   ctx.save();
 
-  ctx.font = "900 58px Inter, Arial, sans-serif";
+  ctx.font = "950 56px Outfit, Inter, Arial, sans-serif";
   const priceMetrics = ctx.measureText(priceText);
-  const boxW = Math.max(172, priceMetrics.width + 56);
-  const priceBoxH = 86;
-  const conditionBoxH = conditionText ? 38 : 0;
+  const priceBoxW = Math.max(166, priceMetrics.width + 58);
+  const priceBoxH = 82;
+  const conditionBoxH = conditionText ? 36 : 0;
   const gap = conditionText ? 8 : 0;
   const totalH = priceBoxH + gap + conditionBoxH;
 
-  const boxX = slotX + (slotW - boxW) / 2;
-  const priceBoxY = slotY + slotH - totalH - 28;
+  const priceBoxX = slotX + (slotW - priceBoxW) / 2;
+  const priceBoxY = slotY + slotH - totalH - 22;
 
   ctx.shadowColor = "rgba(0,0,0,0.24)";
   ctx.shadowBlur = 12;
   ctx.shadowOffsetY = 7;
 
-  ctx.fillStyle = "rgba(255,255,255,0.97)";
-  roundRect(ctx, boxX, priceBoxY, boxW, priceBoxH, 4);
+  const priceGradient = ctx.createLinearGradient(priceBoxX, priceBoxY, priceBoxX, priceBoxY + priceBoxH);
+  priceGradient.addColorStop(0, "#ffffff");
+  priceGradient.addColorStop(1, "#f2f4f8");
+
+  ctx.fillStyle = priceGradient;
+  roundRect(ctx, priceBoxX, priceBoxY, priceBoxW, priceBoxH, 10);
   ctx.fill();
 
   ctx.shadowColor = "transparent";
+
+  ctx.strokeStyle = "rgba(7,20,47,0.08)";
+  ctx.lineWidth = 2;
+  roundRect(ctx, priceBoxX, priceBoxY, priceBoxW, priceBoxH, 10);
+  ctx.stroke();
+
   ctx.fillStyle = "#050505";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(priceText, boxX + boxW / 2, priceBoxY + priceBoxH / 2 + 2);
+  ctx.fillText(priceText, priceBoxX + priceBoxW / 2, priceBoxY + priceBoxH / 2 + 1);
 
   if (conditionText) {
     const conditionY = priceBoxY + priceBoxH + gap;
-    const conditionW = Math.min(boxW, Math.max(106, ctx.measureText(conditionText).width + 42));
+    const conditionW = Math.min(priceBoxW - 14, Math.max(94, ctx.measureText(conditionText).width + 38));
     const conditionX = slotX + (slotW - conditionW) / 2;
 
-    ctx.fillStyle = "rgba(7,20,47,0.93)";
+    const conditionGradient = ctx.createLinearGradient(conditionX, conditionY, conditionX, conditionY + conditionBoxH);
+    conditionGradient.addColorStop(0, "#172a52");
+    conditionGradient.addColorStop(1, "#07142f");
+
+    ctx.fillStyle = conditionGradient;
     roundRect(ctx, conditionX, conditionY, conditionW, conditionBoxH, 999);
     ctx.fill();
 
+    ctx.strokeStyle = "rgba(255,255,255,0.18)";
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, conditionX, conditionY, conditionW, conditionBoxH, 999);
+    ctx.stroke();
+
     ctx.fillStyle = "#ffffff";
-    ctx.font = "900 22px Outfit, Inter, Arial, sans-serif";
+    ctx.font = "950 21px Outfit, Inter, Arial, sans-serif";
     ctx.fillText(conditionText, conditionX + conditionW / 2, conditionY + conditionBoxH / 2 + 1);
   }
 
@@ -504,17 +523,17 @@ function drawBrandingAndText() {
     ctx.save();
 
     if (showLogo && logoImage) {
-      const logoW = 142;
+      const logoW = 128;
       const ratio = logoImage.naturalHeight / logoImage.naturalWidth;
       const logoH = logoW * ratio;
-      ctx.drawImage(logoImage, 46, 42, logoW, logoH);
+      ctx.drawImage(logoImage, 52, 42, logoW, logoH);
     }
 
     ctx.fillStyle = mainText;
-    ctx.font = "900 68px Outfit, Inter, Arial, sans-serif";
-    ctx.textAlign = "right";
+    ctx.font = "950 70px Outfit, Inter, Arial, sans-serif";
+    ctx.textAlign = "center";
     ctx.textBaseline = "top";
-    fitText(ctx, headline, STORY_WIDTH - 46, 52, 760, 68);
+    fitText(ctx, headline, STORY_WIDTH / 2, 56, 690, 70);
 
     ctx.restore();
   }
