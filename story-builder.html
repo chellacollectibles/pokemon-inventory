@@ -15,7 +15,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="story-builder.css?v=3" />
+  <link rel="stylesheet" href="story-builder.css?v=4" />
 </head>
 
 <body>
@@ -51,8 +51,7 @@
           <label class="control-field">
             <span>Filter Type</span>
             <select id="typeFilter">
-              <option value="">All Inventory</option>
-              <option value="single">Singles Only</option>
+              <option value="single" selected>Singles Only</option>
               <option value="graded">Graded Only</option>
               <option value="sealed">Sealed Only</option>
             </select>
@@ -107,8 +106,8 @@
         </div>
 
         <div class="button-grid">
-          <button id="previousBtn" type="button">Previous 9</button>
-          <button id="nextBtn" type="button">Next 9</button>
+          <button id="previousBtn" type="button">Previous</button>
+          <button id="nextBtn" type="button">Next</button>
           <button id="downloadBtn" type="button" class="primary">Download Story PNG</button>
           <button id="openImageBtn" type="button">Open Image</button>
         </div>
@@ -119,9 +118,8 @@
       <section class="tips-card">
         <h2>How to use</h2>
         <p>
-          Drop these files into the main repo folder, visit <strong>story-builder.html</strong>,
-          pick the slide you want, then download or open the generated image. The final export is
-          always exactly <strong>1080×1920</strong>.
+          Singles and sealed products export in a 3×3 layout. Graded cards export in a larger 2×2 layout.
+          The final export is always exactly <strong>1080×1920</strong>.
         </p>
       </section>
     </section>
@@ -133,6 +131,6 @@
     </section>
   </main>
 
-  <script src="story-builder.js?v=3"></script>
+  <script src="story-builder.js?v=4"></script>
 </body>
 </html>

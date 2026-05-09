@@ -22,7 +22,6 @@ const nextBtn = document.getElementById("nextBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const openImageBtn = document.getElementById("openImageBtn");
 
-const ITEMS_PER_STORY = 9;
 const STORY_WIDTH = 1080;
 const STORY_HEIGHT = 1920;
 
@@ -146,15 +145,16 @@ function normalizeHeader(header) {
 
 function cleanInventoryItem(item) {
   const name = item.name || "";
+  const type = normalizeType(item.type || "");
 
   return {
     filename: item.filename || "",
     backFilename: item.back_filename || item.backfilename || "",
-    type: normalizeType(item.type || ""),
+    type: type,
     name: name,
     set: item.set || "",
     price: item.price || "",
-    conditionLabel: extractStoryCondition(name, item.type || "")
+    conditionLabel: extractStoryCondition(name, type)
   };
 }
 
@@ -175,7 +175,7 @@ function extractStoryCondition(name, type) {
   const typeCleaned = normalizeType(type || "");
   const cleaned = String(name || "").toLowerCase();
 
-  if (typeCleaned === "graded") return "Graded";
+  if (typeCleaned === "graded") return "";
 
   if (cleaned.includes("near mint")) return "NM";
   if (cleaned.includes("lightly played")) return "LP";
@@ -186,12 +186,20 @@ function extractStoryCondition(name, type) {
   return "";
 }
 
+function getItemsPerStory() {
+  return typeFilter.value === "graded" ? 4 : 9;
+}
+
+function isGradedMode() {
+  return typeFilter.value === "graded";
+}
+
 function applyFiltersAndRender() {
   const typeValue = typeFilter.value.trim().toLowerCase();
   const searchValue = searchInput.value.trim().toLowerCase();
 
   filteredItems = allItems.filter(item => {
-    const matchesType = !typeValue || item.type === typeValue;
+    const matchesType = item.type === typeValue;
     const matchesSearch =
       !searchValue ||
       item.name.toLowerCase().includes(searchValue) ||
@@ -213,13 +221,15 @@ function applyFiltersAndRender() {
 function clampStartIndex(index) {
   if (filteredItems.length === 0) return 0;
 
-  const maxStart = Math.max(0, Math.floor((filteredItems.length - 1) / ITEMS_PER_STORY) * ITEMS_PER_STORY);
+  const itemsPerStory = getItemsPerStory();
+  const maxStart = Math.max(0, Math.floor((filteredItems.length - 1) / itemsPerStory) * itemsPerStory);
   return Math.min(Math.max(0, index), maxStart);
 }
 
 async function renderStory() {
   const token = ++renderToken;
-  const storyItems = filteredItems.slice(currentStartIndex, currentStartIndex + ITEMS_PER_STORY);
+  const itemsPerStory = getItemsPerStory();
+  const storyItems = filteredItems.slice(currentStartIndex, currentStartIndex + itemsPerStory);
 
   updateStatus();
 
@@ -250,17 +260,18 @@ async function renderStory() {
 
 function updateStatus() {
   const total = filteredItems.length;
-  const storyIndex = total === 0 ? 0 : Math.floor(currentStartIndex / ITEMS_PER_STORY) + 1;
-  const storyTotal = total === 0 ? 0 : Math.ceil(total / ITEMS_PER_STORY);
+  const itemsPerStory = getItemsPerStory();
+  const storyIndex = total === 0 ? 0 : Math.floor(currentStartIndex / itemsPerStory) + 1;
+  const storyTotal = total === 0 ? 0 : Math.ceil(total / itemsPerStory);
   const start = total === 0 ? 0 : currentStartIndex + 1;
-  const end = Math.min(currentStartIndex + ITEMS_PER_STORY, total);
+  const end = Math.min(currentStartIndex + itemsPerStory, total);
 
   storyNumber.textContent = `${storyIndex}/${storyTotal}`;
   showingRange.textContent = total === 0 ? "0" : `${start}-${end}`;
   totalItems.textContent = total.toLocaleString();
 
   previousBtn.disabled = currentStartIndex <= 0;
-  nextBtn.disabled = currentStartIndex + ITEMS_PER_STORY >= total;
+  nextBtn.disabled = currentStartIndex + itemsPerStory >= total;
   downloadBtn.disabled = total === 0;
   openImageBtn.disabled = total === 0;
 }
@@ -339,9 +350,37 @@ function drawNoise() {
 function getGridMetrics() {
   const showHeader = showHeaderToggle.checked;
   const showFooter = showFooterToggle.checked;
+  const graded = isGradedMode();
 
   const topSafe = showHeader ? 172 : 66;
   const bottomSafe = showFooter ? 128 : 58;
+
+  if (graded) {
+    const gridLeft = 46;
+    const gridRight = 46;
+    const gridTop = showHeader ? 190 : 86;
+    const gridBottom = STORY_HEIGHT - bottomSafe;
+
+    const gapX = 30;
+    const gapY = 34;
+    const columns = 2;
+    const rows = 2;
+    const slotWidth = (STORY_WIDTH - gridLeft - gridRight - gapX) / columns;
+    const slotHeight = (gridBottom - gridTop - gapY) / rows;
+
+    return {
+      gridLeft,
+      gridRight,
+      gridTop,
+      gridBottom,
+      gapX,
+      gapY,
+      slotWidth,
+      slotHeight,
+      columns,
+      rows
+    };
+  }
 
   const gridLeft = 26;
   const gridRight = 26;
@@ -350,8 +389,10 @@ function getGridMetrics() {
 
   const gapX = 16;
   const gapY = 24;
-  const slotWidth = (STORY_WIDTH - gridLeft - gridRight - gapX * 2) / 3;
-  const slotHeight = (gridBottom - gridTop - gapY * 2) / 3;
+  const columns = 3;
+  const rows = 3;
+  const slotWidth = (STORY_WIDTH - gridLeft - gridRight - gapX * 2) / columns;
+  const slotHeight = (gridBottom - gridTop - gapY * 2) / rows;
 
   return {
     gridLeft,
@@ -361,7 +402,9 @@ function getGridMetrics() {
     gapX,
     gapY,
     slotWidth,
-    slotHeight
+    slotHeight,
+    columns,
+    rows
   };
 }
 
@@ -376,8 +419,8 @@ function drawStoryFrame(storyItems) {
   ctx.restore();
 
   for (let i = 0; i < storyItems.length; i++) {
-    const col = i % 3;
-    const row = Math.floor(i / 3);
+    const col = i % metrics.columns;
+    const row = Math.floor(i / metrics.columns);
     const x = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
     const y = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
@@ -408,15 +451,23 @@ function drawStoryFrame(storyItems) {
 }
 
 function drawCardSlot(item, image, index) {
+  if (isGradedMode()) {
+    drawGradedCardSlot(item, image, index);
+    return;
+  }
+
+  drawSingleCardSlot(item, image, index);
+}
+
+function drawSingleCardSlot(item, image, index) {
   const metrics = getGridMetrics();
 
-  const col = index % 3;
-  const row = Math.floor(index / 3);
+  const col = index % metrics.columns;
+  const row = Math.floor(index / metrics.columns);
 
   const slotX = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
   const slotY = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
-  // Slightly enlarged scan area
   const paddingX = -30;
   const paddingY = -10;
 
@@ -452,6 +503,48 @@ function drawCardSlot(item, image, index) {
   drawPriceAndCondition(item, slotX, slotY, metrics.slotWidth, metrics.slotHeight);
 }
 
+function drawGradedCardSlot(item, image, index) {
+  const metrics = getGridMetrics();
+
+  const col = index % metrics.columns;
+  const row = Math.floor(index / metrics.columns);
+
+  const slotX = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
+  const slotY = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
+
+  const paddingX = -8;
+  const paddingY = 4;
+
+  const imageAreaX = slotX + paddingX;
+  const imageAreaY = slotY + paddingY;
+  const imageAreaW = metrics.slotWidth - paddingX * 2;
+  const imageAreaH = metrics.slotHeight - paddingY * 2;
+
+  if (!image) {
+    drawMissingImage(slotX, slotY, metrics.slotWidth, metrics.slotHeight, item.filename);
+    drawGradedPrice(item.price, slotX, slotY, metrics.slotWidth, metrics.slotHeight);
+    return;
+  }
+
+  const fit = containRect(
+    image.naturalWidth,
+    image.naturalHeight,
+    imageAreaX,
+    imageAreaY,
+    imageAreaW,
+    imageAreaH
+  );
+
+  ctx.save();
+  ctx.shadowColor = "rgba(0,0,0,0.20)";
+  ctx.shadowBlur = 13;
+  ctx.shadowOffsetY = 8;
+  ctx.drawImage(image, fit.x, fit.y, fit.w, fit.h);
+  ctx.restore();
+
+  drawGradedPrice(item.price, slotX, slotY, metrics.slotWidth, metrics.slotHeight);
+}
+
 function drawPriceAndCondition(item, slotX, slotY, slotW, slotH) {
   const priceText = formatPrice(item.price);
   const conditionText = item.conditionLabel || "";
@@ -469,54 +562,154 @@ function drawPriceAndCondition(item, slotX, slotY, slotW, slotH) {
   const priceBoxX = slotX + (slotW - priceBoxW) / 2;
   const priceBoxY = slotY + slotH - totalH - 22;
 
-  ctx.shadowColor = "rgba(0,0,0,0.24)";
-  ctx.shadowBlur = 12;
-  ctx.shadowOffsetY = 7;
+  drawPriceBox(priceText, priceBoxX, priceBoxY, priceBoxW, priceBoxH, 56);
 
-  const priceGradient = ctx.createLinearGradient(priceBoxX, priceBoxY, priceBoxX, priceBoxY + priceBoxH);
+  if (conditionText) {
+    drawConditionBadge(conditionText, slotX, slotW, priceBoxY + priceBoxH + gap, priceBoxW);
+  }
+
+  ctx.restore();
+}
+
+function drawGradedPrice(price, slotX, slotY, slotW, slotH) {
+  const priceText = formatPrice(price);
+
+  ctx.save();
+
+  ctx.font = "950 64px Outfit, Inter, Arial, sans-serif";
+  const priceMetrics = ctx.measureText(priceText);
+  const priceBoxW = Math.max(190, priceMetrics.width + 68);
+  const priceBoxH = 94;
+  const priceBoxX = slotX + (slotW - priceBoxW) / 2;
+  const priceBoxY = slotY + slotH - priceBoxH - 38;
+
+  drawPriceBox(priceText, priceBoxX, priceBoxY, priceBoxW, priceBoxH, 64);
+
+  ctx.restore();
+}
+
+function drawPriceBox(priceText, x, y, w, h, fontSize) {
+  ctx.save();
+
+  ctx.shadowColor = "rgba(0,0,0,0.30)";
+  ctx.shadowBlur = 14;
+  ctx.shadowOffsetY = 8;
+
+  const priceGradient = ctx.createLinearGradient(x, y, x, y + h);
   priceGradient.addColorStop(0, "#ffffff");
-  priceGradient.addColorStop(1, "#f2f4f8");
+  priceGradient.addColorStop(0.55, "#fffaf1");
+  priceGradient.addColorStop(1, "#eef2f7");
 
   ctx.fillStyle = priceGradient;
-  roundRect(ctx, priceBoxX, priceBoxY, priceBoxW, priceBoxH, 10);
+  roundRect(ctx, x, y, w, h, 14);
   ctx.fill();
 
   ctx.shadowColor = "transparent";
 
+  const gloss = ctx.createLinearGradient(x, y, x, y + h);
+  gloss.addColorStop(0, "rgba(255,255,255,0.58)");
+  gloss.addColorStop(0.42, "rgba(255,255,255,0.10)");
+  gloss.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = gloss;
+  roundRect(ctx, x + 5, y + 5, w - 10, h * 0.42, 11);
+  ctx.fill();
+
+  ctx.strokeStyle = "rgba(255, 184, 46, 0.55)";
+  ctx.lineWidth = 2.5;
+  roundRect(ctx, x, y, w, h, 14);
+  ctx.stroke();
+
   ctx.strokeStyle = "rgba(7,20,47,0.08)";
-  ctx.lineWidth = 2;
-  roundRect(ctx, priceBoxX, priceBoxY, priceBoxW, priceBoxH, 10);
+  ctx.lineWidth = 1;
+  roundRect(ctx, x + 3, y + 3, w - 6, h - 6, 11);
   ctx.stroke();
 
   ctx.fillStyle = "#050505";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(priceText, priceBoxX + priceBoxW / 2, priceBoxY + priceBoxH / 2 + 1);
-
-  if (conditionText) {
-    const conditionY = priceBoxY + priceBoxH + gap;
-    const conditionW = Math.min(priceBoxW - 14, Math.max(94, ctx.measureText(conditionText).width + 38));
-    const conditionX = slotX + (slotW - conditionW) / 2;
-
-    const conditionGradient = ctx.createLinearGradient(conditionX, conditionY, conditionX, conditionY + conditionBoxH);
-    conditionGradient.addColorStop(0, "#172a52");
-    conditionGradient.addColorStop(1, "#07142f");
-
-    ctx.fillStyle = conditionGradient;
-    roundRect(ctx, conditionX, conditionY, conditionW, conditionBoxH, 999);
-    ctx.fill();
-
-    ctx.strokeStyle = "rgba(255,255,255,0.18)";
-    ctx.lineWidth = 1.5;
-    roundRect(ctx, conditionX, conditionY, conditionW, conditionBoxH, 999);
-    ctx.stroke();
-
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "950 21px Outfit, Inter, Arial, sans-serif";
-    ctx.fillText(conditionText, conditionX + conditionW / 2, conditionY + conditionBoxH / 2 + 1);
-  }
+  ctx.font = `950 ${fontSize}px Outfit, Inter, Arial, sans-serif`;
+  ctx.fillText(priceText, x + w / 2, y + h / 2 + 1);
 
   ctx.restore();
+}
+
+function drawConditionBadge(conditionText, slotX, slotW, y, priceBoxW) {
+  const conditionW = Math.min(priceBoxW - 14, Math.max(94, ctx.measureText(conditionText).width + 38));
+  const conditionH = 36;
+  const conditionX = slotX + (slotW - conditionW) / 2;
+
+  const colors = getConditionColors(conditionText);
+  const gradient = ctx.createLinearGradient(conditionX, y, conditionX, y + conditionH);
+  gradient.addColorStop(0, colors.top);
+  gradient.addColorStop(1, colors.bottom);
+
+  ctx.save();
+
+  ctx.shadowColor = "rgba(0,0,0,0.18)";
+  ctx.shadowBlur = 8;
+  ctx.shadowOffsetY = 4;
+
+  ctx.fillStyle = gradient;
+  roundRect(ctx, conditionX, y, conditionW, conditionH, 999);
+  ctx.fill();
+
+  ctx.shadowColor = "transparent";
+  ctx.strokeStyle = colors.stroke;
+  ctx.lineWidth = 1.5;
+  roundRect(ctx, conditionX, y, conditionW, conditionH, 999);
+  ctx.stroke();
+
+  ctx.fillStyle = colors.text;
+  ctx.font = "950 21px Outfit, Inter, Arial, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(conditionText, conditionX + conditionW / 2, y + conditionH / 2 + 1);
+
+  ctx.restore();
+}
+
+function getConditionColors(conditionText) {
+  const condition = String(conditionText || "").toUpperCase();
+
+  const map = {
+    NM: {
+      top: "#43d178",
+      bottom: "#16a34a",
+      stroke: "rgba(255,255,255,0.30)",
+      text: "#ffffff"
+    },
+    LP: {
+      top: "#fff26b",
+      bottom: "#ffcd32",
+      stroke: "rgba(255,255,255,0.40)",
+      text: "#172033"
+    },
+    MP: {
+      top: "#ffbd3d",
+      bottom: "#f59e0b",
+      stroke: "rgba(255,255,255,0.35)",
+      text: "#172033"
+    },
+    HP: {
+      top: "#fb923c",
+      bottom: "#ea580c",
+      stroke: "rgba(255,255,255,0.30)",
+      text: "#ffffff"
+    },
+    DMG: {
+      top: "#ff5a5a",
+      bottom: "#dc2626",
+      stroke: "rgba(255,255,255,0.30)",
+      text: "#ffffff"
+    }
+  };
+
+  return map[condition] || {
+    top: "#172a52",
+    bottom: "#07142f",
+    stroke: "rgba(255,255,255,0.18)",
+    text: "#ffffff"
+  };
 }
 
 function drawBrandingAndText() {
@@ -696,23 +889,26 @@ function hideMessage() {
 }
 
 function goPrevious() {
-  currentStartIndex = clampStartIndex(currentStartIndex - ITEMS_PER_STORY);
+  const itemsPerStory = getItemsPerStory();
+  currentStartIndex = clampStartIndex(currentStartIndex - itemsPerStory);
   startIndexInput.value = currentStartIndex + 1;
   renderStory();
 }
 
 function goNext() {
-  currentStartIndex = clampStartIndex(currentStartIndex + ITEMS_PER_STORY);
+  const itemsPerStory = getItemsPerStory();
+  currentStartIndex = clampStartIndex(currentStartIndex + itemsPerStory);
   startIndexInput.value = currentStartIndex + 1;
   renderStory();
 }
 
 function downloadStory() {
-  const storyIndex = filteredItems.length === 0 ? 1 : Math.floor(currentStartIndex / ITEMS_PER_STORY) + 1;
+  const storyIndex = filteredItems.length === 0 ? 1 : Math.floor(currentStartIndex / getItemsPerStory()) + 1;
+  const mode = isGradedMode() ? "graded" : typeFilter.value || "inventory";
   const link = document.createElement("a");
 
   link.href = canvas.toDataURL("image/png");
-  link.download = `chella-claim-sale-${String(storyIndex).padStart(2, "0")}.png`;
+  link.download = `chella-${mode}-claim-sale-${String(storyIndex).padStart(2, "0")}.png`;
 
   document.body.appendChild(link);
   link.click();
