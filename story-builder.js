@@ -468,10 +468,10 @@ function drawSingleCardSlot(item, image, index) {
   const slotX = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
   const slotY = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
-  const paddingX = -30;
-  const paddingY = -10;
+  const paddingX = -26;
+  const paddingY = -17;
 
-  const infoBlockHeight = item.conditionLabel ? 100 : 80;
+  const infoBlockHeight = item.conditionLabel ? 104 : 84;
 
   const imageAreaX = slotX + paddingX;
   const imageAreaY = slotY + paddingY;
