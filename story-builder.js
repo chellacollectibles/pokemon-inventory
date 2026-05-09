@@ -231,7 +231,9 @@ async function renderStory() {
   drawBackground();
   drawStoryFrame(storyItems);
 
-  const imagePromises = storyItems.map(item => loadImage(`images/${encodeURIComponent(item.filename)}`).catch(() => null));
+  const imagePromises = storyItems.map(item =>
+    loadImage(`images/${encodeURIComponent(item.filename)}`).catch(() => null)
+  );
   const images = await Promise.all(imagePromises);
 
   if (token !== renderToken) return;
@@ -387,10 +389,10 @@ function drawStoryFrame(storyItems) {
       ctx.strokeStyle = "rgba(7,20,47,0.08)";
     } else {
       ctx.fillStyle = "rgba(234,238,245,0.95)";
-      ctx.strokeStyle = "rgba(255,255,255,0.20)";
+      ctx.strokeStyle = "rgba(255,255,255,0.22)";
     }
 
-    ctx.shadowColor = "rgba(0,0,0,0.24)";
+    ctx.shadowColor = "rgba(0,0,0,0.23)";
     ctx.shadowBlur = 18;
     ctx.shadowOffsetY = 10;
     roundRect(ctx, x, y, metrics.slotWidth, metrics.slotHeight, 28);
@@ -414,10 +416,11 @@ function drawCardSlot(item, image, index) {
   const slotX = metrics.gridLeft + col * (metrics.slotWidth + metrics.gapX);
   const slotY = metrics.gridTop + row * (metrics.slotHeight + metrics.gapY);
 
-  const paddingX = -12;
-  const paddingY = 4;
+  // Slightly enlarged scan area
+  const paddingX = -22;
+  const paddingY = -4;
 
-  const infoBlockHeight = item.conditionLabel ? 112 : 92;
+  const infoBlockHeight = item.conditionLabel ? 108 : 88;
 
   const imageAreaX = slotX + paddingX;
   const imageAreaY = slotY + paddingY;
@@ -430,10 +433,17 @@ function drawCardSlot(item, image, index) {
     return;
   }
 
-  const fit = containRect(image.naturalWidth, image.naturalHeight, imageAreaX, imageAreaY, imageAreaW, imageAreaH);
+  const fit = containRect(
+    image.naturalWidth,
+    image.naturalHeight,
+    imageAreaX,
+    imageAreaY,
+    imageAreaW,
+    imageAreaH
+  );
 
   ctx.save();
-  ctx.shadowColor = "rgba(0,0,0,0.22)";
+  ctx.shadowColor = "rgba(0,0,0,0.20)";
   ctx.shadowBlur = 12;
   ctx.shadowOffsetY = 8;
   ctx.drawImage(image, fit.x, fit.y, fit.w, fit.h);
