@@ -9,6 +9,7 @@ const messageBox = document.getElementById("messageBox");
 const typeFilter = document.getElementById("typeFilter");
 const searchInput = document.getElementById("searchInput");
 const startIndexInput = document.getElementById("startIndexInput");
+const priceSort = document.getElementById("priceSort");
 const backgroundSelect = document.getElementById("backgroundSelect");
 const headlineInput = document.getElementById("headlineInput");
 const footerInput = document.getElementById("footerInput");
@@ -194,11 +195,37 @@ function isGradedMode() {
   return typeFilter.value === "graded";
 }
 
+function getPriceValue(price) {
+  const numeric = Number(String(price || "").replace(/[$,]/g, "").trim());
+  return Number.isFinite(numeric) ? numeric : null;
+}
+
+function sortStoryItems(items) {
+  const sortValue = priceSort ? priceSort.value : "";
+
+  if (!sortValue) {
+    return [...items];
+  }
+
+  return [...items].sort((a, b) => {
+    const priceA = getPriceValue(a.price);
+    const priceB = getPriceValue(b.price);
+
+    if (priceA === null && priceB === null) return 0;
+    if (priceA === null) return 1;
+    if (priceB === null) return -1;
+
+    return sortValue === "high-low"
+      ? priceB - priceA
+      : priceA - priceB;
+  });
+}
+
 function applyFiltersAndRender() {
   const typeValue = typeFilter.value.trim().toLowerCase();
   const searchValue = searchInput.value.trim().toLowerCase();
 
-  filteredItems = allItems.filter(item => {
+  const matchedItems = allItems.filter(item => {
     const matchesType = item.type === typeValue;
     const matchesSearch =
       !searchValue ||
@@ -208,6 +235,8 @@ function applyFiltersAndRender() {
 
     return matchesType && matchesSearch;
   });
+
+  filteredItems = sortStoryItems(matchedItems);
 
   const requestedStart = Number(startIndexInput.value);
   const safeStart = Number.isFinite(requestedStart) && requestedStart > 0 ? requestedStart - 1 : 0;
@@ -957,6 +986,7 @@ function openStoryImage() {
 [
   typeFilter,
   searchInput,
+  priceSort,
   backgroundSelect,
   headlineInput,
   footerInput,
