@@ -41,3 +41,10 @@ Advanced menu:
 - Clear eBay Tracking File
 
 For normal use, ignore Advanced unless you are doing a first-time full upload or fixing tracking.
+
+
+V2 ARS UPDATE:
+- Added ARS parsing for graded card names.
+- ARS is mapped to eBay's Professional Grader "Other" descriptor ID 2750123 because eBay's official descriptor list does not currently include ARS as its own grader option.
+- Example supported inventory name:
+  "Card Name #123 - ARS 10"

@@ -121,7 +121,7 @@ def detect_raw_condition(name: str, config: dict) -> Tuple[str, str]:
 def parse_grade_info(name: str) -> Tuple[str, str]:
     text = " ".join((name or "").replace("-", " ").split())
     upper = text.upper()
-    companies = ["PSA", "BGS", "CGC", "TAG", "SGC", "AGS", "BCCG", "BVG"]
+    companies = ["PSA", "BGS", "CGC", "TAG", "ARS", "SGC", "AGS", "BCCG", "BVG"]
 
     for company in companies:
         if company not in upper:
@@ -147,7 +147,7 @@ def strip_condition_and_grade_from_name(name: str) -> str:
         value = re.sub(rf"\s*-\s*{re.escape(condition)}\s*$", "", value, flags=re.I)
 
     value = re.sub(
-        r"\s*-\s*(PSA|BGS|CGC|TAG|SGC|AGS|BCCG|BVG)(?:\s+(?:AUTO|Perfect|Pristine))?\s+(?:10|9\.5|9|8\.5|8|7\.5|7|6\.5|6|5\.5|5|4\.5|4|3\.5|3|2\.5|2|1\.5|1|Authentic)\s*$",
+        r"\s*-\s*(PSA|BGS|CGC|TAG|ARS|SGC|AGS|BCCG|BVG)(?:\s+(?:AUTO|Perfect|Pristine))?\s+(?:10|9\.5|9|8\.5|8|7\.5|7|6\.5|6|5\.5|5|4\.5|4|3\.5|3|2\.5|2|1\.5|1|Authentic)\s*$",
         "",
         value,
         flags=re.I,
