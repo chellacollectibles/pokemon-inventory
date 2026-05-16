@@ -1,0 +1,99 @@
+{
+  "site_base_image_url": "https://chellacollectibles.com/images/",
+  "input_inventory_csv": "inventory.csv",
+  "ebay_template_csv": "ebay_category_listing_template.csv",
+  "output_folder": "output",
+  "description_template": "templates/ebay_description_template.html",
+  "title_max_length": 80,
+  "quantity": 1,
+  "upc": "",
+  "format": "FixedPrice",
+  "duration": "GTC",
+  "location": "New Jersey, United States",
+  "dispatch_time_max": "3",
+  "returns_accepted_option": "ReturnsNotAccepted",
+  "shipping_policy": "Shipping-Normal",
+  "payment_profile_name": "",
+  "return_profile_name": "",
+  "franchise": "Pok\u00e9mon",
+  "manufacturer": "Nintendo",
+  "type_single": "Non-Sport Trading Card",
+  "type_sealed": "Non-Sport Trading Card",
+  "sealed_box_category_id": "261035",
+  "sealed_pack_category_id": "183053",
+  "single_category_id": "183050",
+  "graded_category_id": "183050",
+  "condition_ids": {
+    "single": "4000",
+    "graded": "2750",
+    "sealed": "1000"
+  },
+  "raw_condition_descriptor_ids": {
+    "Near Mint": "400010",
+    "Lightly Played": "400011",
+    "Moderately Played": "400012",
+    "Heavily Played": "400013",
+    "Damaged": "400013"
+  },
+  "raw_condition_descriptor_labels": {
+    "Near Mint": "Near Mint or Better",
+    "Lightly Played": "Excellent",
+    "Moderately Played": "Very Good",
+    "Heavily Played": "Poor",
+    "Damaged": "Poor"
+  },
+  "condition_labels": {
+    "near mint": "Near Mint",
+    "lightly played": "Lightly Played",
+    "moderately played": "Moderately Played",
+    "heavily played": "Heavily Played",
+    "damaged": "Damaged"
+  },
+  "condition_abbreviations": {
+    "Near Mint": "NM",
+    "Lightly Played": "LP",
+    "Moderately Played": "MP",
+    "Heavily Played": "HP",
+    "Damaged": "DMG"
+  },
+  "professional_grader_ids": {
+    "PSA": "275010",
+    "BCCG": "275011",
+    "BVG": "275012",
+    "BGS": "275013",
+    "CGC": "275015",
+    "SGC": "275016",
+    "TAG": "2750115",
+    "AGS": "2750123"
+  },
+  "grade_ids": {
+    "10": "275020",
+    "9.5": "275021",
+    "9": "275022",
+    "8.5": "275023",
+    "8": "275024",
+    "7.5": "275025",
+    "7": "275026",
+    "6.5": "275027",
+    "6": "275028",
+    "5.5": "275029",
+    "5": "2750210",
+    "4.5": "2750211",
+    "4": "2750212",
+    "3.5": "2750213",
+    "3": "2750214",
+    "2.5": "2750215",
+    "2": "2750216",
+    "1.5": "2750217",
+    "1": "2750218",
+    "Authentic": "2750219"
+  },
+  "test_export_counts": {
+    "single": 1,
+    "graded": 1,
+    "sealed": 1
+  },
+  "multiple_image_separator": "|",
+  "sku_prefix": "CHELLA",
+  "ebay_inventory_csv": "ebay_inventory.csv"
+}
