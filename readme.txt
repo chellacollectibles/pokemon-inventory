@@ -6,7 +6,8 @@
 6. ^ This prevents duplicate items from being uploaded.
 
 
-$i = 385
+//Singles
+$i = 629
 Get-ChildItem -Filter "singles_*.jpg" | Sort-Object Name | ForEach-Object {
     Rename-Item $_.FullName -NewName ("temp_{0:D4}.jpg" -f $i)
     $i++
@@ -14,4 +15,16 @@ Get-ChildItem -Filter "singles_*.jpg" | Sort-Object Name | ForEach-Object {
 
 Get-ChildItem -Filter "temp_*.jpg" | ForEach-Object {
     Rename-Item $_.FullName -NewName ($_.Name -replace "^temp_", "singles_")
+}
+
+//Slabs
+$i = 620
+
+Get-ChildItem -Filter "singles_*.jpg" | Sort-Object Name | ForEach-Object {
+    Rename-Item $_.FullName -NewName ("temp_{0}.jpg" -f $i)
+    $i++
+}
+
+Get-ChildItem -Filter "temp_*.jpg" | Sort-Object Name | ForEach-Object {
+    Rename-Item $_.FullName -NewName ($_.Name -replace "^temp_", "img")
 }
