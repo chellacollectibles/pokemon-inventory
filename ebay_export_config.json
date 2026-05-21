@@ -15,7 +15,7 @@
   "shipping_policy": "Shipping-Normal",
   "payment_profile_name": "",
   "return_profile_name": "",
-  "franchise": "Pok\u00e9mon",
+  "franchise": "Pokémon",
   "manufacturer": "Nintendo",
   "type_single": "Non-Sport Trading Card",
   "type_sealed": "Non-Sport Trading Card",
@@ -96,5 +96,8 @@
   },
   "multiple_image_separator": "|",
   "sku_prefix": "CHELLA",
-  "ebay_inventory_csv": "ebay_inventory.csv"
+  "ebay_inventory_csv": "ebay_inventory.csv",
+  "shipping_policy_normal": "Shipping-Normal",
+  "shipping_policy_pwe": "Shipping-PWE",
+  "shipping_pwe_max_price": "20"
 }

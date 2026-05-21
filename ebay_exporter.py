@@ -322,6 +322,27 @@ def extract_card_number(name: str) -> str:
     return match.group(1) if match else ""
 
 
+def shipping_policy_for_item(item: InventoryItem, config: dict) -> str:
+    """Return the business policy name that should be used for this item.
+
+    Singles priced at or below the configured PWE max price use the PWE policy.
+    Graded cards and sealed products always use the normal policy. The decision is
+    based on the original inventory.csv price, not the .99-adjusted eBay price.
+    """
+    normal_policy = config.get("shipping_policy_normal") or config.get("shipping_policy", "Shipping-Normal")
+    pwe_policy = config.get("shipping_policy_pwe", "Shipping-PWE")
+    pwe_max = money(str(config.get("shipping_pwe_max_price", "20"))) or Decimal("20")
+
+    if item.item_type != "single":
+        return normal_policy
+
+    amount = money(item.price)
+    if amount is not None and Decimal("0") < amount <= pwe_max:
+        return pwe_policy
+
+    return normal_policy
+
+
 def build_row(item: InventoryItem, config: dict, action: str, header_row: List[str]) -> Dict[str, str]:
     title = build_title(item, config)
     row: Dict[str, str] = {header: "" for header in header_row}
@@ -363,7 +384,7 @@ def build_row(item: InventoryItem, config: dict, action: str, header_row: List[s
     row["*Location"] = config.get("location", "New Jersey, United States")
     row["*DispatchTimeMax"] = config.get("dispatch_time_max", "3")
     row["*ReturnsAcceptedOption"] = config.get("returns_accepted_option", "ReturnsNotAccepted")
-    row["ShippingProfileName"] = config.get("shipping_policy", "Shipping-Normal")
+    row["ShippingProfileName"] = shipping_policy_for_item(item, config)
     row["ReturnProfileName"] = config.get("return_profile_name", "")
     row["PaymentProfileName"] = config.get("payment_profile_name", "")
 
@@ -565,7 +586,7 @@ def write_outputs(items: List[InventoryItem], config: dict, mode: str, action: s
                 "raw_condition_descriptor": raw_condition_descriptor_id(item, config),
                 "grader_descriptor": grader_descriptor_id(item, config),
                 "grade_descriptor": grade_descriptor_id(item, config),
-                "shipping_policy": config.get("shipping_policy", "Shipping-Normal"),
+                "shipping_policy": shipping_policy_for_item(item, config),
                 "title": build_title(item, config),
                 "price": ebay_price(item.price),
                 "image_urls": build_image_urls(item, config),
@@ -591,6 +612,7 @@ def main() -> int:
     parser.add_argument("--config", default="ebay_export_config.json")
     parser.add_argument("--mark-pending-complete", action="store_true", help="Append last pending Add upload SKUs into ebay_inventory.csv.")
     parser.add_argument("--mark-full-inventory-listed", action="store_true", help="Append every current inventory SKU into ebay_inventory.csv.")
+    parser.add_argument("--auto-track-exported", action="store_true", help="Immediately append exported Add SKUs into ebay_inventory.csv after creating the upload CSV.")
 
     args = parser.parse_args()
     config = load_config(Path(args.config))
@@ -630,6 +652,11 @@ def main() -> int:
         return 0
 
     write_outputs(export_items, config, mode, args.action)
+
+    if args.auto_track_exported and args.action == "Add":
+        added = append_items_to_ebay_inventory(export_items, config, f"Auto-tracked when export CSV was generated ({mode})")
+        print(f"Auto-tracked exported SKUs in {ebay_inventory_path(config)}: {added} added.")
+
     return 0
 
 
