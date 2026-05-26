@@ -1,27 +1,27 @@
 ﻿"filename","type","name","set","price","back_filename"
-"singles_1315.jpg","sealed","Meowth #Promo 10 - Sealed","Gameboy Promo","150",""
-"singles_1316.jpg","sealed","Serperior #198/BW-P - Sealed","BW Promos","60",""
-"singles_1317.jpg","sealed","Rayquaza #003/S-P - Sealed","Starter Set","150",""
-"singles_1318.jpg","sealed","Volcanion #266/XY-P - Sealed","XY Promos","2000",""
-"singles_1319.jpg","sealed","Lugia V #322/S-P - Sealed","Mystery Promo","110",""
-"singles_1320.jpg","sealed","Zeraora #133/SV-P - Sealed","Stellar Miracle","20",""
-"singles_1321.jpg","sealed","Chansey #099/SV-P - Sealed","Chinese Stamp","20",""
-"singles_1322.jpg","sealed","Eevee #194/SV-P - Sealed","Eevee Family Special Set","40",""
-"singles_1323.jpg","sealed","Team Rocket's Meowth #219/SV-P - Sealed","Chinese Exclusive","30",""
-"singles_1324.jpg","sealed","Jolteon #005/008 - Sealed","Display Set","10",""
-"singles_1325.jpg","sealed","Druddigon #011/012 - Sealed","Display Set","7",""
-"singles_1326.jpg","sealed","Frosmoth #004/008 - Sealed","Display Set","5",""
-"singles_1327.jpg","sealed","N's Zekrom #031 - Sealed","Black Star Promo","10",""
-"singles_1328.jpg","sealed","Thundurus #209 - Sealed","Black Star Promo","5",""
-"singles_1329.jpg","sealed","Tyrunt #070 - Sealed","Black Star Promo","8",""
-"singles_1330.jpg","sealed","Iron Thorns #098 - Sealed","Black Star Promo","6",""
-"singles_1331.jpg","sealed","Mimikyu #075 - Sealed","Black Star Promo","15",""
-"singles_1332.jpg","sealed","Mewtwo V #SWSH229 - Sealed","Black Star Promo","15",""
-"singles_1333.jpg","sealed","Pikachu #040/SV-P - Sealed","Promotional Card","30",""
-"singles_1217.jpg","singles","Pikachu with Mega Lizardon X Poncho - Pokemon Center - Lightly Played","Business Card Campaign","150","singles_1218.jpg"
-"singles_1219.jpg","singles","Pikachu with Mega Lizardon X Poncho - Pokemon Center - Near Mint","Business Card Campaign","200","singles_1220.jpg"
-"img643.jpg","graded","Charizard VSTAR #SWSH262 - CGC 9","SWSH Promos","80",""
-"img644.jpg","graded","Son Goku & Vegeta Immortal Rivalry #BT19-048 - PSA 10","Fighter's Ambition","70",""
+singles_1315.jpg,sealed,Meowth #Promo 10 - Sealed,Gameboy Promo,150,
+singles_1316.jpg,sealed,Serperior #198/BW-P - Sealed,BW Promos,60,
+singles_1317.jpg,sealed,Rayquaza #003/S-P - Sealed,Starter Set,150,
+singles_1318.jpg,sealed,Volcanion #266/XY-P - Sealed,XY Promos,2000,
+singles_1319.jpg,sealed,Lugia V #322/S-P - Sealed,Mystery Promo,110,
+singles_1320.jpg,sealed,Zeraora #133/SV-P - Sealed,Stellar Miracle,20,
+singles_1321.jpg,sealed,Chansey #099/SV-P - Sealed,Chinese Stamp,20,
+singles_1322.jpg,sealed,Eevee #194/SV-P - Sealed,Eevee Family Special Set,40,
+singles_1323.jpg,sealed,Team Rocket's Meowth #219/SV-P - Sealed,Chinese Exclusive,30,
+singles_1324.jpg,sealed,Jolteon #005/008 - Sealed,Display Set,10,
+singles_1325.jpg,sealed,Druddigon #011/012 - Sealed,Display Set,7,
+singles_1326.jpg,sealed,Frosmoth #004/008 - Sealed,Display Set,5,
+singles_1327.jpg,sealed,N's Zekrom #031 - Sealed,Black Star Promo,10,
+singles_1328.jpg,sealed,Thundurus #209 - Sealed,Black Star Promo,5,
+singles_1329.jpg,sealed,Tyrunt #070 - Sealed,Black Star Promo,8,
+singles_1330.jpg,sealed,Iron Thorns #098 - Sealed,Black Star Promo,6,
+singles_1331.jpg,sealed,Mimikyu #075 - Sealed,Black Star Promo,15,
+singles_1332.jpg,sealed,Mewtwo V #SWSH229 - Sealed,Black Star Promo,15,
+singles_1333.jpg,sealed,Pikachu #040/SV-P - Sealed,Promotional Card,30,
+singles_1217.jpg,singles,Pikachu with Mega Lizardon X Poncho - Pokemon Center - Lightly Played,Business Card Campaign,150,singles_1218.jpg
+singles_1219.jpg,singles,Pikachu with Mega Lizardon X Poncho - Pokemon Center - Near Mint,Business Card Campaign,200,singles_1220.jpg
+img643.jpg,graded,Charizard VSTAR #SWSH262 - CGC 9,SWSH Promos,80,
+img644.jpg,graded,Son Goku & Vegeta Immortal Rivalry #BT19-048 - PSA 10,Fighter's Ambition,70,
 "img621.jpg","graded","Ivysaur #167/165 - TAG 10","151","100",""
 "img622.jpg","graded","Pidove #153/086 - TAG 10","Black Bolt","50",""
 "img625.jpg","graded","Smeargle #073/063 - TAG 10","Incandescent Arcana","45",""
@@ -42,57 +42,58 @@
 "img640.jpg","graded","Larvesta #108/106 - CGC 8","Super Electric Breaker","8",""
 "img641.jpg","graded","Jirachi V #025/067 - CGC 8.5","Time Gazer","10",""
 "img642.jpg","graded","Sinistcha ex #023/167 - CGC 9","Twilight Masquerade","5",""
-"singles_1221.jpg","singles","Beedrill V #069/067 - Chinese - Near Mint","Space Juggler","25","singles_1222.jpg"
-"singles_1223.jpg","singles","Pikachu #55 Friend Ball - Reverse Holofoil - Near Mint","Ascended Heroes","2","singles_1224.jpg"
-"singles_1225.jpg","singles","Pikachu #017/127 - Reverse Holofoil - Near Mint","Brave Stars","5","singles_1226.jpg"
-"singles_1227.jpg","singles","Azelf #020/050 - Reverse Holofoil - Near Mint","Ultra Force","4","singles_1228.jpg"
-"singles_1229.jpg","singles","Houndoom #066/064 - Chinese - Near Mint","Night Wanderer","5","singles_1230.jpg"
-"singles_1231.jpg","singles","Rowlet #082/080 - Chinese - Near Mint","Nihil Zero","4","singles_1232.jpg"
-"singles_1233.jpg","singles","Medicham #207/193 - Chinese - Near Mint","Mega Dream","3","singles_1234.jpg"
-"singles_1235.jpg","singles","Team Rocket's Meowth #109/098 - Korean - Near Mint","Glory of Team Rocket","8","singles_1236.jpg"
-"singles_1237.jpg","singles","Mismagius #083/073 - Korean - Near Mint","Triple Beat","8","singles_1238.jpg"
-"singles_1239.jpg","singles","Quaxly #081/073 - Korean - Near Mint","Triple Beat","4","singles_1240.jpg"
-"singles_1241.jpg","singles","Ludicolo #081/080 - Korean - Near Mint","Inferno X","2","singles_1242.jpg"
-"singles_1243.jpg","singles","N's Zekrom #003/012 - Chinese - Near Mint","Gift Box","10","singles_1244.jpg"
-"singles_1245.jpg","singles","Eevee #007/008 - Chinese - Near Mint","Gift Box","10","singles_1246.jpg"
-"singles_1247.jpg","singles","Stoutland #152/150 - Chinese - Near Mint","Dream League","3","singles_1248.jpg"
-"singles_1249.jpg","singles","Arbok #079/071 - Korean - Near Mint","Wild Force","5","singles_1250.jpg"
-"singles_1251.jpg","singles","Team Rocket's Weezing #105/098 - Korean - Near Mint","Glory of Team Rocket","4","singles_1252.jpg"
-"singles_1253.jpg","singles","Dedenne #085/080 - Korean - Near Mint","Nihil Zero","4","singles_1254.jpg"
-"singles_1255.jpg","singles","Dedenne #085/080 - Korean - Near Mint","Nihil Zero","4","singles_1256.jpg"
-"singles_1257.jpg","singles","Team Rocket's Houndoom #100/098 - Korean - Near Mint","Glory of Team Rocket","5","singles_1258.jpg"
-"singles_1259.jpg","singles","Togedemaru #090/080 - Korean - Near Mint","2","0","singles_1260.jpg"
-"singles_1261.jpg","singles","Ninjask #065/063 - Korean - Near Mint","Mega Symphonia","2","singles_1262.jpg"
-"singles_1263.jpg","singles","Ethan's Magcargo #197/193 - Korean - Near Mint","Mega Dream","2","singles_1264.jpg"
-"singles_1265.jpg","singles","Wigglytuff #091/080 - Korean - Near Mint","Inferno X","3","singles_1266.jpg"
-"singles_1267.jpg","singles","Larvitar #114/108 - Korean - Near Mint","Ruler of the Black Flame","4","singles_1268.jpg"
-"singles_1269.jpg","singles","Gumshoos #075/063 - Korean - Near Mint","Mega Brave","3","singles_1270.jpg"
-"singles_1271.jpg","singles","Talonflame #083/080 - Korean - Near Mint","Nihil Zero","3","singles_1272.jpg"
-"singles_1273.jpg","singles","Probopass #088/080 - Korean - Near Mint","Nihil Zero","2","singles_1274.jpg"
-"singles_1275.jpg","singles","Espathra #131/128 - Chinese - Near Mint","Arcane Truth","3","singles_1276.jpg"
-"singles_1277.jpg","singles","Appletun #075/064 - Chinese - Near Mint","Paradise Dragona","4","singles_1278.jpg"
-"singles_1279.jpg","singles","Feebas #110/106 - Korean - Near Mint","Super Electric Breaker","3","singles_1280.jpg"
-"singles_1281.jpg","singles","Clawitzer #068/063 - Korean - Near Mint","Mega Symphonia","2","singles_1282.jpg"
-"singles_1283.jpg","singles","Spiritomb #071/063 - Korean - Near Mint","Mega Brave","3","singles_1284.jpg"
-"singles_1285.jpg","singles","Spiritomb #071/063 - Korean - Near Mint","Mega Brave","3","singles_1286.jpg"
-"singles_1287.jpg","singles","Grotle #072/071 - Korean - Near Mint","Wild Force","3","singles_1288.jpg"
-"singles_1289.jpg","singles","Delibird #074/063 - Korean - Near Mint","Mega Symphonia","2","singles_1290.jpg"
-"singles_1291.jpg","singles","Spearow #074/063 - Korean - Near Mint","Mega Symphonia","3","singles_1292.jpg"
-"singles_1293.jpg","singles","Stufful #075/063 - Korean - Near Mint","Mega Symphonia","2","singles_1294.jpg"
-"singles_1295.jpg","singles","Bellibolt #112/108 - Korean - Near Mint","Ruler of the Black Flame","3","singles_1296.jpg"
-"singles_1297.jpg","singles","Skwovet #090/078 - Korean - Near Mint","Violet ex","3","singles_1298.jpg"
-"singles_1299.jpg","singles","Drapion #090/080 - Korean - Near Mint","Nihil Zero","2","singles_1300.jpg"
-"singles_1301.jpg","singles","Drapion #090/080 - Korean - Near Mint","Nihil Zero","2","singles_1302.jpg"
-"singles_1303.jpg","singles","Drapion #090/080 - Korean - Near Mint","Nihil Zero","2","singles_1304.jpg"
-"singles_1305.jpg","singles","Espurr #087/080 - Korean - Near Mint","Nihil Zero","3","singles_1306.jpg"
-"singles_1307.jpg","singles","Espurr #087/080 - Korean - Near Mint","Nihil Zero","3","singles_1308.jpg"
-"singles_1309.jpg","singles","Greavard #1607/07 - Chinese - Near Mint","Gem Pack Vol. 3","4","singles_1310.jpg"
-"singles_1311.jpg","singles","Greavard #1607/07 - Chinese - Near Mint","Gem Pack Vol. 3","4","singles_1312.jpg"
-"singles_1313.jpg","singles","Solrock #129/127 - Chinese - Near Mint","Brave Stars","2","singles_1314.jpg"
+singles_1221.jpg,singles,Beedrill V #069/067 - Chinese - Near Mint,Space Juggler,25,singles_1222.jpg
+singles_1223.jpg,singles,Pikachu #55 Friend Ball - Reverse Holofoil - Near Mint,Ascended Heroes,2,singles_1224.jpg
+singles_1225.jpg,singles,Pikachu #017/127 - Reverse Holofoil - Near Mint,Brave Stars,5,singles_1226.jpg
+singles_1227.jpg,singles,Azelf #020/050 - Reverse Holofoil - Near Mint,Ultra Force,4,singles_1228.jpg
+singles_1229.jpg,singles,Houndoom #066/064 - Chinese - Near Mint,Night Wanderer,5,singles_1230.jpg
+singles_1231.jpg,singles,Rowlet #082/080 - Chinese - Near Mint,Nihil Zero,4,singles_1232.jpg
+singles_1233.jpg,singles,Medicham #207/193 - Chinese - Near Mint,Mega Dream,3,singles_1234.jpg
+singles_1235.jpg,singles,Team Rocket's Meowth #109/098 - Korean - Near Mint,Glory of Team Rocket,8,singles_1236.jpg
+singles_1237.jpg,singles,Mismagius #083/073 - Korean - Near Mint,Triple Beat,8,singles_1238.jpg
+singles_1239.jpg,singles,Quaxly #081/073 - Korean - Near Mint,Triple Beat,4,singles_1240.jpg
+singles_1241.jpg,singles,Ludicolo #081/080 - Korean - Near Mint,Inferno X,2,singles_1242.jpg
+singles_1243.jpg,singles,N's Zekrom #003/012 - Chinese - Near Mint,Gift Box,10,singles_1244.jpg
+singles_1245.jpg,singles,Eevee #007/008 - Chinese - Near Mint,Gift Box,10,singles_1246.jpg
+singles_1247.jpg,singles,Stoutland #152/150 - Chinese - Near Mint,Dream League,3,singles_1248.jpg
+singles_1249.jpg,singles,Arbok #079/071 - Korean - Near Mint,Wild Force,5,singles_1250.jpg
+singles_1251.jpg,singles,Team Rocket's Weezing #105/098 - Korean - Near Mint,Glory of Team Rocket,4,singles_1252.jpg
+singles_1253.jpg,singles,Dedenne #085/080 - Korean - Near Mint,Nihil Zero,4,singles_1254.jpg
+singles_1255.jpg,singles,Dedenne #085/080 - Korean - Near Mint,Nihil Zero,4,singles_1256.jpg
+singles_1257.jpg,singles,Team Rocket's Houndoom #100/098 - Korean - Near Mint,Glory of Team Rocket,5,singles_1258.jpg
+singles_1259.jpg,singles,Togedemaru #090/080 - Korean - Near Mint,2,0,singles_1260.jpg
+singles_1261.jpg,singles,Ninjask #065/063 - Korean - Near Mint,Mega Symphonia,2,singles_1262.jpg
+singles_1263.jpg,singles,Ethan's Magcargo #197/193 - Korean - Near Mint,Mega Dream,2,singles_1264.jpg
+singles_1265.jpg,singles,Wigglytuff #091/080 - Korean - Near Mint,Inferno X,3,singles_1266.jpg
+singles_1267.jpg,singles,Larvitar #114/108 - Korean - Near Mint,Ruler of the Black Flame,4,singles_1268.jpg
+singles_1269.jpg,singles,Gumshoos #075/063 - Korean - Near Mint,Mega Brave,3,singles_1270.jpg
+singles_1271.jpg,singles,Talonflame #083/080 - Korean - Near Mint,Nihil Zero,3,singles_1272.jpg
+singles_1273.jpg,singles,Probopass #088/080 - Korean - Near Mint,Nihil Zero,2,singles_1274.jpg
+singles_1275.jpg,singles,Espathra #131/128 - Chinese - Near Mint,Arcane Truth,3,singles_1276.jpg
+singles_1277.jpg,singles,Appletun #075/064 - Chinese - Near Mint,Paradise Dragona,4,singles_1278.jpg
+singles_1279.jpg,singles,Feebas #110/106 - Korean - Near Mint,Super Electric Breaker,3,singles_1280.jpg
+singles_1281.jpg,singles,Clawitzer #068/063 - Korean - Near Mint,Mega Symphonia,2,singles_1282.jpg
+singles_1283.jpg,singles,Spiritomb #071/063 - Korean - Near Mint,Mega Brave,3,singles_1284.jpg
+singles_1285.jpg,singles,Spiritomb #071/063 - Korean - Near Mint,Mega Brave,3,singles_1286.jpg
+singles_1287.jpg,singles,Grotle #072/071 - Korean - Near Mint,Wild Force,3,singles_1288.jpg
+singles_1289.jpg,singles,Delibird #074/063 - Korean - Near Mint,Mega Symphonia,2,singles_1290.jpg
+singles_1291.jpg,singles,Spearow #074/063 - Korean - Near Mint,Mega Symphonia,3,singles_1292.jpg
+singles_1293.jpg,singles,Stufful #075/063 - Korean - Near Mint,Mega Symphonia,2,singles_1294.jpg
+singles_1295.jpg,singles,Bellibolt #112/108 - Korean - Near Mint,Ruler of the Black Flame,3,singles_1296.jpg
+singles_1297.jpg,singles,Skwovet #090/078 - Korean - Near Mint,Violet ex,3,singles_1298.jpg
+singles_1299.jpg,singles,Drapion #090/080 - Korean - Near Mint,Nihil Zero,2,singles_1300.jpg
+singles_1301.jpg,singles,Drapion #090/080 - Korean - Near Mint,Nihil Zero,2,singles_1302.jpg
+singles_1303.jpg,singles,Drapion #090/080 - Korean - Near Mint,Nihil Zero,2,singles_1304.jpg
+singles_1305.jpg,singles,Espurr #087/080 - Korean - Near Mint,Nihil Zero,3,singles_1306.jpg
+singles_1307.jpg,singles,Espurr #087/080 - Korean - Near Mint,Nihil Zero,3,singles_1308.jpg
+singles_1309.jpg,singles,Greavard #1607/07 - Chinese - Near Mint,Gem Pack Vol. 3,4,singles_1310.jpg
+singles_1311.jpg,singles,Greavard #1607/07 - Chinese - Near Mint,Gem Pack Vol. 3,4,singles_1312.jpg
+singles_1313.jpg,singles,Solrock #129/127 - Chinese - Near Mint,Brave Stars,2,singles_1314.jpg
 "singles_0619.jpg","singles","Mega Venusaur ex #087/063 - Korean - Near Mint","Mega Brave","50","singles_0620.jpg"
 "singles_0623.jpg","singles","Mega Clefable ex #112/080 - Korean - Near Mint","Nihil Zero","30","singles_0624.jpg"
 "singles_0625.jpg","singles","Mega Charizard X ex #109 - Near Mint","Phantasmal Flames","40","singles_0626.jpg"
 "singles_0627.jpg","singles","Mega Charizard X ex #109 - Near Mint","Phantasmal Flames","40","singles_0628.jpg"
+"singles_0631.jpg","singles","N's Zekrom #031 - Near Mint","Mega Evolution promo","10","singles_0632.jpg"
 "singles_0633.jpg","singles","Charizard ex #74 - Near Mint","Scarlet & Violet Black Star Promos","25","singles_0634.jpg"
 "singles_0641.jpg","singles","Wellspring Mask Ogerpon ex #127/101 - Near Mint","Mask of Change","18","singles_0642.jpg"
 "singles_0643.jpg","singles","Vaporeon V #075/069 - Chinese - Near Mint","Eevee Heroes","40","singles_0644.jpg"
@@ -106,12 +107,14 @@
 "singles_0669.jpg","singles","Mega Latios ex #079/063 - Near Mint","Mega Symphonia","5","singles_0670.jpg"
 "singles_0671.jpg","singles","Mega Dragalge ex #102/083 - Near Mint","Ninja Spinner","5","singles_0672.jpg"
 "singles_0673.jpg","singles","Mega Kangaskhan ex #080/063 - Korean - Near Mint","Mega Symphonia","3","singles_0674.jpg"
+"singles_0675.jpg","singles","Irida #GG63 - Near Mint","Crown Zenith Galarian Gallery","8","singles_0676.jpg"
 "singles_0677.jpg","singles","Naganadel & Guzzlord-GX #158 - Near Mint","Cosmic Eclipse","11","singles_0678.jpg"
 "singles_0679.jpg","singles","Buzzwole & Pheromosa GX #001/173 - Near Mint","Tag Team GX","4","singles_0680.jpg"
 "singles_0681.jpg","singles","Captain Pikachu #0704/09 - Near Mint","Gem Pack Vol. 1","5","singles_0682.jpg"
 "singles_0683.jpg","singles","Pikachu #051/162 - Near Mint","Pokemon Day Promo","10","singles_0684.jpg"
 "singles_0685.jpg","singles","Eevee #074/131 - Near Mint","Pokemon Day Promo","5","singles_0686.jpg"
 "singles_0687.jpg","singles","Greninja Star #SWSH144 - Near Mint","SWSH Black Star Promos","30","singles_0688.jpg"
+"singles_0689.jpg","singles","Greninja Star #SWSH144 - Near Mint","SWSH Black Star Promos","30","singles_0690.jpg"
 "singles_0691.jpg","singles","Radiant Charizard #015/172 - Near Mint","VSTAR Universe","8","singles_0692.jpg"
 "singles_0693.jpg","singles","Radiant Eevee #SWSH230 - Near Mint","SWSH Black Star Promos","22","singles_0694.jpg"
 "singles_0695.jpg","singles","Radiant Greninja #46 - Near Mint","Astral Radiance","4","singles_0696.jpg"
@@ -154,6 +157,7 @@
 "singles_0933.jpg","singles","Gyarados #6 - Lightly Played","Base","25","singles_0934.jpg"
 "singles_0935.jpg","singles","Lapras #10 - Unlimited Holofoil - Lightly Played","Fossil","13","singles_0936.jpg"
 "singles_0937.jpg","singles","Magneton #10 - Unlimited Holofoil - Damaged","Neo Revelation","10","singles_0938.jpg"
+"singles_0941.jpg","singles","Entei #34 - Near Mint","Wizards Black Star Promos","15","singles_0942.jpg"
 "singles_0943.jpg","singles","Dark Dugtrio No. #051 - Moderately Played","Team Rocket","10","singles_0944.jpg"
 "singles_0945.jpg","singles","Jolteon #20 - 1st Edition - Moderately Played","Jungle","15","singles_0946.jpg"
 "singles_0947.jpg","singles","Diglett #52 - 1st Edition - Lightly Played","Team Rocket","2","singles_0948.jpg"
@@ -169,6 +173,7 @@
 "singles_0967.jpg","singles","Centiskorch V #TG14 - Near Mint","Lost Origin Trainer Gallery","5","singles_0968.jpg"
 "singles_0969.jpg","singles","Giratina VSTAR #131 - Near Mint","Lost Origin","3","singles_0970.jpg"
 "singles_0973.jpg","singles","Pikachu VMAX #SWSH286 - Near Mint","SWSH Black Star Promos","8","singles_0974.jpg"
+"singles_0975.jpg","singles","Surfing Pikachu VMAX #022/078 - Near Mint","Celebrations 25","6","singles_0976.jpg"
 "singles_0977.jpg","singles","Surfing Pikachu VMAX #022/078 - Near Mint","Celebrations 25","6","singles_0978.jpg"
 "singles_0979.jpg","singles","Flying Pikachu V #006/025 - Near Mint","Celebrations 25","4","singles_0980.jpg"
 "singles_0981.jpg","singles","Surfing Pikachu V #005/025 - Near Mint","Celebrations 25","5","singles_0982.jpg"
@@ -318,6 +323,7 @@
 "singles_0433.jpg","singles","Magneton #54 - Reverse Holo - Heavily Played","Diamond & Pearl","1","singles_0434.jpg"
 "singles_0435.jpg","singles","Magnemite #87 - Reverse Holo - Moderately Played","Diamond & Pearl","2","singles_0436.jpg"
 "singles_0437.jpg","singles","Ambipom #3 - Reverse Holo - Moderately Played","Mysterious Treasures","1","singles_0438.jpg"
+"singles_0439.jpg","singles","Girafarig #64 - Reverse Holo - Lightly Played","HeartGold & SoulSilver","3","singles_0440.jpg"
 "singles_0441.jpg","singles","Buneary #73 - Reverse Holo - Moderately Played","Diamond & Pearl","2","singles_0442.jpg"
 "singles_0443.jpg","singles","Lairon #44 - Reverse Holo - Damaged","Rising Rivals","1","singles_0444.jpg"
 "singles_0447.jpg","singles","Raticate #61 - Reverse Holo - Heavily Played","Secret Wonders","1","singles_0448.jpg"
@@ -401,6 +407,7 @@
 "singles_0193.jpg","singles","Raikou #061/L-P - Lightly Played","Legend","20","singles_0194.jpg"
 "singles_0235.jpg","singles","Dark Golbat #7 - 1st Edition Holofoil - Lightly Played","Team Rocket","40","singles_0236.jpg"
 "singles_0237.jpg","singles","Dark Weezing #14 - 1st Edition Holofoil - Moderately Played","Team Rocket","22","singles_0238.jpg"
+"singles_0239.jpg","singles","Dark Charizard #21 - 1st Edition - Moderately Played","Team Rocket","75","singles_0240.jpg"
 "singles_0241.jpg","singles","Dark Charizard #21 - 1st Edition - Moderately Played","Team Rocket","75","singles_0242.jpg"
 "singles_0245.jpg","singles","Kabutops #9 - 1st Edition Holofoil - Heavily Played","Fossil","35","singles_0246.jpg"
 "singles_0219.jpg","singles","Azumarill #2 - Lightly Played","Neo Genesis","20","singles_0220.jpg"
@@ -441,12 +448,14 @@
 "img513.jpg","graded","Gengar VMAX 181/S-P - PSA 10","Inteleon VS Gengar Winner","1200",""
 "img516.jpg","graded","Victini 265/SV-P - PSA 9","BWR Event Prize","500",""
 "img479.jpg","graded","Golem #76 Sparkle - CGC 8.5","Topps Chrome","300",""
+"img474.jpg","graded","Ash's Pikachu GX #005/026 - CGC 8.5","Deck Kit","350",""
 "img452.jpg","graded","Nachtara #32/144 - PSA 9","Skyridge","450",""
 "img432.jpg","graded","Blastoise #2/130 - PSA 8","Base Set 2","240",""
 "img433.jpg","graded","Raichu #14/102 - PSA 8","Base","130",""
 "img434.jpg","graded","Raichu #14/102 - PSA 8","Base","130",""
 "img435.jpg","graded","Poliwrath #13/102 - PSA 8","Base","80",""
 "img436.jpg","graded","Snorlax #11/64 - PSA 8","Jungle Set","250",""
+"img519.jpg","graded","Taipei's Pikachu #057/SV-P - PSA 9","Pokemon Center Taipei","110",""
 "img437.jpg","graded","Pokemon Fan Club #071/066 - PSA 10","Ultra Sun","150",""
 "img473.jpg","graded","Glaceon GX #SV55/SV94 - TAG 9","Hidden Fates","40",""
 "img438.jpg","graded","Archaludon #155/142 - PSA 10","Stellar Crown","40",""
