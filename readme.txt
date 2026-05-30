@@ -18,13 +18,13 @@ Get-ChildItem -Filter "temp_*.jpg" | ForEach-Object {
 }
 
 //Slabs
-$i = 620
+$i = 645
 
-Get-ChildItem -Filter "singles_*.jpg" | Sort-Object Name | ForEach-Object {
+Get-ChildItem -Filter "img*.jpg" | Sort-Object Name | ForEach-Object {
     Rename-Item $_.FullName -NewName ("temp_{0}.jpg" -f $i)
     $i++
 }
 
-Get-ChildItem -Filter "temp_*.jpg" | Sort-Object Name | ForEach-Object {
+Get-ChildItem -Filter "*.jpg" | Sort-Object Name | ForEach-Object {
     Rename-Item $_.FullName -NewName ($_.Name -replace "^temp_", "img")
 }
