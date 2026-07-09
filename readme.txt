@@ -7,7 +7,7 @@
 
 
 //Singles
-$i = 1698
+$i = 1792
 Get-ChildItem -Filter "singles_*.jpg" | Sort-Object Name | ForEach-Object {
     Rename-Item $_.FullName -NewName ("temp_{0:D4}.jpg" -f $i)
     $i++
